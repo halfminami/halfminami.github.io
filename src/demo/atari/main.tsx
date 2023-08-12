@@ -1,3 +1,5 @@
+import "./main.scss";
+import { useEffect, useState } from "preact/hooks";
 import { Ball } from "./ball";
 import { Block } from "./block";
 
@@ -10,7 +12,7 @@ export type props = { props: { [key: string]: any }; children?: any };
 
 type pair<T> = { x: T; y: T };
 
-class Blocks {
+class BlocksHandler {
   rects: [(_: pair<number>) => boolean, () => void][] = [];
 
   checkInside(arr: pair<number>[]) {
@@ -89,13 +91,67 @@ class BallHandler {
   }
 }
 
+function minmax<T>(min: T, value: T, max: T) {
+  function minimal(a: T, b: T) {
+    return a > b ? b : a;
+  }
+  function maximal(a: T, b: T) {
+    return a > b ? a : b;
+  }
+
+  return maximal(minimal(value, max), min);
+}
+
 function Main() {
+  const [windowWid, setWindowWid] = useState(window.innerWidth);
+  const [windowHei, setWindowHei] = useState(window.innerHeight);
+
+  const [pageX, setPageX] = useState(0);
+
+  function onMouseMove(e: MouseEvent) {
+    setPageX(e.pageX);
+  }
+  function onResize() {
+    // setWindowWid(window.innerWidth);
+    // setWindowHei(window.innerHeight);
+    const app = document.getElementById("app")!;
+    setWindowHei(app.clientHeight);
+    setWindowWid(app.clientWidth);
+  }
+
+  const SLIDE_BLOCK_WIDTH = 300;
+  const SLIDE_BLOCK_HEIGHT = 30;
+  const SLIDE_BLOCK_Y = windowHei - 2 * SLIDE_BLOCK_HEIGHT;
+  const SLIDE_BLOCK_X_MIN = 10;
+  const SLIDE_BLOCK_X_MAX = windowWid - SLIDE_BLOCK_X_MIN - SLIDE_BLOCK_WIDTH;
+
+  useEffect(() => {
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
   return (
     <>
-      <Block {...{ x: 10, y: 10, width: 100, height: 50, props: {} }}>
+      <Block
+        {...{
+          x: minmax(
+            SLIDE_BLOCK_X_MIN,
+            pageX - SLIDE_BLOCK_WIDTH / 2, // block left point
+            SLIDE_BLOCK_X_MAX
+          ),
+          y: SLIDE_BLOCK_Y,
+          width: SLIDE_BLOCK_WIDTH,
+          height: SLIDE_BLOCK_HEIGHT,
+          props: {},
+        }}
+      >
         block
       </Block>
-      <Ball {...{ cx: 500, cy: 300, r: 30, props: {} }}>ball</Ball>
+      <Ball {...{ cx: 300, cy: 300, r: 10, props: {} }}>ball</Ball>
     </>
   );
 }

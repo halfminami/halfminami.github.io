@@ -16,7 +16,7 @@ function Block(prop: blockProps) {
         .join(" ")}
       style={{
         left: `${prop.x}px`,
-        right: `${prop.y}px`,
+        top: `${prop.y}px`,
         width: `${prop.width}px`,
         height: `${prop.height}px`,
       }}

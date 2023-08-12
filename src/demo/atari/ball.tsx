@@ -13,7 +13,7 @@ function Ball(prop: ballProps) {
       style={{
         left: `${prop.cx - prop.r}px`,
         top: `${prop.cy - prop.r}px`,
-        width: `${prop.r}px`,
+        width: `${prop.r * 2}px`,
       }}
       {...prop.props}
     >
