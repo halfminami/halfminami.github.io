@@ -1,0 +1,77 @@
+:root {
+  --darkest: rgb(6, 31, 72);
+  --darker: rgb(11, 47, 108);
+  --dark: rgb(17, 63, 143);
+  --light: rgb(20, 78, 177);
+  --lighter: rgb(69, 124, 220);
+  --lightest: rgb(105, 160, 255);
+  --thin: rgb(61, 105, 183);
+  --gray: rgb(174, 182, 194);
+  --darkgray: rgb(161, 172, 189);
+  --white: rgb(222, 229, 243);
+  --whiter: rgb(243, 246, 255);
+  --yellow: rgb(248, 245, 186);
+  --radius: 0.3rem;
+  --border: 0.1rem solid var(--darker);
+  --pdn: 1rem;
+  --shadow: 0rem 0.2rem 0.4rem rgba(11, 47, 108, 0.5);
+}
+
+html {
+  background-color: var(--gray);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--white);
+  background-image: url("/src/circle.svg");
+
+  font-family: "Yu Gothic UI", sans-serif;
+}
+
+body > * {
+  margin-left: var(--pdn);
+  margin-right: var(--pdn);
+}
+
+body > header,
+body > footer {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--darkest);
+
+  background-color: var(--white);
+
+  border-radius: var(--radius);
+  padding-left: 0.4rem;
+  border-left: 0.9rem solid var(--thin);
+
+  text-decoration: underline;
+  text-decoration-color: var(--lighter);
+
+  text-shadow: 0rem 0rem 0.2rem rgba(20, 78, 177, 0.4);
+}
+
+code {
+  background-color: var(--thin);
+  color: var(--yellow);
+  border-radius: var(--radius);
+
+  padding: 0.1rem 0.3rem;
+}
+
+strong {
+  // color: var(--white);
+  // background-color: var(--darker);
+  text-decoration: underline var(--light);
+  font-weight: 800;
+}

@@ -1,0 +1,18 @@
+button.color-button,
+a.color-button {
+  background-color: var(--lclr);
+  color: var(--bkg);
+  border: none;
+
+  transition-property: background-color;
+}
+
+button.color-button:hover,
+a.color-button:hover {
+  background-color: var(--mclr);
+}
+
+button.color-button:active,
+a.color-button:active {
+  background-color: var(--lclr);
+}

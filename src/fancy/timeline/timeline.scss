@@ -1,0 +1,70 @@
+:root {
+  --bkg: white;
+  --color: black;
+  --shadow: #aaaaaaa0;
+  --lightgrey: #dededea0;
+  --grey: #aaa;
+  --hide: #ddd;
+  --hideheight: 3.5rem;
+  --clr: midnightblue;
+  --mclr: rgb(37, 62, 163);
+  --lclr: rgb(58, 91, 210);
+  --wid: 250px;
+  --iconwid: calc(var(--wid) / 2);
+  --asr: 9 / 16;
+  --left: 200px;
+  --col: 3;
+  --mgn: 1.4rem;
+  --pad: 0.6em;
+  --bdr: 0.1rem solid var(--shadow);
+  --rad: 0.5em;
+  --max-height: 730px;
+}
+
+body {
+  font-family: serif;
+  background-color: var(--bkg);
+  color: var(--color);
+
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  margin: 0 var(--mgn);
+}
+
+.hidden {
+  display: none;
+}
+
+#header-right {
+  div[id] + div[id] {
+    // profile and posts
+    margin-top: var(--mgn);
+  }
+
+  #timeline {
+    border-top: var(--bdr);
+  }
+}
+
+button,
+input,
+a.nav {
+  font-family: inherit;
+  font-size: 1rem;
+
+  transition-duration: 0.2s;
+  transition-property: none;
+
+  text-decoration: none;
+
+  padding: var(--pad);
+  border-radius: var(--rad);
+}
+
+button,
+a {
+  cursor: pointer;
+}

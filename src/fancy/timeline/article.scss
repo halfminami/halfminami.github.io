@@ -1,0 +1,79 @@
+div.posts {
+  counter-reset: count 0; // for displaying articles' order
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  padding: 0px;
+  margin: auto;
+  border-radius: var(--rad);
+
+  border: var(--bdr);
+  background-color: var(--bkg);
+
+  article.post {
+    counter-increment: count 1;
+
+    background-color: var(--bkg);
+    box-shadow: calc(var(--mgn) / 7) calc(var(--mgn) / 7) calc(var(--mgn) / 3)
+      var(--shadow);
+
+    overflow: hidden;
+
+    width: var(--wid);
+    height: fit-content;
+
+    padding: var(--pad);
+    margin: var(--pad);
+    border-radius: var(--rad);
+
+    break-inside: avoid; // for columns (not in this case)
+
+    position: relative;
+
+    a {
+      color: inherit;
+      text-decoration: inherit;
+      text-decoration-color: currentcolor;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    div.img-wrapper {
+      overflow: hidden;
+      border-radius: var(--rad);
+      width: var(--wid);
+      aspect-ratio: var(--asr);
+
+      img.post {
+        transform: scale(1);
+        transition-property: transform;
+        transition-duration: 0.5s;
+        width: var(--wid);
+      }
+
+      img.post:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    time {
+      font-size: 0.9rem;
+      color: var(--grey);
+      font-style: italic;
+    }
+
+    h1 {
+      color: var(--clr);
+      font-weight: 600;
+    }
+
+    h1::before {
+      content: "#" counter(count) " ";
+      color: var(--lclr);
+    }
+  }
+}

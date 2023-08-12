@@ -1,0 +1,38 @@
+@mixin textarea-style {
+  display: block;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-break: auto;
+  line-height: 1rem;
+  font-size: 0.9rem;
+  padding: 0.2rem;
+  margin: 0;
+}
+
+.textarea-wrap {
+  position: relative;
+  height: fit-content;
+  margin-bottom: 0.8rem;
+
+  textarea {
+    position: absolute;
+
+    height: 100%;
+    width: 100%;
+
+    @include textarea-style();
+
+    overflow-y: scroll;
+    resize: none;
+  }
+  pre {
+    position: relative;
+
+    height: fit-content;
+
+    @include textarea-style();
+
+    visibility: hidden;
+    padding-right: 1em; // for overflow-y
+  }
+}

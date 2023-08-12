@@ -1,0 +1,63 @@
+div.hider-wrapper {
+  width: 100%;
+  height: var(--hideheight);
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  div.hider {
+    width: 100%;
+    height: var(--hideheight);
+
+    background: linear-gradient(transparent 0%, var(--hide) 80%);
+  }
+
+  button.readmore {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(var(--hideheight) / 2);
+
+    margin: auto;
+    width: fit-content;
+
+    display: block;
+
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: inherit;
+
+    border: none;
+
+    background-color: var(--bkg);
+    box-shadow: 0px 0px calc(var(--mgn) / 4) var(--shadow);
+
+    transition-property: background-color;
+  }
+
+  button.readmore:hover {
+    background-color: var(--hide);
+  }
+
+  button.readmore:active {
+    background-color: var(--bkg);
+  }
+}
+
+article.toolong {
+  height: var(--toolong, 730px) !important;
+  padding-bottom: 0 !important;
+}
+
+article:not([class~="toolong"]) {
+  div.hider-wrapper {
+    position: relative !important;
+    height: fit-content !important;
+  }
+
+  button {
+    position: relative !important;
+    bottom: unset !important;
+  }
+}

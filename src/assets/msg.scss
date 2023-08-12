@@ -1,0 +1,51 @@
+div#msg-holder {
+  display: block;
+  bottom: var(--pdn);
+  z-index: 9;
+
+  // how to center div
+  margin: auto;
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: fit-content;
+
+  .message {
+    padding: 0.2rem 0.5rem;
+    width: fit-content;
+    margin: auto;
+
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+
+    background-color: var(--darkest);
+    color: var(--yellow);
+
+    // margin-bottom: var(--pdn);
+    margin-top: var(--pdn);
+
+    transition-property: opacity;
+
+    animation-duration: 0.3s;
+    animation-timing-function: ease-out;
+    animation-iteration-count: 1;
+    animation-name: msgin;
+  }
+  @keyframes msgin {
+    0% {
+      margin-bottom: -2px;
+      margin-top: 0;
+    }
+    10% {
+      margin-bottom: 2px;
+      margin-top: 0;
+    }
+    75% {
+      margin-bottom: 2px;
+    }
+    100% {
+      margin-top: var(--pdn);
+      margin-bottom: 0;
+    }
+  }
+}

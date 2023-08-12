@@ -1,0 +1,29 @@
+div.cdnmathjax > div {
+  // display: grid;
+  // grid-template-columns: 0.6fr 0.4fr;
+  display: flex;
+  overflow-x: auto;
+}
+
+div.cdnmathjax > div > div:nth-of-type(1) {
+  flex-basis: 50rem;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+div.cdnmathjax > div > div:nth-of-type(2) {
+  flex-grow: 1;
+  background-color: white;
+  color: black;
+  padding: 0 0.5rem;
+  border: var(--border);
+  overflow-x: auto;
+}
+
+div.cdnmathjax,
+div.cdnmathjax-opt {
+  button,
+  label {
+    display: block;
+  }
+}

@@ -1,0 +1,43 @@
+.profile {
+  display: grid;
+  grid-template-columns: auto 1fr;
+
+  margin: auto;
+
+  background-color: var(--bkg);
+
+  div.icon-wrapper {
+    margin: auto var(--mgn);
+
+    width: var(--iconwid);
+    aspect-ratio: 1 / 1;
+    padding: var(--rad);
+    border-radius: 100%;
+
+    background-color: var(--bkg);
+    border: var(--bdr);
+
+    position: relative;
+    display: flex;
+
+    img.icon {
+      clip-path: circle(50%);
+      width: var(--iconwid);
+    }
+  }
+  div.bio-wrapper {
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+
+      width: fit-content;
+
+      border-bottom: var(--bdr);
+      padding-bottom: calc(var(--mgn) / 2);
+    }
+
+    button + button {
+      margin-left: calc(var(--mgn) / 2);
+    }
+  }
+}

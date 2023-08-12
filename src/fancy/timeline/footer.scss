@@ -1,0 +1,23 @@
+div#footer {
+  margin-top: var(--mgn);
+
+  footer {
+    font-size: 90%;
+    border-top: var(--bdr);
+
+    padding: 0px var(--mgn) var(--mgn);
+
+    section {
+      h1 {
+        font-size: 110%;
+      }
+
+      aside {
+        margin-left: calc(var(--mgn) / 2);
+
+        text-indent: 1em;
+        font-size: 90%;
+      }
+    }
+  }
+}

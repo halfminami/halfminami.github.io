@@ -1,0 +1,37 @@
+:root {
+  --bdr: 1px solid black;
+  --mgn: 0.2rem;
+  --wid: 10rem;
+}
+
+main {
+  background-color: white;
+  margin: var(--mgn);
+
+  ul {
+    column-width: var(--wid);
+    column-rule: var(--bdr);
+    margin: 0 var(--mgn);
+    padding: var(--mgn);
+
+    li {
+      width: 100%;
+      padding: var(--mgn) 0;
+      border-top: var(--bdr);
+
+      display: flex;
+      flex-direction: row;
+      margin: 0;
+
+      span {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+div.colorbox {
+  margin-left: auto;
+  display: inline-block;
+  width: 1rem;
+  border: var(--bdr);
+}

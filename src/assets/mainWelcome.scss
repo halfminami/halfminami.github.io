@@ -1,0 +1,26 @@
+div.main-welcome-wrap {
+  --lh: 10rem;
+  background-color: var(--darkest);
+
+  height: var(--lh);
+  margin: 0;
+  padding: var(--pdn);
+
+  display: block;
+
+  line-height: var(--lh);
+  text-align: center;
+
+  div.main-welcome {
+    background: linear-gradient(90deg, var(--lightest), var(--yellow));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    background-color: var(--whiter);
+  }
+}
+
+div:has(div.main-welcome-wrap) {
+  margin: 0;
+}
