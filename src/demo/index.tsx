@@ -11,6 +11,9 @@ function Index() {
         <a href="/demo/namedcolor.html">CSS named colors</a>
         <p>a list of named colors</p>
       </li>
+      <li>
+        <a href="/demo/atari.html">infinite atari</a>
+      </li>
     </ul>
   );
 }
