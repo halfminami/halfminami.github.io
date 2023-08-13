@@ -21,7 +21,6 @@ class BlocksHandler {
   checkInside(arr: pair<number>[]) {
     arr.forEach((item) => {
       this.rects.forEach(([chk, func]) => {
-        console.log(item);
         if (chk(item)) {
           func();
         }
@@ -29,18 +28,15 @@ class BlocksHandler {
     });
   }
 
-  constructor(rects: [(_: pair<number>) => boolean, () => void][]) {
+  constructor(rects: [blockCheck, blockEvent][]) {
     this.rects = rects;
   }
 }
 
 class BallHandler {
-  point: pair<number> = { x: 0, y: 0 };
   setPoint;
-  v: pair<number> = { x: 0, y: 0 };
-  scale: number = 1;
 
-  chk: ((_: pair<number>, r: number) => pair<number>)[] = [
+  chk: ((p: pair<number>, r: number) => pair<number>)[] = [
     // top
     (p, r) => {
       return { x: p.x, y: p.y - r };
@@ -59,25 +55,14 @@ class BallHandler {
     },
   ];
 
-  updatePosition() {
-    this.setPoint.x((x: number) => x + this.v.x * this.scale);
-    this.setPoint.y((y: number) => y + this.v.y * this.scale);
+  updatePosition(v: pair<number>) {
+    this.setPoint.x((x: number) => x + v.x);
+    this.setPoint.y((y: number) => y + v.y);
   }
 
   /** pass state values */
-  constructor(
-    cx: number,
-    setCx: StateUpdater<number>,
-    cy: number,
-    setCy: StateUpdater<number>,
-    v: { x: number; y: number }
-  ) {
-    this.point = { x: cx, y: cy };
+  constructor(setCx: StateUpdater<number>, setCy: StateUpdater<number>) {
     this.setPoint = { x: setCx, y: setCy };
-
-    this.v = v;
-
-    this.scale = 1;
   }
 }
 
@@ -93,7 +78,7 @@ function minmax<T>(min: T, value: T, max: T) {
 }
 
 function randomV() {
-  return (Math.random() > 0.5 ? -1 : 1) * Math.random() * 3;
+  return (Math.random() > 0.5 ? -1 : 1) * (Math.random() * 4 + 2);
 }
 
 function Main() {
@@ -111,7 +96,7 @@ function Main() {
     setAppWid(app.clientWidth);
   }
 
-  // const TICK = 1000 / 60;
+  // const TICK = 1000 / 20;
   const TICK = 1000;
   const BALL_WIDTH_MIN = 10;
   const WALL_BLOCKS_WIDTH = 40; // wall width
@@ -127,8 +112,8 @@ function Main() {
 
   const [ballCx, setBallCx] = useState(INI_BALL_CX);
   const [ballCy, setBallCy] = useState(INI_BALL_CY);
-  // const [ballVx, setBallVx] = useState(0);
-  // const [ballVy, setBallVy] = useState(0);
+  const [ballVx, setBallVx] = useState(0);
+  const [ballVy, setBallVy] = useState(0);
 
   const SLIDE_BLOCK_Y = appHei - 2 * SLIDE_BLOCK_HEIGHT; // top point
   const SLIDE_BLOCK_X_MIN = SLIDE_MGN;
@@ -139,17 +124,7 @@ function Main() {
   const WALL_BLOCKS_TOP = WALL_MGN;
   const WALL_BLOCKS_BOTTOM = SLIDE_BLOCK_Y;
 
-  // const ballV={x:ballVx,y:ballVy};
-  /** object reference, do not assign */
-  const ballV = { x: 0, y: 0 };
-
-  const ballHandler = new BallHandler(
-    ballCx,
-    setBallCx,
-    ballCy,
-    setBallCy,
-    ballV
-  );
+  const ballHandler = new BallHandler(setBallCx, setBallCy);
 
   useEffect(() => {
     window.addEventListener("mousemove", onMouseMove);
@@ -181,10 +156,10 @@ function Main() {
   };
 
   const [slideBlockHandler, slideBlock] = blockWrapper(slideBlockProp, () => {
-    // setBallVy(-1 * ballVy);
-    // setBallVx(randomV());
-    ballV.x = randomV();
-    ballV.y = -1 * ballV.y;
+    setBallVy((y) => -1 * Math.abs(y));
+    setBallVx(randomV());
+
+    setBallCy(SLIDE_BLOCK_Y - BALL_WIDTH - 1);
   });
   const [leftWallHandler, leftWall] = blockWrapper(
     {
@@ -198,10 +173,10 @@ function Main() {
       children: "left wall",
     },
     () => {
-      // setBallVx(-1 * ballVx);
-      // setBallVy(randomV());
-      ballV.x = -1 * ballV.x;
-      ballV.y = randomV();
+      setBallVx(Math.abs(randomV()));
+      setBallVy(randomV());
+
+      setBallCx(WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH + BALL_WIDTH + 1);
     }
   );
   const [topWallHandler, topWall] = blockWrapper(
@@ -216,10 +191,10 @@ function Main() {
       children: "top wall",
     },
     () => {
-      // setBallVy(-1 * ballVy);
-      // setBallVx(randomV());
-      ballV.x = randomV();
-      ballV.y = -1 * ballV.y;
+      setBallVy(Math.abs(randomV()));
+      setBallVx(randomV());
+
+      setBallCy(WALL_BLOCKS_TOP + WALL_BLOCKS_WIDTH + BALL_WIDTH + 1);
     }
   );
 
@@ -235,10 +210,11 @@ function Main() {
       children: "right wall",
     },
     () => {
-      // setBallVx(-1 * ballVx);
-      // setBallVy(randomV());
-      ballV.x = -3;
-      ballV.y = randomV();
+      setBallVx(-1 * Math.abs(randomV()));
+      setBallVy(randomV());
+
+      setBallCx(WALL_BLOCKS_RIGHT - BALL_WIDTH - 1);
+
       console.log("right hit!!");
     }
   );
@@ -249,32 +225,44 @@ function Main() {
     topWallHandler,
     rightWallHandler,
     [
-      (p) => p.y >= SLIDE_BLOCK_Y + SLIDE_BLOCK_WIDTH,
+      (p) => p.y >= SLIDE_BLOCK_Y + SLIDE_BLOCK_HEIGHT,
       () => {
         setBallCx(INI_BALL_CX);
         setBallCy(INI_BALL_CY);
-        ballV.x = 0;
-        ballV.y = 0;
+
+        setBallVx(0);
+        setBallVy(0);
       },
     ], // ball drop out
   ]);
 
   useEffect(() => {
-    ballV.x = 3;
     const intervalid = setInterval(() => {
-      ballHandler.updatePosition();
+      ballHandler.updatePosition({ x: ballVx, y: ballVy });
+      console.log("update!");
     }, TICK);
 
     return () => {
       clearInterval(intervalid);
     };
-  }, []);
+  }, [ballVx, ballVy]);
 
   useEffect(() => {
     wallHandler.checkInside(
       ballHandler.chk.map((item) => item({ x: ballCx, y: ballCy }, BALL_WIDTH))
     );
   }, [ballCx, ballCy, BALL_WIDTH]);
+
+  useEffect(() => {
+    return () => {
+      setBallCx((x) => (x * app.clientWidth) / appWid);
+      setBallCy((y) => (y * app.clientHeight) / appHei);
+    };
+  }, [appWid, appHei]);
+
+  useEffect(() => {
+    setBallVx((_) => 3);
+  }, []);
 
   return (
     <>
