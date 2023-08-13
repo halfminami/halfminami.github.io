@@ -11,16 +11,20 @@ type blockProps = props & {
 function Block(prop: blockProps) {
   return (
     <div
-      className={["block"]
-        .concat(prop.props.className ? [prop.props.className] : [])
-        .join(" ")}
-      style={{
-        left: `${prop.x}px`,
-        top: `${prop.y}px`,
-        width: `${prop.width}px`,
-        height: `${prop.height}px`,
-      }}
-      {...prop.props}
+      {...Object.assign(prop.props, {
+        style: Object.assign(
+          {
+            left: `${prop.x}px`,
+            top: `${prop.y}px`,
+            width: `${prop.width}px`,
+            height: `${prop.height}px`,
+          },
+          prop.props.style
+        ),
+        className: ["block"]
+          .concat(prop.props.className ? [prop.props.className] : [])
+          .join(" "),
+      })}
     >
       {prop.children}
     </div>

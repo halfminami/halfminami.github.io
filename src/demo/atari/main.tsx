@@ -3,7 +3,7 @@ import { useEffect, useState } from "preact/hooks";
 import { Ball } from "./ball";
 import { Block } from "./block";
 
-export type props = { props: { [key: string]: any }; children?: any };
+export type props = { props: any; children?: any };
 
 // |------> +x
 // |
@@ -60,8 +60,6 @@ class BallHandler {
   ];
 
   updatePosition() {
-    // this.point.x += this.v.x * this.scale;
-    // this.point.y += this.v.y * this.scale;
     this.setPoint.x(this.point.x + this.v.x * this.scale);
     this.setPoint.y(this.point.y + this.v.y * this.scale);
   }
@@ -103,8 +101,9 @@ function minmax<T>(min: T, value: T, max: T) {
 }
 
 function Main() {
-  const [windowWid, setWindowWid] = useState(window.innerWidth);
-  const [windowHei, setWindowHei] = useState(window.innerHeight);
+  const app = document.getElementById("app")!;
+  const [appWid, setAppWid] = useState(app.clientWidth);
+  const [appHei, setAppHei] = useState(app.clientHeight);
 
   const [pageX, setPageX] = useState(0);
 
@@ -112,22 +111,32 @@ function Main() {
     setPageX(e.pageX);
   }
   function onResize() {
-    // setWindowWid(window.innerWidth);
-    // setWindowHei(window.innerHeight);
-    const app = document.getElementById("app")!;
-    setWindowHei(app.clientHeight);
-    setWindowWid(app.clientWidth);
+    setAppHei(app.clientHeight);
+    setAppWid(app.clientWidth);
   }
 
-  const SLIDE_BLOCK_WIDTH = 300;
-  const SLIDE_BLOCK_HEIGHT = 30;
-  const SLIDE_BLOCK_Y = windowHei - 2 * SLIDE_BLOCK_HEIGHT;
-  const SLIDE_BLOCK_X_MIN = 10;
-  const SLIDE_BLOCK_X_MAX = windowWid - SLIDE_BLOCK_X_MIN - SLIDE_BLOCK_WIDTH;
+  const BALL_WIDTH_MIN = 10;
+  const WALL_BLOCKS_WIDTH = 20; // wall width
+  const WALL_MGN = 10;
+  const SLIDE_MGN = WALL_MGN + WALL_BLOCKS_WIDTH;
+
+  const SLIDE_BLOCK_WIDTH = Math.max(BALL_WIDTH_MIN * 12, appWid / 6);
+  const SLIDE_BLOCK_HEIGHT = 20;
+  const SLIDE_BLOCK_Y = appHei - 2 * SLIDE_BLOCK_HEIGHT; // top point
+  const SLIDE_BLOCK_X_MIN = SLIDE_MGN;
+  const SLIDE_BLOCK_X_MAX = appWid - SLIDE_MGN - SLIDE_BLOCK_WIDTH; // left point
+
+  const BALL_WIDTH = Math.max(BALL_WIDTH_MIN, SLIDE_BLOCK_WIDTH / 12);
+
+  const WALL_BLOCKS_LEFT = WALL_MGN;
+  const WALL_BLOCKS_RIGHT = appWid - WALL_MGN - WALL_BLOCKS_WIDTH; // left point
+  const WALL_BLOCKS_TOP = 10;
+  const WALL_BLOCKS_BOTTOM = SLIDE_BLOCK_Y;
 
   useEffect(() => {
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("resize", onResize);
+
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("resize", onResize);
@@ -146,12 +155,51 @@ function Main() {
           y: SLIDE_BLOCK_Y,
           width: SLIDE_BLOCK_WIDTH,
           height: SLIDE_BLOCK_HEIGHT,
-          props: {},
+          props: { className: "slide" },
         }}
       >
-        block
+        slide bar
       </Block>
-      <Ball {...{ cx: 300, cy: 300, r: 10, props: {} }}>ball</Ball>
+      <Block
+        {...{
+          x: WALL_BLOCKS_LEFT,
+          y: WALL_BLOCKS_TOP,
+          width: WALL_BLOCKS_WIDTH,
+          height: WALL_BLOCKS_BOTTOM - WALL_BLOCKS_TOP,
+          props: {
+            /* style: { backgroundColor: "red" } */
+          },
+        }}
+      >
+        left wall
+      </Block>
+      <Block
+        {...{
+          x: WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH,
+          y: WALL_BLOCKS_TOP,
+          width: WALL_BLOCKS_RIGHT - WALL_BLOCKS_LEFT,
+          height: WALL_BLOCKS_WIDTH,
+          props: {
+            /* style: { backgroundColor: "green" } */
+          },
+        }}
+      >
+        top wall
+      </Block>
+      <Block
+        {...{
+          x: WALL_BLOCKS_RIGHT,
+          y: WALL_BLOCKS_TOP,
+          width: WALL_BLOCKS_WIDTH,
+          height: WALL_BLOCKS_BOTTOM - WALL_BLOCKS_TOP,
+          props: {
+            /* style: { backgroundColor: "blue" } */
+          },
+        }}
+      >
+        right wall
+      </Block>
+      <Ball {...{ cx: 300, cy: 300, r: BALL_WIDTH, props: {} }}>ball</Ball>
     </>
   );
 }

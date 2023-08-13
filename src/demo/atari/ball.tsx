@@ -7,15 +7,19 @@ type ballProps = props & { cx: number; cy: number; r: number };
 function Ball(prop: ballProps) {
   return (
     <div
-      className={["ball"]
-        .concat(prop.props.className ? [prop.props.className] : [])
-        .join(" ")}
-      style={{
-        left: `${prop.cx - prop.r}px`,
-        top: `${prop.cy - prop.r}px`,
-        width: `${prop.r * 2}px`,
-      }}
-      {...prop.props}
+      {...Object.assign(prop.props, {
+        style: Object.assign(
+          {
+            left: `${prop.cx - prop.r}px`,
+            top: `${prop.cy - prop.r}px`,
+            width: `${prop.r * 2}px`,
+          },
+          prop.props.style
+        ),
+        className: ["ball"]
+          .concat(prop.props.className ? [prop.props.className] : [])
+          .join(" "),
+      })}
     >
       {prop.children}
     </div>
