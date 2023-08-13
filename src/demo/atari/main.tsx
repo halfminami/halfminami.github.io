@@ -1,7 +1,8 @@
 import "./main.scss";
 import { StateUpdater, useEffect, useState } from "preact/hooks";
 import { Ball } from "./ball";
-import { blockProps, blockWrapper } from "./block";
+import { blockProps, blockWrapper, isMinMax } from "./block";
+import { HideBlocks } from "./hideBlocks";
 
 export type props = { props: any; children?: any };
 
@@ -60,7 +61,6 @@ class BallHandler {
     this.setPoint.y((y: number) => y + v.y);
   }
 
-  /** pass state values */
   constructor(setCx: StateUpdater<number>, setCy: StateUpdater<number>) {
     this.setPoint = { x: setCx, y: setCy };
   }
@@ -87,6 +87,7 @@ function Main() {
   const [appHei, setAppHei] = useState(app.clientHeight);
 
   const [pageX, setPageX] = useState(0);
+  const [appOffL, setAppOffL] = useState(app.offsetLeft);
 
   function onMouseMove(e: MouseEvent) {
     setPageX(e.pageX);
@@ -94,10 +95,10 @@ function Main() {
   function onResize() {
     setAppHei(app.clientHeight);
     setAppWid(app.clientWidth);
+    setAppOffL(app.offsetLeft);
   }
 
-  // const TICK = 1000 / 20;
-  const TICK = 1000;
+  const fr = 0.1;
   const BALL_WIDTH_MIN = 10;
   const WALL_BLOCKS_WIDTH = 40; // wall width
   const WALL_MGN = 10;
@@ -124,6 +125,9 @@ function Main() {
   const WALL_BLOCKS_TOP = WALL_MGN;
   const WALL_BLOCKS_BOTTOM = SLIDE_BLOCK_Y;
 
+  const COLS = 6;
+  const ROWS = 4;
+
   const ballHandler = new BallHandler(setBallCx, setBallCy);
 
   useEffect(() => {
@@ -145,7 +149,7 @@ function Main() {
   const slideBlockProp: blockProps = {
     x: minmax(
       SLIDE_BLOCK_X_MIN,
-      pageX - SLIDE_BLOCK_WIDTH / 2, // block left point
+      pageX - appOffL - SLIDE_BLOCK_WIDTH / 2, // block left point
       SLIDE_BLOCK_X_MAX
     ),
     y: SLIDE_BLOCK_Y,
@@ -219,6 +223,38 @@ function Main() {
     }
   );
 
+  const [blocks, blockslus, refs, [blockswid, blockshei]] = HideBlocks({
+    props: {},
+    x: WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH,
+    y: WALL_BLOCKS_TOP + WALL_BLOCKS_WIDTH,
+    width: WALL_BLOCKS_RIGHT - (WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH),
+    height: (WALL_BLOCKS_BOTTOM - (WALL_BLOCKS_TOP + WALL_BLOCKS_WIDTH)) / 2,
+    cols: COLS,
+    rows: ROWS,
+    mgn: appWid / 100,
+  });
+  const blocksHandler: [blockCheck, blockEvent][] = refs.flatMap((item, i) =>
+    item.map<[blockCheck, blockEvent]>((div, j) => {
+      console.log(blockslus[i][j], div.current);
+      return [
+        (p) =>
+          div.current && div.current.classList.contains("hit")
+            ? false
+            : isMinMax(
+                blockslus[i][j][0],
+                p.x,
+                blockslus[i][j][0] + blockswid
+              ) &&
+              isMinMax(blockslus[i][j][1], p.y, blockslus[i][j][1] + blockshei),
+        () => {
+          if (div.current) {
+            div.current.classList.add("hit");
+          }
+        },
+      ];
+    })
+  );
+
   const wallHandler = new BlocksHandler([
     slideBlockHandler,
     leftWallHandler,
@@ -234,13 +270,14 @@ function Main() {
         setBallVy(0);
       },
     ], // ball drop out
+    ...blocksHandler,
   ]);
 
   useEffect(() => {
     const intervalid = setInterval(() => {
       ballHandler.updatePosition({ x: ballVx, y: ballVy });
       console.log("update!");
-    }, TICK);
+    }, 1000 / fr);
 
     return () => {
       clearInterval(intervalid);
@@ -270,6 +307,9 @@ function Main() {
       {leftWall}
       {topWall}
       {rightWall}
+
+      {blocks}
+
       <Ball {...{ cx: ballCx, cy: ballCy, r: BALL_WIDTH, props: {} }}>
         ball
       </Ball>

@@ -52,4 +52,4 @@ function blockWrapper(
   ];
 }
 
-export { blockWrapper };
+export { blockWrapper, isMinMax };
