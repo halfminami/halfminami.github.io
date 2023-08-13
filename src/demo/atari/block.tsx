@@ -1,12 +1,17 @@
+import { JSX } from "preact/jsx-runtime";
 import "./block.scss";
-import { props } from "./main";
+import { blockCheck, blockEvent, props } from "./main";
 
-type blockProps = props & {
+export type blockProps = props & {
   x: number;
   y: number;
   width: number;
   height: number;
 };
+
+function isMinMax<T>(min: T, value: T, max: T) {
+  return min <= value && value <= max;
+}
 
 function Block(prop: blockProps) {
   return (
@@ -31,4 +36,20 @@ function Block(prop: blockProps) {
   );
 }
 
-export { Block };
+/** creates check function and Block */
+function blockWrapper(
+  prop: blockProps,
+  f: blockEvent
+): [[blockCheck, blockEvent], JSX.Element] {
+  return [
+    [
+      (p) =>
+        isMinMax(prop.x, p.x, prop.x + prop.width) &&
+        isMinMax(prop.y, p.y, prop.y + prop.height),
+      f,
+    ],
+    <Block {...prop}></Block>,
+  ];
+}
+
+export { blockWrapper };
