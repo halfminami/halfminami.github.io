@@ -1,18 +1,30 @@
 .atari-wrapper {
   position: absolute;
-
-  //   border: 1px solid blue;
+  box-sizing: border-box;
 
   .atari {
     position: absolute;
+    box-sizing: border-box;
+    border: 2px solid black;
+  }
 
-    background-color: red;
-    // width: 100%;
-    // height: 100%;
-    // border: 1px solid green;
+  .atari:not(.hit) {
+    animation: appears 2s linear 1;
   }
 
   .hit {
-    background-color: blue;
+    opacity: 0;
+  }
+}
+
+@keyframes appears {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

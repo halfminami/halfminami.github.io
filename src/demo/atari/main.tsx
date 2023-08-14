@@ -17,7 +17,7 @@ export type blockEvent = () => void;
 export type blockCheck = (_: pair<number>) => boolean;
 
 class BlocksHandler {
-  rects: [blockCheck, blockEvent][] = [];
+  rects: [blockCheck, blockEvent][];
 
   checkInside(arr: pair<number>[]) {
     arr.forEach((item) => {
@@ -36,28 +36,6 @@ class BlocksHandler {
 
 class BallHandler {
   setPoint;
-
-  chk: ((p: pair<number>, r: number) => pair<number>)[] = [
-    // // top
-    // (p, r) => {
-    //   return { x: p.x, y: p.y - r };
-    // },
-    // // bottom
-    // (p, r) => {
-    //   return { x: p.x, y: p.y + r };
-    // },
-    // // right
-    // (p, r) => {
-    //   return { x: p.x + r, y: p.y };
-    // },
-    // // left
-    // (p, r) => {
-    //   return { x: p.x - r, y: p.y };
-    // },
-    (p, _) => {
-      return { x: p.x, y: p.y };
-    },
-  ];
 
   updatePosition(v: pair<number>) {
     this.setPoint.x((x: number) => x + v.x);
@@ -81,11 +59,12 @@ function minmax<T>(min: T, value: T, max: T) {
 }
 
 function randomV() {
-  return (Math.random() > 0.5 ? -1 : 1) * (Math.random() * 4 + 2);
+  return (Math.random() > 0.5 ? -1 : 1) * (Math.random() * 7 + 1);
 }
 
 function Main() {
   const app = document.getElementById("app")!;
+
   const [appWid, setAppWid] = useState(app.clientWidth);
   const [appHei, setAppHei] = useState(app.clientHeight);
 
@@ -101,9 +80,11 @@ function Main() {
     setAppOffL(app.offsetLeft);
   }
 
-  const fr = 30;
+  const fr = 30; // frames per second
+  const wait = 2500; // time ball stops at initial position
+
   const BALL_WIDTH_MIN = 10;
-  const WALL_BLOCKS_WIDTH = 40; // wall width
+  const WALL_BLOCKS_WIDTH = 20; // wall width. smaller
   const WALL_MGN = 10;
   const SLIDE_MGN = WALL_MGN + WALL_BLOCKS_WIDTH;
 
@@ -121,15 +102,15 @@ function Main() {
 
   const SLIDE_BLOCK_Y = appHei - 2 * SLIDE_BLOCK_HEIGHT; // top point
   const SLIDE_BLOCK_X_MIN = SLIDE_MGN;
-  const SLIDE_BLOCK_X_MAX = appWid - SLIDE_MGN - SLIDE_BLOCK_WIDTH; // left point
+  const SLIDE_BLOCK_X_MAX = appWid - SLIDE_MGN - SLIDE_BLOCK_WIDTH; // left max point
 
   const WALL_BLOCKS_LEFT = WALL_MGN;
-  const WALL_BLOCKS_RIGHT = appWid - WALL_MGN - WALL_BLOCKS_WIDTH; // left point
+  const WALL_BLOCKS_RIGHT = appWid - WALL_MGN - WALL_BLOCKS_WIDTH; // left max point
   const WALL_BLOCKS_TOP = WALL_MGN;
   const WALL_BLOCKS_BOTTOM = SLIDE_BLOCK_Y;
 
   const COLS = 6;
-  const ROWS = 4;
+  const ROWS = 5;
 
   const ballHandler = new BallHandler(setBallCx, setBallCy);
 
@@ -162,25 +143,71 @@ function Main() {
         width: SLIDE_BLOCK_WIDTH,
         height: SLIDE_BLOCK_HEIGHT,
         props: { className: "slide" },
-        children: "slide bar",
       }}
     ></Block>
   );
 
-  const slideBlockHandler: [blockCheck, blockEvent] = [
-    (p) =>
-      isMinMax(
-        slideBlockX - BALL_R,
-        p.x,
-        slideBlockX + SLIDE_BLOCK_WIDTH + BALL_R
-      ) &&
-      isMinMax(SLIDE_BLOCK_Y, p.y + BALL_R, SLIDE_BLOCK_Y + SLIDE_BLOCK_HEIGHT),
-    () => {
-      setBallVy((y) => -1 * Math.abs(y));
-      setBallVx(randomV());
+  const slideBlockHandler: [blockCheck, blockEvent][] = [
+    // middle
+    [
+      (p) =>
+        isMinMax(
+          slideBlockX + SLIDE_BLOCK_WIDTH / 3 - BALL_R,
+          p.x,
+          slideBlockX + (SLIDE_BLOCK_WIDTH * 2) / 3 + BALL_R
+        ) &&
+        isMinMax(
+          SLIDE_BLOCK_Y,
+          p.y + BALL_R,
+          SLIDE_BLOCK_Y + SLIDE_BLOCK_HEIGHT
+        ),
+      () => {
+        setBallVy(-1 * Math.abs(randomV()));
+        setBallVx((x) => x);
 
-      setBallCy(SLIDE_BLOCK_Y - BALL_R - 1);
-    },
+        setBallCy(SLIDE_BLOCK_Y - BALL_R - 1);
+      },
+    ],
+    // left
+    [
+      (p) =>
+        isMinMax(
+          slideBlockX - BALL_R,
+          p.x,
+          slideBlockX + SLIDE_BLOCK_WIDTH / 3 + BALL_R
+        ) &&
+        isMinMax(
+          SLIDE_BLOCK_Y,
+          p.y + BALL_R,
+          SLIDE_BLOCK_Y + SLIDE_BLOCK_HEIGHT
+        ),
+      () => {
+        setBallVy(-1 * Math.abs(randomV()));
+        setBallVx(-1 * Math.abs(randomV()));
+
+        setBallCy(SLIDE_BLOCK_Y - BALL_R - 1);
+      },
+    ],
+    // right
+    [
+      (p) =>
+        isMinMax(
+          slideBlockX + (SLIDE_BLOCK_WIDTH * 2) / 3 - BALL_R,
+          p.x,
+          slideBlockX + SLIDE_BLOCK_WIDTH + BALL_R
+        ) &&
+        isMinMax(
+          SLIDE_BLOCK_Y,
+          p.y + BALL_R,
+          SLIDE_BLOCK_Y + SLIDE_BLOCK_HEIGHT
+        ),
+      () => {
+        setBallVy(-1 * Math.abs(randomV()));
+        setBallVx(Math.abs(randomV()));
+
+        setBallCy(SLIDE_BLOCK_Y - BALL_R - 1);
+      },
+    ],
   ];
 
   const leftWall = (
@@ -193,7 +220,6 @@ function Main() {
         props: {
           /* style: { backgroundColor: "red" } */
         },
-        children: "left wall",
       }}
     ></Block>
   );
@@ -206,17 +232,17 @@ function Main() {
       setBallCx(WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH + BALL_R + 1);
     },
   ];
+
   const topWall = (
     <Block
       {...{
         x: WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH,
         y: WALL_BLOCKS_TOP,
-        width: WALL_BLOCKS_RIGHT - WALL_BLOCKS_LEFT,
+        width: WALL_BLOCKS_RIGHT - (WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH),
         height: WALL_BLOCKS_WIDTH,
         props: {
           /* style: { backgroundColor: "green" } */
         },
-        children: "top wall",
       }}
     ></Block>
   );
@@ -240,7 +266,6 @@ function Main() {
         props: {
           /* style: { backgroundColor: "blue" } */
         },
-        children: "right wall",
       }}
     ></Block>
   );
@@ -251,11 +276,10 @@ function Main() {
       setBallVy((y) => (y > 0 ? 1 : -1) * Math.abs(randomV()));
 
       setBallCx(WALL_BLOCKS_RIGHT - BALL_R - 1);
-
-      console.log("right hit!!");
     },
   ];
 
+  const [blockCount, setBlockCount] = useState(COLS * ROWS);
   const atariBlocksLeft = WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH;
   const atariBlocksTop = WALL_BLOCKS_TOP + WALL_BLOCKS_WIDTH;
   const [blocks, blocksleftuppers, refs, [blockswid, blockshei]] = AtariBlocks({
@@ -263,97 +287,121 @@ function Main() {
     x: atariBlocksLeft,
     y: atariBlocksTop,
     width: WALL_BLOCKS_RIGHT - atariBlocksLeft,
-    height: (WALL_BLOCKS_BOTTOM - atariBlocksTop) / 2,
+    height: ((WALL_BLOCKS_BOTTOM - atariBlocksTop) * 2) / 3,
     cols: COLS,
     rows: ROWS,
     mgn: appWid / 100,
   });
   const blocksHandler: [blockCheck, blockEvent][] = refs.flatMap((item, i) =>
-    item.map<[blockCheck, blockEvent]>((div, j) => {
-      console.log(blocksleftuppers[i][j], div.current, blockswid, blockshei);
-      const isInside = (p: pair<number>) =>
-        isMinMax(
-          blocksleftuppers[i][j][0] + atariBlocksLeft,
-          p.x,
-          blocksleftuppers[i][j][0] + atariBlocksLeft + blockswid
-        ) &&
-        isMinMax(
-          blocksleftuppers[i][j][1] + atariBlocksTop,
-          p.y,
-          blocksleftuppers[i][j][1] + atariBlocksTop + blockshei
-        );
+    item.map<[blockCheck, blockEvent]>((div, j) => [
+      (p) =>
+        div.current && div.current.classList.contains("hit")
+          ? false
+          : (function () {
+              const isInside = (p: pair<number>) =>
+                isMinMax(
+                  blocksleftuppers[i][j][0] + atariBlocksLeft,
+                  p.x,
+                  blocksleftuppers[i][j][0] + atariBlocksLeft + blockswid
+                ) &&
+                isMinMax(
+                  blocksleftuppers[i][j][1] + atariBlocksTop,
+                  p.y,
+                  blocksleftuppers[i][j][1] + atariBlocksTop + blockshei
+                );
+              const n = 8; // ball points to check
+              let exists = false;
 
-      const n = 8;
-      return [
-        (p) =>
-          div.current && div.current.classList.contains("hit")
-            ? false
-            : Array(n)
-                .fill(0)
-                .map((_, i) => {
-                  const th = 0.5;
-                  const dx = Math.cos(Math.PI * (i / (n / 2)));
-                  const dy = Math.sin(Math.PI * (i / (n / 2)));
+              for (let i = 0; i < n; ++i) {
+                const th = 0.5;
+                const dx = Math.cos(Math.PI * (i / (n / 2)));
+                const dy = Math.sin(Math.PI * (i / (n / 2)));
 
-                  const inside = isInside({
-                    x: p.x + BALL_R * dx,
-                    y: p.y + BALL_R * dy,
-                  });
+                const inside = isInside({
+                  x: p.x + BALL_R * dx,
+                  y: p.y + BALL_R * dy,
+                });
 
-                  if (inside) {
-                    // ball right side hit
-                    if (th <= dx) {
-                      setBallVx((x) => -1 * Math.abs(x));
-                    }
-                    // ball left side hit
-                    if (dx <= -1 * th) {
-                      setBallVx((x) => Math.abs(x));
-                    }
-                    // ball bottom hit
-                    if (th <= dy) {
-                      setBallVy((y) => -1 * Math.abs(y));
-                    }
-                    // ball top hit
-                    if (dy <= -1 * th) {
-                      setBallVy((y) => Math.abs(y));
-                    }
+                // both Vx and Vy could change at the same time, so this is not in event
+                if (inside) {
+                  // ball right side hit
+                  if (th <= dx) {
+                    setBallVx((x) => -1 * Math.abs(x));
                   }
+                  // ball left side hit
+                  if (dx <= -1 * th) {
+                    setBallVx((x) => Math.abs(x));
+                  }
+                  // ball bottom hit
+                  if (th <= dy) {
+                    setBallVy((y) => -1 * Math.abs(y));
+                  }
+                  // ball top hit
+                  if (dy <= -1 * th) {
+                    setBallVy((y) => Math.abs(y));
+                  }
+                }
 
-                  return inside;
-                })
-                .some((b) => b),
-        // any one of `n` points is inside the atari block
-        () => {
-          if (div.current) {
-            div.current.classList.add("hit");
-          }
-        },
-      ];
-    })
+                exists = exists || inside;
+              }
+
+              return exists;
+            })(),
+      () => {
+        if (div.current) {
+          div.current.classList.add("hit");
+
+          setBlockCount((c) => c - 1);
+        }
+      },
+    ])
   );
 
+  function initialPos() {
+    setBallCx(INI_BALL_CX);
+    setBallCy(INI_BALL_CY);
+
+    setBallVx(0);
+    setBallVy(0);
+  }
+
+  function initialV() {
+    setBallVx(randomV());
+    // go up
+    setBallVy(-1 * Math.abs(randomV()));
+  }
+
+  /** gets back ball to initial pos, runs ball. does not set atari blocks */
+  function setup() {
+    initialPos();
+
+    const id = setTimeout(() => {
+      initialV();
+    }, wait);
+
+    return () => {
+      clearTimeout(id);
+    };
+  }
+
   const wallHandler = new BlocksHandler([
-    slideBlockHandler,
+    ...slideBlockHandler,
     leftWallHandler,
     topWallHandler,
     rightWallHandler,
     [
       (p) => p.y >= SLIDE_BLOCK_Y + SLIDE_BLOCK_HEIGHT,
       () => {
-        setBallCx(INI_BALL_CX);
-        setBallCy(INI_BALL_CY);
-
-        setBallVx(0);
-        setBallVy(0);
+        setup();
       },
     ], // ball drop out
     ...blocksHandler,
   ]);
 
+  // constantly update ball position. stop ball moving by setting V 0
   useEffect(() => {
     const intervalid = setInterval(() => {
       ballHandler.updatePosition({ x: ballVx, y: ballVy });
-      console.log("update!");
     }, 1000 / fr);
 
     return () => {
@@ -361,12 +409,24 @@ function Main() {
     };
   }, [ballVx, ballVy]);
 
+  // check if wall is hit
   useEffect(() => {
-    wallHandler.checkInside(
-      ballHandler.chk.map((item) => item({ x: ballCx, y: ballCy }, BALL_R))
-    );
+    wallHandler.checkInside([{ x: ballCx, y: ballCy }]);
   }, [ballCx, ballCy, BALL_R]);
 
+  // restore atari blocks
+  useEffect(() => {
+    if (blockCount == 0) {
+      setup();
+
+      refs.forEach((divs) =>
+        divs.forEach((div) => div.current?.classList.remove("hit"))
+      );
+      setBlockCount(COLS * ROWS);
+    }
+  }, [blockCount]);
+
+  // ball position check on resize
   useEffect(() => {
     return () => {
       setBallCx((x) => (x * app.clientWidth) / appWid);
@@ -374,8 +434,9 @@ function Main() {
     };
   }, [appWid, appHei]);
 
+  // first setup
   useEffect(() => {
-    setBallVx((_) => 3);
+    return setup();
   }, []);
 
   return (
@@ -387,7 +448,7 @@ function Main() {
 
       {blocks}
 
-      <Ball {...{ cx: ballCx, cy: ballCy, r: BALL_R, props: {} }}>ball</Ball>
+      <Ball {...{ cx: ballCx, cy: ballCy, r: BALL_R, props: {} }}></Ball>
     </>
   );
 }

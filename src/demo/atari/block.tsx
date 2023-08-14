@@ -35,20 +35,4 @@ function Block(prop: blockProps) {
   );
 }
 
-// /** creates check function and Block */
-// function blockWrapper(
-//   prop: blockProps,
-//   f: blockEvent
-// ): [[blockCheck, blockEvent], JSX.Element] {
-//   return [
-//     [
-//       (p) =>
-//         isMinMax(prop.x, p.x, prop.x + prop.width) &&
-//         isMinMax(prop.y, p.y, prop.y + prop.height),
-//       f,
-//     ],
-//     <Block {...prop}></Block>,
-//   ];
-// }
-
 export { Block, isMinMax };

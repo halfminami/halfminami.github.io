@@ -63,7 +63,13 @@ function AtariBlocks({
       {LUs.flatMap((item, i) =>
         item.map(([x, y], j) => (
           <div
-            style={{ left: x, top: y, width: WID, height: HEI }}
+            style={{
+              left: x,
+              top: y,
+              width: WID,
+              height: HEI,
+              backgroundColor: `hsl(${i * 20} 100% 50%)`,
+            }}
             className={"atari"}
             ref={refs[i][j]}
           ></div>
