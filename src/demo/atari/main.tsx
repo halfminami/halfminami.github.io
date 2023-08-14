@@ -1,7 +1,7 @@
 import "./main.scss";
 import { StateUpdater, useEffect, useState } from "preact/hooks";
 import { Ball } from "./ball";
-import { blockProps, blockWrapper, isMinMax } from "./block";
+import { Block, isMinMax } from "./block";
 import { HideBlocks } from "./hideBlocks";
 
 export type props = { props: any; children?: any };
@@ -38,21 +38,24 @@ class BallHandler {
   setPoint;
 
   chk: ((p: pair<number>, r: number) => pair<number>)[] = [
-    // top
-    (p, r) => {
-      return { x: p.x, y: p.y - r };
-    },
-    // bottom
-    (p, r) => {
-      return { x: p.x, y: p.y + r };
-    },
-    // right
-    (p, r) => {
-      return { x: p.x + r, y: p.y };
-    },
-    // left
-    (p, r) => {
-      return { x: p.x - r, y: p.y };
+    // // top
+    // (p, r) => {
+    //   return { x: p.x, y: p.y - r };
+    // },
+    // // bottom
+    // (p, r) => {
+    //   return { x: p.x, y: p.y + r };
+    // },
+    // // right
+    // (p, r) => {
+    //   return { x: p.x + r, y: p.y };
+    // },
+    // // left
+    // (p, r) => {
+    //   return { x: p.x - r, y: p.y };
+    // },
+    (p, _) => {
+      return { x: p.x, y: p.y };
     },
   ];
 
@@ -98,7 +101,7 @@ function Main() {
     setAppOffL(app.offsetLeft);
   }
 
-  const fr = 0.1;
+  const fr = 30;
   const BALL_WIDTH_MIN = 10;
   const WALL_BLOCKS_WIDTH = 40; // wall width
   const WALL_MGN = 10;
@@ -107,9 +110,9 @@ function Main() {
   const SLIDE_BLOCK_WIDTH = Math.max(BALL_WIDTH_MIN * 12, appWid / 6);
   const SLIDE_BLOCK_HEIGHT = 20;
 
-  const BALL_WIDTH = Math.max(BALL_WIDTH_MIN, SLIDE_BLOCK_WIDTH / 12);
+  const BALL_R = Math.max(BALL_WIDTH_MIN, SLIDE_BLOCK_WIDTH / 12);
   const INI_BALL_CX = appWid / 2;
-  const INI_BALL_CY = appHei - 3 * SLIDE_BLOCK_HEIGHT - BALL_WIDTH;
+  const INI_BALL_CY = appHei - 3 * SLIDE_BLOCK_HEIGHT - BALL_R;
 
   const [ballCx, setBallCx] = useState(INI_BALL_CX);
   const [ballCy, setBallCy] = useState(INI_BALL_CY);
@@ -146,106 +149,180 @@ function Main() {
     };
   }, []);
 
-  const slideBlockProp: blockProps = {
-    x: minmax(
-      SLIDE_BLOCK_X_MIN,
-      pageX - appOffL - SLIDE_BLOCK_WIDTH / 2, // block left point
-      SLIDE_BLOCK_X_MAX
-    ),
-    y: SLIDE_BLOCK_Y,
-    width: SLIDE_BLOCK_WIDTH,
-    height: SLIDE_BLOCK_HEIGHT,
-    props: { className: "slide" },
-    children: "slide bar",
-  };
+  const slideBlockX = minmax(
+    SLIDE_BLOCK_X_MIN,
+    pageX - appOffL - SLIDE_BLOCK_WIDTH / 2, // block left point
+    SLIDE_BLOCK_X_MAX
+  );
+  const slideBlock = (
+    <Block
+      {...{
+        x: slideBlockX,
+        y: SLIDE_BLOCK_Y,
+        width: SLIDE_BLOCK_WIDTH,
+        height: SLIDE_BLOCK_HEIGHT,
+        props: { className: "slide" },
+        children: "slide bar",
+      }}
+    ></Block>
+  );
 
-  const [slideBlockHandler, slideBlock] = blockWrapper(slideBlockProp, () => {
-    setBallVy((y) => -1 * Math.abs(y));
-    setBallVx(randomV());
+  const slideBlockHandler: [blockCheck, blockEvent] = [
+    (p) =>
+      isMinMax(
+        slideBlockX - BALL_R,
+        p.x,
+        slideBlockX + SLIDE_BLOCK_WIDTH + BALL_R
+      ) &&
+      isMinMax(SLIDE_BLOCK_Y, p.y + BALL_R, SLIDE_BLOCK_Y + SLIDE_BLOCK_HEIGHT),
+    () => {
+      setBallVy((y) => -1 * Math.abs(y));
+      setBallVx(randomV());
 
-    setBallCy(SLIDE_BLOCK_Y - BALL_WIDTH - 1);
-  });
-  const [leftWallHandler, leftWall] = blockWrapper(
-    {
-      x: WALL_BLOCKS_LEFT,
-      y: WALL_BLOCKS_TOP,
-      width: WALL_BLOCKS_WIDTH,
-      height: WALL_BLOCKS_BOTTOM - WALL_BLOCKS_TOP,
-      props: {
-        /* style: { backgroundColor: "red" } */
-      },
-      children: "left wall",
+      setBallCy(SLIDE_BLOCK_Y - BALL_R - 1);
     },
+  ];
+
+  const leftWall = (
+    <Block
+      {...{
+        x: WALL_BLOCKS_LEFT,
+        y: WALL_BLOCKS_TOP,
+        width: WALL_BLOCKS_WIDTH,
+        height: WALL_BLOCKS_BOTTOM - WALL_BLOCKS_TOP,
+        props: {
+          /* style: { backgroundColor: "red" } */
+        },
+        children: "left wall",
+      }}
+    ></Block>
+  );
+  const leftWallHandler: [blockCheck, blockEvent] = [
+    (p) => p.x - BALL_R <= WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH,
     () => {
       setBallVx(Math.abs(randomV()));
-      setBallVy(randomV());
+      setBallVy((y) => (y > 0 ? 1 : -1) * Math.abs(randomV()));
 
-      setBallCx(WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH + BALL_WIDTH + 1);
-    }
-  );
-  const [topWallHandler, topWall] = blockWrapper(
-    {
-      x: WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH,
-      y: WALL_BLOCKS_TOP,
-      width: WALL_BLOCKS_RIGHT - WALL_BLOCKS_LEFT,
-      height: WALL_BLOCKS_WIDTH,
-      props: {
-        /* style: { backgroundColor: "green" } */
-      },
-      children: "top wall",
+      setBallCx(WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH + BALL_R + 1);
     },
+  ];
+  const topWall = (
+    <Block
+      {...{
+        x: WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH,
+        y: WALL_BLOCKS_TOP,
+        width: WALL_BLOCKS_RIGHT - WALL_BLOCKS_LEFT,
+        height: WALL_BLOCKS_WIDTH,
+        props: {
+          /* style: { backgroundColor: "green" } */
+        },
+        children: "top wall",
+      }}
+    ></Block>
+  );
+  const topWallHandler: [blockCheck, blockEvent] = [
+    (p) => p.y - BALL_R <= WALL_BLOCKS_TOP + WALL_BLOCKS_WIDTH,
     () => {
       setBallVy(Math.abs(randomV()));
       setBallVx(randomV());
 
-      setBallCy(WALL_BLOCKS_TOP + WALL_BLOCKS_WIDTH + BALL_WIDTH + 1);
-    }
-  );
-
-  const [rightWallHandler, rightWall] = blockWrapper(
-    {
-      x: WALL_BLOCKS_RIGHT,
-      y: WALL_BLOCKS_TOP,
-      width: WALL_BLOCKS_WIDTH,
-      height: WALL_BLOCKS_BOTTOM - WALL_BLOCKS_TOP,
-      props: {
-        /* style: { backgroundColor: "blue" } */
-      },
-      children: "right wall",
+      setBallCy(WALL_BLOCKS_TOP + WALL_BLOCKS_WIDTH + BALL_R + 1);
     },
+  ];
+
+  const rightWall = (
+    <Block
+      {...{
+        x: WALL_BLOCKS_RIGHT,
+        y: WALL_BLOCKS_TOP,
+        width: WALL_BLOCKS_WIDTH,
+        height: WALL_BLOCKS_BOTTOM - WALL_BLOCKS_TOP,
+        props: {
+          /* style: { backgroundColor: "blue" } */
+        },
+        children: "right wall",
+      }}
+    ></Block>
+  );
+  const rightWallHandler: [blockCheck, blockEvent] = [
+    (p) => WALL_BLOCKS_RIGHT <= p.x + BALL_R,
     () => {
       setBallVx(-1 * Math.abs(randomV()));
-      setBallVy(randomV());
+      setBallVy((y) => (y > 0 ? 1 : -1) * Math.abs(randomV()));
 
-      setBallCx(WALL_BLOCKS_RIGHT - BALL_WIDTH - 1);
+      setBallCx(WALL_BLOCKS_RIGHT - BALL_R - 1);
 
       console.log("right hit!!");
-    }
-  );
+    },
+  ];
 
+  const hideBlocksLeft = WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH;
+  const hideBlocksTop = WALL_BLOCKS_TOP + WALL_BLOCKS_WIDTH;
   const [blocks, blockslus, refs, [blockswid, blockshei]] = HideBlocks({
     props: {},
-    x: WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH,
-    y: WALL_BLOCKS_TOP + WALL_BLOCKS_WIDTH,
-    width: WALL_BLOCKS_RIGHT - (WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH),
-    height: (WALL_BLOCKS_BOTTOM - (WALL_BLOCKS_TOP + WALL_BLOCKS_WIDTH)) / 2,
+    x: hideBlocksLeft,
+    y: hideBlocksTop,
+    width: WALL_BLOCKS_RIGHT - hideBlocksLeft,
+    height: (WALL_BLOCKS_BOTTOM - hideBlocksTop) / 2,
     cols: COLS,
     rows: ROWS,
     mgn: appWid / 100,
   });
   const blocksHandler: [blockCheck, blockEvent][] = refs.flatMap((item, i) =>
     item.map<[blockCheck, blockEvent]>((div, j) => {
-      console.log(blockslus[i][j], div.current);
+      console.log(blockslus[i][j], div.current, blockswid, blockshei);
+      const isInside = (p: pair<number>) =>
+        isMinMax(
+          blockslus[i][j][0] + hideBlocksLeft,
+          p.x,
+          blockslus[i][j][0] + hideBlocksLeft + blockswid
+        ) &&
+        isMinMax(
+          blockslus[i][j][1] + hideBlocksTop,
+          p.y,
+          blockslus[i][j][1] + hideBlocksTop + blockshei
+        );
+
+      const n = 8;
       return [
         (p) =>
           div.current && div.current.classList.contains("hit")
             ? false
-            : isMinMax(
-                blockslus[i][j][0],
-                p.x,
-                blockslus[i][j][0] + blockswid
-              ) &&
-              isMinMax(blockslus[i][j][1], p.y, blockslus[i][j][1] + blockshei),
+            : Array(n)
+                .fill(0)
+                .map((_, i) => {
+                  const th = 0.5;
+                  const dx = Math.cos(Math.PI * (i / (n / 2)));
+                  const dy = Math.sin(Math.PI * (i / (n / 2)));
+
+                  const inside = isInside({
+                    x: p.x + BALL_R * dx,
+                    y: p.y + BALL_R * dy,
+                  });
+
+                  if (inside) {
+                    // ball right side hit
+                    if (th <= dx) {
+                      setBallVx((x) => -1 * Math.abs(x));
+                    }
+                    // ball left side hit
+                    if (dx <= -1 * th) {
+                      setBallVx((x) => Math.abs(x));
+                    }
+                    // ball bottom hit
+                    if (th <= dy) {
+                      setBallVy((y) => -1 * Math.abs(y));
+                    }
+                    // ball top hit
+                    if (dy <= -1 * th) {
+                      setBallVy((y) => Math.abs(y));
+                    }
+                  }
+
+                  return inside;
+                })
+                .some((b) => b),
+        // any one of `n` points is inside the atari block
         () => {
           if (div.current) {
             div.current.classList.add("hit");
@@ -286,9 +363,9 @@ function Main() {
 
   useEffect(() => {
     wallHandler.checkInside(
-      ballHandler.chk.map((item) => item({ x: ballCx, y: ballCy }, BALL_WIDTH))
+      ballHandler.chk.map((item) => item({ x: ballCx, y: ballCy }, BALL_R))
     );
-  }, [ballCx, ballCy, BALL_WIDTH]);
+  }, [ballCx, ballCy, BALL_R]);
 
   useEffect(() => {
     return () => {
@@ -310,9 +387,7 @@ function Main() {
 
       {blocks}
 
-      <Ball {...{ cx: ballCx, cy: ballCy, r: BALL_WIDTH, props: {} }}>
-        ball
-      </Ball>
+      <Ball {...{ cx: ballCx, cy: ballCy, r: BALL_R, props: {} }}>ball</Ball>
     </>
   );
 }
