@@ -2,7 +2,7 @@ import "./main.scss";
 import { StateUpdater, useEffect, useState } from "preact/hooks";
 import { Ball } from "./ball";
 import { Block, isMinMax } from "./block";
-import { HideBlocks } from "./hideBlocks";
+import { AtariBlocks } from "./atariBlocks";
 
 export type props = { props: any; children?: any };
 
@@ -256,31 +256,31 @@ function Main() {
     },
   ];
 
-  const hideBlocksLeft = WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH;
-  const hideBlocksTop = WALL_BLOCKS_TOP + WALL_BLOCKS_WIDTH;
-  const [blocks, blockslus, refs, [blockswid, blockshei]] = HideBlocks({
+  const atariBlocksLeft = WALL_BLOCKS_LEFT + WALL_BLOCKS_WIDTH;
+  const atariBlocksTop = WALL_BLOCKS_TOP + WALL_BLOCKS_WIDTH;
+  const [blocks, blocksleftuppers, refs, [blockswid, blockshei]] = AtariBlocks({
     props: {},
-    x: hideBlocksLeft,
-    y: hideBlocksTop,
-    width: WALL_BLOCKS_RIGHT - hideBlocksLeft,
-    height: (WALL_BLOCKS_BOTTOM - hideBlocksTop) / 2,
+    x: atariBlocksLeft,
+    y: atariBlocksTop,
+    width: WALL_BLOCKS_RIGHT - atariBlocksLeft,
+    height: (WALL_BLOCKS_BOTTOM - atariBlocksTop) / 2,
     cols: COLS,
     rows: ROWS,
     mgn: appWid / 100,
   });
   const blocksHandler: [blockCheck, blockEvent][] = refs.flatMap((item, i) =>
     item.map<[blockCheck, blockEvent]>((div, j) => {
-      console.log(blockslus[i][j], div.current, blockswid, blockshei);
+      console.log(blocksleftuppers[i][j], div.current, blockswid, blockshei);
       const isInside = (p: pair<number>) =>
         isMinMax(
-          blockslus[i][j][0] + hideBlocksLeft,
+          blocksleftuppers[i][j][0] + atariBlocksLeft,
           p.x,
-          blockslus[i][j][0] + hideBlocksLeft + blockswid
+          blocksleftuppers[i][j][0] + atariBlocksLeft + blockswid
         ) &&
         isMinMax(
-          blockslus[i][j][1] + hideBlocksTop,
+          blocksleftuppers[i][j][1] + atariBlocksTop,
           p.y,
-          blockslus[i][j][1] + hideBlocksTop + blockshei
+          blocksleftuppers[i][j][1] + atariBlocksTop + blockshei
         );
 
       const n = 8;

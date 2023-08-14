@@ -1,16 +1,16 @@
 import { JSX } from "preact/jsx-runtime";
 import { blockProps } from "./block";
-import "./hideBlocks.scss";
+import "./atariBlocks.scss";
 import { useRef } from "preact/hooks";
 import { RefObject } from "preact";
 
-type hideBlocksProps = blockProps & {
+type atariBlocksProps = blockProps & {
   cols: number;
   rows: number;
   mgn?: number;
 };
 
-function HideBlocks({
+function AtariBlocks({
   props,
   x,
   y,
@@ -19,7 +19,7 @@ function HideBlocks({
   cols,
   rows,
   mgn = 10,
-}: hideBlocksProps): [
+}: atariBlocksProps): [
   JSX.Element,
   [number, number][][],
   RefObject<HTMLDivElement>[][],
@@ -28,7 +28,7 @@ function HideBlocks({
   const MGN = mgn;
   const WID = (width - MGN * (cols + 1)) / cols;
   const HEI = (height - MGN * (rows + 1)) / rows;
-  /** [[[x, y], ]] */
+  /** left upper point [[[x, y], ]] */
   const LUs: [number, number][][] = Array(rows)
     .fill(0)
     .map((_) => Array(cols).fill(0));
@@ -55,7 +55,7 @@ function HideBlocks({
           },
           props.style
         ),
-        className: ["hide-wrapper"]
+        className: ["atari-wrapper"]
           .concat(props.className ? [props.className] : [])
           .join(" "),
       })}
@@ -64,7 +64,7 @@ function HideBlocks({
         item.map(([x, y], j) => (
           <div
             style={{ left: x, top: y, width: WID, height: HEI }}
-            className={"hide"}
+            className={"atari"}
             ref={refs[i][j]}
           ></div>
         ))
@@ -76,4 +76,4 @@ function HideBlocks({
   ];
 }
 
-export { HideBlocks };
+export { AtariBlocks };
