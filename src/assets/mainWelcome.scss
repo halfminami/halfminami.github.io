@@ -1,14 +1,7 @@
 div.main-welcome-wrap {
-  --lh: 10rem;
-  background-color: var(--darkest);
-
-  height: var(--lh);
   margin: 0;
-  padding: var(--pdn);
+  width: fit-content;
 
-  display: block;
-
-  line-height: var(--lh);
   text-align: center;
 
   div.main-welcome {
@@ -17,10 +10,31 @@ div.main-welcome-wrap {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    background-color: var(--whiter);
+    align-items: baseline;
+
+    span.main-welcome-letter {
+      margin: 0;
+      transition: font-size 0.5s;
+    }
+
+    span.main-welcome-letter:hover {
+      font-size: 110%;
+    }
   }
 }
 
 div:has(div.main-welcome-wrap) {
+  --lh: 10rem;
+  min-height: var(--lh);
+
   margin: 0;
+  padding: var(--pdn);
+
+  background-color: var(--darkest);
+
+  display: flex;
+  flex-direction: row;
+
+  justify-content: center;
+  align-items: center;
 }

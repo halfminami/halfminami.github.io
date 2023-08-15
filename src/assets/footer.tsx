@@ -4,7 +4,7 @@ import "./footer.scss";
 function RepoLink() {
   return (
     <a href={"https://github.com/halfminami/halfminami.github.io"}>
-      this github pages repo
+      this github pages repository
     </a>
   );
 }

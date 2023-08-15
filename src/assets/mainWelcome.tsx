@@ -7,7 +7,9 @@ function MainWelcome() {
         className={"main-welcome"}
         style={{ fontSize: "4rem", fontWeight: 600 }}
       >
-        main welcome message
+        {"main welcome message".split("").map((item) => (
+          <span className={"main-welcome-letter"}>{item}</span>
+        ))}
       </div>
     </div>
   );

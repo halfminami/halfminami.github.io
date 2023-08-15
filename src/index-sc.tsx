@@ -36,7 +36,7 @@ function Hello({ msg = "" }) {
 
 render(
   <p>
-    Welcome! and <Hello msg="click me"></Hello>
+    Welcome to my tiny website! and <Hello msg="click me"></Hello>
   </p>,
   document.getElementById("hello")!
 );
