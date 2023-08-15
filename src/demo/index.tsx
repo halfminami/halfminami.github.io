@@ -13,6 +13,7 @@ function Index() {
       </li>
       <li>
         <a href="/demo/breakout.html">infinite breakout game</a>
+        <p>a simple breakout game. I just wanted to put some game here.</p>
       </li>
     </ul>
   );
