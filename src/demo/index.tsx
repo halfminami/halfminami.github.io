@@ -12,7 +12,7 @@ function Index() {
         <p>a list of named colors</p>
       </li>
       <li>
-        <a href="/demo/atari.html">infinite atari</a>
+        <a href="/demo/breakout.html">infinite breakout game</a>
       </li>
     </ul>
   );

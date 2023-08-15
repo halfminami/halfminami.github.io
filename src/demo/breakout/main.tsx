@@ -80,7 +80,7 @@ function Main() {
     setAppOffL(app.offsetLeft);
   }
 
-  const fr = 30; // frames per second
+  const fr = 35; // frames per second
   const wait = 2500; // time ball stops at initial position
 
   const BALL_WIDTH_MIN = 10;
