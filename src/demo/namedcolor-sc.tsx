@@ -65,3 +65,6 @@ render(
 
 mntHeader();
 mntFooter();
+
+import { namedcolorTitle as title } from ".";
+document.title = title;

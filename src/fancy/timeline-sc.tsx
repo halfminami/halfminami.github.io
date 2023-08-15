@@ -127,3 +127,6 @@ for (const article of Array.from(
 render(<Header></Header>, document.getElementById("header")!);
 render(<Navbar></Navbar>, document.getElementById("navbar")!);
 render(<Footer></Footer>, document.getElementById("footer")!);
+
+import { timelineTitle as title } from ".";
+document.title = title;

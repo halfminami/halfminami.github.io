@@ -9,7 +9,7 @@ import { Msg } from "./assets/msg";
 // common styles
 import "./style.scss";
 import { mnt as mntHeader } from "./assets/header";
-import { mnt as mntFooter } from "./assets/footer";
+import { RepoLink, mnt as mntFooter } from "./assets/footer";
 
 function Hello({ msg = "" }) {
   const [cnt, setCnt] = useState(0);
@@ -71,3 +71,7 @@ render(
   </ul>,
   document.getElementById("index")!
 );
+
+for (const span of Array.from(document.getElementsByClassName("repo"))) {
+  render(<RepoLink></RepoLink>, span);
+}

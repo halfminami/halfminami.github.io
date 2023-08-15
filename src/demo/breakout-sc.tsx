@@ -9,3 +9,6 @@ import "/src/style.scss";
 
 mntHeader();
 mntFooter();
+
+import { breakoutTitle as title } from ".";
+document.title = title;
