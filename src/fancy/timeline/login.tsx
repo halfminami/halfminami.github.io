@@ -10,9 +10,18 @@ function Login(): [JSX.Element, () => void] {
   // why i cannot use ref :(
   const ref: { current: null | HTMLDialogElement } = { current: null };
 
+  const onClick = (e: any) => {
+    e.preventDefault();
+    console.log(e.currentTarget.textContent);
+  };
+
   return [
-    <div className={"loginform-wrapper"}>
-      <dialog ref={ref} className={"loginform"}>
+    <div className={"loginform-wrapper"} onClick={() => ref.current?.close()}>
+      <dialog
+        ref={ref}
+        className={"loginform"}
+        onClick={(e) => e.stopPropagation()}
+      >
         <form action="">
           <ul className={"loginform-ul"}>
             <li>
@@ -33,7 +42,7 @@ function Login(): [JSX.Element, () => void] {
                 </li>
                 <li>
                   <ColorButton
-                    props={{ type: "submit", className: "continue" }}
+                    props={{ type: "submit", className: "continue", onClick }}
                   >
                     Log in
                   </ColorButton>
@@ -48,6 +57,7 @@ function Login(): [JSX.Element, () => void] {
                     "--lclr": "rgb(243, 52, 147)",
                     "--mclr": "rgb(221, 26, 123)",
                   },
+                  onClick,
                 }}
               >
                 <span class="material-symbols-outlined">pet_supplies</span>
@@ -62,6 +72,7 @@ function Login(): [JSX.Element, () => void] {
                     "--lclr": "rgb(50, 50, 50)",
                     "--mclr": "rgb(10, 10, 10)",
                   },
+                  onClick,
                 }}
               >
                 <span class="material-symbols-outlined">set_meal</span>

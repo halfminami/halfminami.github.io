@@ -21,8 +21,7 @@ div.loginform-wrapper:has(dialog[open]) {
     max-width: 90vw;
     max-height: 90vh;
     overflow: auto;
-  }
-  form {
+
     padding: var(--mgn) calc(var(--mgn) * 2.5);
   }
 
