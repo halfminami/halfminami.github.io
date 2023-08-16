@@ -3,6 +3,7 @@ import "./header.scss";
 function Header() {
   return (
     <header>
+      <Logo></Logo>
       <ul>
         <li>
           <h1>Lorem.</h1>
@@ -108,4 +109,8 @@ function Header() {
   );
 }
 
-export { Header };
+function Logo() {
+  return <div className="logo">Logorem Ipsum</div>;
+}
+
+export { Header, Logo };

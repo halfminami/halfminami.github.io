@@ -12,10 +12,38 @@ import { Navbar } from "./timeline/navbar";
 import { Footer } from "./timeline/footer";
 import { Login } from "./timeline/login";
 
-// const form = useRef<HTMLDialogElement>(null);
+const link = (
+  href: string,
+  rel = "stylesheet",
+  attr: { [key: string]: string } = {}
+) => {
+  const link = document.head.appendChild(document.createElement("link"));
+  link.rel = rel;
+  link.href = href;
+  for (const item in attr) {
+    link.setAttribute(item, attr[item]);
+  }
+};
 
-const [loginForm, showLoginForm] = Login(/* form */);
-// const showLoginForm = () => undefined;
+// icons
+link(
+  "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0"
+);
+
+// const tmp=<>
+// <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+// <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin></link>
+// <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet"></link></>
+
+// logofont
+link("https://fonts.googleapis.com", "preconnect");
+link("https://fonts.gstatic.com", "preconnect", { crossorigin: "true" });
+link(
+  "https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap",
+  "stylesheet"
+);
+
+const [loginForm, showLoginForm] = Login();
 render(loginForm, document.body.appendChild(document.createElement("div")));
 
 type PicsumInfo = { author: string; id: string; url: string };
@@ -141,3 +169,5 @@ render(<Footer></Footer>, document.getElementById("footer")!);
 
 import { timelineTitle as title } from ".";
 document.title = title;
+
+// showLoginForm();

@@ -47,6 +47,12 @@ main {
   #timeline {
     border-top: var(--bdr);
   }
+
+  // avoid overflowing on body
+  overflow: auto;
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
 
 button,
@@ -67,4 +73,8 @@ a.nav {
 button,
 a {
   cursor: pointer;
+}
+
+span.material-symbols-outlined {
+  vertical-align: middle;
 }

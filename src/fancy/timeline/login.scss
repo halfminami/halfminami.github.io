@@ -1,4 +1,6 @@
 div.loginform-wrapper:has(dialog[open]) {
+  --span-mgn: 0.3em;
+
   background-color: rgb(0, 0, 0, 0.5);
   backdrop-filter: blur(6px);
   z-index: 10;
@@ -8,8 +10,88 @@ div.loginform-wrapper:has(dialog[open]) {
   right: 0;
   top: 0;
   bottom: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  dialog {
+    border: none;
+    border-radius: var(--rad);
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: auto;
+  }
+  form {
+    padding: var(--mgn) calc(var(--mgn) * 2.5);
+  }
+
+  ul,
+  li {
+    list-style: none;
+    padding: var(--span-mgn) 0;
+    margin: 0;
+  }
+
+  h1 {
+    width: fit-content;
+    margin: auto;
+
+    font-size: 1.5rem;
+  }
+
+  span {
+    display: inline-block;
+    margin-right: var(--span-mgn);
+  }
+  p > a {
+    margin-left: var(--span-mgn);
+  }
+
+  input {
+    border: var(--bdr);
+  }
+  input:focus {
+    background-color: var(--lightgrey);
+  }
+
+  button[type="submit"] {
+    display: block;
+    margin: auto;
+  }
+
+  .continue {
+    display: block;
+    width: 100%;
+
+    text-align: center;
+  }
+
+  span.close {
+    margin: 0;
+    padding: 0;
+  }
+
+  button:has(span.close) {
+    border-radius: 100%;
+    background-color: transparent;
+    border: none;
+  }
+  button:has(span.close):hover {
+    background-color: var(--lightgrey);
+  }
 }
 
-body:has(dialog[open]) {
-  overflow: hidden;
+// top ul
+ul.loginform-ul > li + li {
+  border-top: var(--bdr);
+}
+ul.loginform-ul > li:has(.close) {
+  border: none;
+  padding: 0;
+  margin: 0;
+
+  position: absolute;
+  top: var(--span-mgn);
+  right: var(--span-mgn);
 }
