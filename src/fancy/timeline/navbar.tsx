@@ -1,7 +1,10 @@
-import { ColorAnchor } from "./colorButton";
+import { ColorAnchor, ColorButton } from "./colorButton";
+import { needsLogin } from "./login";
 import "./navbar.scss";
 
-function Navbar() {
+type navbarProps = {} & needsLogin;
+
+function Navbar({ login }: navbarProps) {
   return (
     <nav>
       <ul>
@@ -10,9 +13,14 @@ function Navbar() {
         </li>
 
         <li>
-          <a className={["login", "nav"].join(" ")} href={"#"}>
+          <ColorButton
+            props={{
+              className: ["login", "nav"].join(" "),
+              onClick: () => login(),
+            }}
+          >
             log in
-          </a>
+          </ColorButton>
         </li>
 
         <li>

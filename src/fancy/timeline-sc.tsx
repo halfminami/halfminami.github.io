@@ -10,6 +10,13 @@ import { Bio, BioProp } from "./timeline/bio";
 import { Header } from "./timeline/header";
 import { Navbar } from "./timeline/navbar";
 import { Footer } from "./timeline/footer";
+import { Login } from "./timeline/login";
+
+// const form = useRef<HTMLDialogElement>(null);
+
+const [loginForm, showLoginForm] = Login(/* form */);
+// const showLoginForm = () => undefined;
+render(loginForm, document.body.appendChild(document.createElement("div")));
 
 type PicsumInfo = { author: string; id: string; url: string };
 
@@ -56,6 +63,7 @@ render(
         imgalt: "",
         bio: posts.bio,
         name: posts.name,
+        login: showLoginForm,
       };
 
       return {
@@ -125,7 +133,10 @@ for (const article of Array.from(
 }
 
 render(<Header></Header>, document.getElementById("header")!);
-render(<Navbar></Navbar>, document.getElementById("navbar")!);
+render(
+  <Navbar login={showLoginForm}></Navbar>,
+  document.getElementById("navbar")!
+);
 render(<Footer></Footer>, document.getElementById("footer")!);
 
 import { timelineTitle as title } from ".";

@@ -1,14 +1,15 @@
 import "./bio.scss";
 import { ColorButton } from "./colorButton";
+import { needsLogin } from "./login";
 
 export type BioProp = {
   imgsrc: string;
   imgalt: string;
   bio: string[];
   name: string;
-};
+} & needsLogin;
 
-function Bio({ imgsrc, imgalt, bio, name }: BioProp) {
+function Bio({ imgsrc, imgalt, bio, name, login }: BioProp) {
   return (
     <section className={"profile"}>
       <div className={"icon-wrapper"}>
@@ -23,9 +24,7 @@ function Bio({ imgsrc, imgalt, bio, name }: BioProp) {
         <ColorButton
           props={{
             className: "dolor",
-            onClick: () => {
-              console.log("dolor!");
-            },
+            onClick: () => login(),
           }}
         >
           dolor
@@ -34,9 +33,7 @@ function Bio({ imgsrc, imgalt, bio, name }: BioProp) {
         <ColorButton
           props={{
             className: "sit amet",
-            onClick: () => {
-              console.log("sit amet!");
-            },
+            onClick: () => login(),
           }}
         >
           sit amet
