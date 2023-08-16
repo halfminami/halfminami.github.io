@@ -78,3 +78,37 @@ a {
 span.material-symbols-outlined {
   vertical-align: middle;
 }
+
+@mixin text-input {
+  padding: var(--pad);
+
+  min-width: 5rem;
+
+  margin: auto;
+
+  border: var(--bdr);
+  border-radius: var(--rad);
+
+  background-color: inherit;
+
+  transition-property: background-color;
+}
+@mixin text-input-focus {
+  background-color: var(--lightgrey);
+}
+
+@mixin google-font-icon {
+  --_r: 1.5rem;
+  font-family: "Material Symbols Outlined";
+  vertical-align: middle;
+
+  font-style: normal;
+}
+
+h1.post-head::before {
+  @include google-font-icon();
+  margin-right: calc(var(--_r) / 3);
+  color: var(--grey);
+
+  content: "\e9b0"; // grid square
+}

@@ -9,7 +9,14 @@ function Navbar({ login }: navbarProps) {
     <nav>
       <ul>
         <li>
-          <input type="text" name="search" placeholder={"search"} />
+          <form role={"search"}>
+            <div className={"search-wrapper"}>
+              <input type="search" name="search" placeholder={"search"} />
+              <button className="search" aria-label={"go search"}>
+                <span class="material-symbols-outlined">search</span>
+              </button>
+            </div>
+          </form>
         </li>
 
         <li>

@@ -25,15 +25,10 @@ const link = (
   }
 };
 
-// icons
-link(
-  "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0"
-);
-
-// const tmp=<>
-// <link rel="preconnect" href="https://fonts.googleapis.com"></link>
-// <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin></link>
-// <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet"></link></>
+// // icons
+// link(
+//   "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0"
+// );
 
 // logofont
 link("https://fonts.googleapis.com", "preconnect");
@@ -108,7 +103,7 @@ render(
 
 render(
   <section>
-    <h1>posts</h1>
+    <h1 className={"post-head"}>posts</h1>
     <div className={"posts"}>
       {posts.posts.length == 0 ? (
         <p style={{ margin: "var(--mgn)" }}>no post yet.</p>

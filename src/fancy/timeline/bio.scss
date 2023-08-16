@@ -1,3 +1,4 @@
+@use "./timeline.scss";
 .profile {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -40,4 +41,21 @@
       margin-left: calc(var(--mgn) / 2);
     }
   }
+}
+
+.dolor::before,
+.sitamet::before {
+  @include timeline.google-font-icon();
+  border-right: var(--bdr);
+
+  --_r: 0.6em;
+
+  margin-right: var(--_r);
+  padding-right: calc(var(--_r) - 0.1em);
+}
+.dolor::before {
+  content: "\e145";
+}
+.sitamet::before {
+  content: "\e163";
 }

@@ -1,3 +1,5 @@
+@use "./timeline.scss";
+
 div.loginform-wrapper:has(dialog[open]) {
   --span-mgn: 0.3em;
 
@@ -48,10 +50,10 @@ div.loginform-wrapper:has(dialog[open]) {
   }
 
   input {
-    border: var(--bdr);
+    @include timeline.text-input();
   }
   input:focus {
-    background-color: var(--lightgrey);
+    @include timeline.text-input-focus();
   }
 
   button[type="submit"] {
@@ -93,4 +95,18 @@ ul.loginform-ul > li:has(.close) {
   position: absolute;
   top: var(--span-mgn);
   right: var(--span-mgn);
+}
+
+label.email::before,
+label.password::before {
+  @include timeline.google-font-icon();
+
+  font-size: var(--_r);
+  margin-right: calc(var(--_r) / 3);
+}
+label.email::before {
+  content: "\e158"; // mail
+}
+label.password::before {
+  content: "\e73c"; // key
 }

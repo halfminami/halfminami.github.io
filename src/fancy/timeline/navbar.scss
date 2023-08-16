@@ -1,3 +1,5 @@
+@use "./timeline.scss";
+
 div#navbar {
   margin-bottom: var(--mgn);
   padding: var(--pad);
@@ -26,27 +28,29 @@ div#navbar {
         right: 0;
         position: relative;
 
-        input[type="text"] {
-          display: block;
-          padding: var(--pad);
+        form[role="search"] {
+          div.search-wrapper {
+            display: block;
+            margin: auto;
 
-          width: calc(100% - 10rem);
-          min-width: 5rem;
+            width: fit-content;
 
-          margin: auto;
+            input[type="search"] {
+              // width: calc(100% - 10rem);
+              width: 50vw;
+              @include timeline.text-input();
+            }
 
-          border: var(--bdr);
-          border-radius: var(--rad);
+            input[name="search"]:focus {
+              @include timeline.text-input-focus();
+            }
 
-          background-color: inherit;
-
-          transition-property: background-color;
+            button.search {
+              background-color: transparent;
+              border-radius: 100%;
+            }
+          }
         }
-
-        input[name="search"]:focus {
-          background-color: var(--lightgrey);
-        }
-
         .login {
           background-color: inherit;
           border: var(--bdr);

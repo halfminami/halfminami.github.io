@@ -1,5 +1,7 @@
 button.color-button,
 a.color-button {
+  display: inline-block;
+
   background-color: var(--lclr);
   color: var(--bkg);
   border: none;

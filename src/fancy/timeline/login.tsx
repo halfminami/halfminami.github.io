@@ -29,15 +29,21 @@ function Login(): [JSX.Element, () => void] {
               <h1>Log in</h1>
               <ul>
                 <li>
-                  <label>
-                    <span class="material-symbols-outlined">mail</span>
-                    <input type="email" placeholder={"e-mail"} />
+                  <label className={"email"}>
+                    <input
+                      type="email"
+                      placeholder={"e-mail"}
+                      aria-label={"e-mail"}
+                    />
                   </label>
                 </li>
                 <li>
-                  <label>
-                    <span class="material-symbols-outlined">key</span>
-                    <input type="password" placeholder={"password"} />
+                  <label className={"password"}>
+                    <input
+                      type="password"
+                      placeholder={"password"}
+                      aria-label={"password"}
+                    />
                   </label>
                 </li>
                 <li>

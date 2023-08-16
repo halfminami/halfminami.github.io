@@ -1,10 +1,9 @@
 #header-wrapper {
   display: grid;
-  grid-template-columns: minmax(auto, 20rem) auto;
+  grid-template-columns: minmax(auto, 20rem) minmax(30rem, 100vw);
 
   #header:hover {
     min-width: fit-content;
-    z-index: 9;
   }
 
   #header {
@@ -16,6 +15,8 @@
     overflow: auto;
 
     border-right: var(--bdr);
+
+    z-index: 9;
 
     header {
       padding: calc(var(--mgn) / 2) 0px;

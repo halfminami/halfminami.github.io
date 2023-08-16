@@ -32,7 +32,7 @@ function Bio({ imgsrc, imgalt, bio, name, login }: BioProp) {
 
         <ColorButton
           props={{
-            className: "sit amet",
+            className: "sitamet",
             onClick: () => login(),
           }}
         >
