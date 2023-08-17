@@ -1,7 +1,7 @@
 @use "./timeline.scss";
 
 div.loginform-wrapper:has(dialog[open]) {
-  --span-mgn: 0.3em;
+  --span-mgn: var(--icon-cir);
 
   background-color: rgb(0, 0, 0, 0.5);
   backdrop-filter: blur(6px);
@@ -74,12 +74,10 @@ div.loginform-wrapper:has(dialog[open]) {
   }
 
   button:has(span.close) {
-    border-radius: 100%;
-    background-color: transparent;
-    border: none;
+    @include timeline.icon-button();
   }
   button:has(span.close):hover {
-    background-color: var(--lightgrey);
+    @include timeline.icon-button-hover();
   }
 }
 

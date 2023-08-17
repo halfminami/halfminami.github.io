@@ -35,19 +35,30 @@ div#navbar {
 
             width: fit-content;
 
+            border: var(--bdr);
+            border-radius: var(--rad);
+
+            padding: 0 calc(var(--pad) / 2);
+
             input[type="search"] {
-              // width: calc(100% - 10rem);
-              width: 50vw;
+              width: 30vw;
               @include timeline.text-input();
+              border: none;
             }
 
             input[name="search"]:focus {
               @include timeline.text-input-focus();
+              border: none;
+              outline: none;
             }
 
             button.search {
-              background-color: transparent;
-              border-radius: 100%;
+              @include timeline.icon-button();
+              margin-right: 0;
+            }
+
+            button.search:hover {
+              @include timeline.icon-button-hover();
             }
           }
         }

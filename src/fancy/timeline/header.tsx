@@ -6,7 +6,9 @@ function Header() {
       <Logo></Logo>
       <ul>
         <li>
-          <h1>Lorem.</h1>
+          <h1>
+            <span class="material-symbols-outlined">home</span> Lorem.
+          </h1>
           <ul>
             <li>
               <p>
@@ -39,7 +41,9 @@ function Header() {
           </ul>
         </li>
         <li>
-          <h1>Maiores?</h1>
+          <h1>
+            <span class="material-symbols-outlined">explore</span> Maiores?
+          </h1>
           <ul>
             <li>
               <p>
@@ -72,7 +76,9 @@ function Header() {
           </ul>
         </li>
         <li>
-          <h1>Ab.</h1>
+          <h1>
+            <span class="material-symbols-outlined">rocket_launch</span> Ab.
+          </h1>
           <ul>
             <li>
               <p>

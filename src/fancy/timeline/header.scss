@@ -66,6 +66,11 @@
         }
       }
     }
+    span.material-symbols-outlined {
+      vertical-align: bottom;
+      color: var(--grey);
+      user-select: none;
+    }
   }
 }
 
@@ -86,4 +91,6 @@
   padding-bottom: 0.2em;
 
   margin: auto;
+
+  user-select: none;
 }

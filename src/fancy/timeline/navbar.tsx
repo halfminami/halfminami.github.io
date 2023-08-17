@@ -11,8 +11,16 @@ function Navbar({ login }: navbarProps) {
         <li>
           <form role={"search"}>
             <div className={"search-wrapper"}>
-              <input type="search" name="search" placeholder={"search"} />
-              <button className="search" aria-label={"go search"}>
+              <input
+                type="search"
+                name="search"
+                placeholder={"search"}
+                aria-label={"input search"}
+              />
+              <button
+                className="search nav"
+                onClick={(e) => e.preventDefault()}
+              >
                 <span class="material-symbols-outlined">search</span>
               </button>
             </div>

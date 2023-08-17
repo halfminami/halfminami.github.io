@@ -19,6 +19,7 @@
   --bdr: 0.1rem solid var(--shadow);
   --rad: 0.5em;
   --max-height: 730px;
+  --icon-cir: 0.3em;
 }
 
 body {
@@ -92,8 +93,21 @@ span.material-symbols-outlined {
   background-color: inherit;
 
   transition-property: background-color;
+
+  vertical-align: middle;
 }
 @mixin text-input-focus {
+  background-color: var(--lightgrey);
+}
+@mixin icon-button {
+  background-color: inherit;
+  color: inherit;
+  border-radius: 100%;
+  border: none;
+  padding: var(--pad);
+  margin: calc(var(--pad) / 2);
+}
+@mixin icon-button-hover {
   background-color: var(--lightgrey);
 }
 
