@@ -23,7 +23,8 @@ div.main-welcome-wrap {
   }
 }
 
-div:has(div.main-welcome-wrap) {
+// div:has(div.main-welcome-wrap),
+div.welcome {
   --lh: 10rem;
   min-height: var(--lh);
 

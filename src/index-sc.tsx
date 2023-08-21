@@ -44,13 +44,13 @@ render(
 mntHeader("root");
 mntFooter();
 
-render(
-  <MainWelcome></MainWelcome>,
-  document.body.insertAdjacentElement(
-    "afterbegin",
-    document.createElement("div")
-  )!
-);
+const welcome = document.body.insertAdjacentElement(
+  "afterbegin",
+  document.createElement("div")
+)!;
+welcome.classList.add("welcome");
+
+render(<MainWelcome></MainWelcome>, welcome);
 
 render(
   <ul>
