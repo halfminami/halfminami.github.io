@@ -5,20 +5,21 @@ function DefLogo() {
     <div className="hide">
       <svg width={0} height={0}>
         <defs>
-          <g id={"logo"} className={"logo"}>
-            <image
+          <g id={"logo"}>
+            <use
               x={"3.7em"}
               y={"0em"}
               width={"1.6em"}
+              // google font icon
               href={
-                "/src/fancy/software-landing/flare_FILL0_wght300_GRAD0_opsz48.svg"
+                "/src/fancy/software-landing/flare_FILL0_wght300_GRAD0_opsz48.svg#svg"
               }
               opacity={0.5}
             />
-            <text x={".2em"} y={"1em"} fill={"black"}>
+            <text x={".2em"} y={"1em"}>
               Logorem
             </text>
-            <text x={"2.1em"} y={"1.7em"} fill={"black"}>
+            <text x={"2.1em"} y={"1.7em"}>
               Ipsum
             </text>
           </g>
@@ -31,7 +32,8 @@ function DefLogo() {
 function Logo() {
   return (
     <svg height={"4em"} width={"10.2em"}>
-      <use href={"#logo"}></use>
+      {/* change logo fill */}
+      <use href={"#logo"} className={"logo"}></use>
     </svg>
   );
 }
