@@ -1,0 +1,5 @@
+@use "./software-landing.scss";
+
+.card {
+  @include software-landing.border-rad-box();
+}

@@ -5,7 +5,7 @@ type ScreenBoxProps = JSXProps & {};
 
 function ScreenBox({ children, style }: ScreenBoxProps) {
   return (
-    <section className="screen" {...{ style }}>
+    <section className="screenbox" {...{ style }}>
       {children}
     </section>
   );

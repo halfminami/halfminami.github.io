@@ -1,3 +1,21 @@
+:root {
+  --clr0: rgb(31, 184, 171);
+  --clr1: rgb(5, 154, 141);
+  --bkg: white;
+  --color: black;
+  --mid0: gray;
+  --mid1: lightgray;
+  --mid2: #eee;
+  --bdr: 0.1rem solid var(--mid0);
+  --pad: 0.4rem;
+  --rad: 0.4rem;
+  --dur: 0.2s;
+}
+
+body {
+  font-family: sans-serif;
+}
+
 .hide {
   width: 0px;
   height: 0px;
@@ -5,4 +23,11 @@
   position: absolute;
   top: 0px;
   left: 0px;
+}
+
+@mixin border-rad-box {
+  border: var(--bdr);
+  border-radius: var(--rad);
+  padding: var(--pad);
+  background-color: var(--bkg);
 }

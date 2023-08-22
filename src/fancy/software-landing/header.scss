@@ -1,0 +1,121 @@
+@use "./software-landing.scss";
+
+header {
+  --_a-drop: calc(var(--pad) * 2);
+
+  div {
+    display: grid;
+    grid-template-columns: auto auto;
+
+    // hover color change
+    a,
+    li {
+      font-size: 1rem;
+      color: var(--mid0);
+      text-decoration: none;
+    }
+    nav > ul > li:hover > a,
+    a:hover {
+      color: var(--color);
+    }
+
+    nav > ul > li:not(:has(.rad-button)):hover {
+      background-color: var(--mid2);
+
+      transition-duration: var(--dur);
+      transition-property: background-color;
+      transition-timing-function: ease-out;
+    }
+
+    // expanding underline
+    nav > ul > li:not(:has(.rad-button))::after {
+      content: "";
+      position: absolute;
+      background-color: var(--clr0);
+
+      // just line under text
+      top: calc(1.8 / 1.05 * 1em);
+      left: 0px;
+      right: 0px;
+
+      height: 0.25em;
+
+      transform: scaleX(0);
+      transition-duration: var(--dur);
+      transition-property: transform;
+      transition-timing-function: ease-out;
+    }
+    nav > ul > li:not(:has(.rad-button)):hover::after {
+      transform: scaleX(1);
+    }
+
+    // separating border
+    nav > ul > li:not(:has(.rad-button)) + li:not(:has(.rad-button)) {
+      border-right: var(--bdr);
+    }
+    nav > ul > li:not(:has(.rad-button)):first-of-type {
+      border-right: var(--bdr);
+      border-left: var(--bdr);
+    }
+
+    nav {
+      ul,
+      li {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        position: relative;
+      }
+
+      .dropdown {
+        @include software-landing.border-rad-box();
+
+        width: 100%;
+        max-height: 80vh;
+        overflow: auto;
+        box-sizing: border-box;
+
+        position: absolute;
+        // -1*margin
+        left: calc(-1 * var(--pad));
+
+        text-align: initial;
+
+        margin: var(--pad);
+        margin-top: var(--_a-drop);
+
+        visibility: hidden;
+        opacity: 0;
+
+        transition-duration: var(--dur);
+        transition-property: opacity;
+        transition-timing-function: linear;
+
+        ul {
+          li {
+            margin: var(--pad);
+          }
+          li li:before {
+            content: "- ";
+          }
+        }
+      }
+      li:hover > .dropdown,
+      .dropdown:hover {
+        visibility: unset;
+        opacity: unset;
+      }
+    }
+    nav > ul {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr) auto auto;
+      padding: var(--pad) calc(var(--pad) * 3);
+    }
+    nav > ul > li {
+      text-align: center;
+
+      padding: var(--pad);
+      padding-bottom: var(--_a-drop);
+    }
+  }
+}

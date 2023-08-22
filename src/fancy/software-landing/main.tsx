@@ -6,6 +6,7 @@ import { SwitchContent } from "./switchContent";
 
 function Main() {
   return (
+    // <div className={"screenbox-wrapper"}>
     <>
       <ScreenBox>
         <h1>Lorem ipsum dolor sit amet.</h1>
@@ -109,7 +110,7 @@ function Main() {
               Nostrum qui fugit reprehenderit magnam unde rerum quidem, vitae
               optio?
             </p>
-            <CodeBox>sudo apt update</CodeBox>
+            <CodeBox>./a.out</CodeBox>
           </article>
         </Card>
         <Card>
@@ -144,6 +145,7 @@ function Main() {
         </Card>
       </ScreenBox>
     </>
+    // </div>
   );
 }
 
