@@ -12,7 +12,19 @@
   --dur: 0.2s;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bkg: black;
+    --color: white;
+    --mid0: darkgray;
+    --mid1: rgb(91, 91, 91);
+    --mid2: rgb(38, 38, 38);
+  }
+}
+
 body {
+  background-color: var(--bkg);
+  color: var(--color);
   font-family: sans-serif;
 }
 
@@ -30,4 +42,13 @@ body {
   border-radius: var(--rad);
   padding: var(--pad);
   background-color: var(--bkg);
+}
+
+@mixin transits {
+  transition-duration: var(--dur);
+  transition-timing-function: ease-out;
+}
+
+@mixin boxshadows {
+  box-shadow: 0 var(--pad) var(--pad) 0 var(--mid2);
 }

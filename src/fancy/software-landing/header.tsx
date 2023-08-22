@@ -5,14 +5,16 @@ function Header({ companyName = "Logorem Ipsum" }) {
   return (
     <header>
       <div>
-        <Logo></Logo>
+        <a href={"#"}>
+          <Logo></Logo>
+        </a>
 
         <nav>
           <ul>
-            <li>
+            <li className={"d0"}>
               <a href={"#"}>Download</a>
             </li>
-            <li>
+            <li className={"d0"}>
               <a href={"#"} className={"dropdown-toggle"}>
                 Docs
               </a>
@@ -33,7 +35,7 @@ function Header({ companyName = "Logorem Ipsum" }) {
                 </ul>
               </div>
             </li>
-            <li>
+            <li className={"d0"}>
               <a href={"#"} className={"dropdown-toggle"}>
                 Company
               </a>
@@ -64,7 +66,7 @@ function Header({ companyName = "Logorem Ipsum" }) {
                 </ul>
               </div>
             </li>
-            <li>
+            <li className={"d0"}>
               <a href={"#"} className={"dropdown-toggle"}>
                 Pricing
               </a>

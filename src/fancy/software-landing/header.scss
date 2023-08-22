@@ -13,22 +13,31 @@ header {
       font-size: 1rem;
       color: var(--mid0);
       text-decoration: none;
+
+      transition-property: color;
+      @include software-landing.transits();
     }
-    nav > ul > li:hover > a,
+    li.d0:hover > a,
     a:hover {
       color: var(--color);
     }
+    a:has(.logo) {
+      color: var(--color);
+      width: fit-content;
+    }
+    a:has(.logo):hover {
+      color: var(--mid0);
+    }
 
-    nav > ul > li:not(:has(.rad-button)):hover {
+    li.d0:hover {
       background-color: var(--mid2);
 
-      transition-duration: var(--dur);
       transition-property: background-color;
-      transition-timing-function: ease-out;
+      @include software-landing.transits();
     }
 
     // expanding underline
-    nav > ul > li:not(:has(.rad-button))::after {
+    li.d0::after {
       content: "";
       position: absolute;
       background-color: var(--clr0);
@@ -41,19 +50,18 @@ header {
       height: 0.25em;
 
       transform: scaleX(0);
-      transition-duration: var(--dur);
       transition-property: transform;
-      transition-timing-function: ease-out;
+      @include software-landing.transits();
     }
-    nav > ul > li:not(:has(.rad-button)):hover::after {
+    li.d0:hover::after {
       transform: scaleX(1);
     }
 
     // separating border
-    nav > ul > li:not(:has(.rad-button)) + li:not(:has(.rad-button)) {
+    li.d0 + li.d0 {
       border-right: var(--bdr);
     }
-    nav > ul > li:not(:has(.rad-button)):first-of-type {
+    li.d0:first-of-type {
       border-right: var(--bdr);
       border-left: var(--bdr);
     }
@@ -87,9 +95,10 @@ header {
         visibility: hidden;
         opacity: 0;
 
-        transition-duration: var(--dur);
         transition-property: opacity;
-        transition-timing-function: linear;
+        @include software-landing.transits();
+
+        @include software-landing.boxshadows();
 
         ul {
           li {
@@ -108,10 +117,11 @@ header {
     }
     nav > ul {
       display: grid;
+      // menu items | login signup
       grid-template-columns: repeat(4, 1fr) auto auto;
       padding: var(--pad) calc(var(--pad) * 3);
     }
-    nav > ul > li {
+    li.d0 {
       text-align: center;
 
       padding: var(--pad);
