@@ -1,0 +1,29 @@
+@use "sass:color";
+@use "./software-landing.scss";
+
+.rad-button {
+  color: var(--mid0);
+
+  padding: var(--pad);
+  margin: var(--pad);
+
+  @include software-landing.border-rad-box();
+  @include software-landing.boxshadows();
+  @include software-landing.transits();
+  transition-property: box-shadow, background-color;
+
+  display: block;
+
+  cursor: pointer;
+}
+
+.rad-button:hover {
+  color: var(--color);
+  box-shadow: 0px 1px 4px 0px var(--mid2);
+  //   background-color: var(--mid2);
+  background-color: var(--clr0);
+}
+
+.rad-button:active {
+  background-color: color.adjust(software-landing.$clr0, $lightness: -5%);
+}

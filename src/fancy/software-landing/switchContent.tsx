@@ -12,11 +12,17 @@ function SwitchContent({
   style,
   contentStyle,
   switchStyle,
+  props,
+  className,
 }: SwitchContentProps) {
   const [indx, setIndx] = useState(0);
 
   return (
-    <div className="switch-content" {...{ style }}>
+    <div
+      className={["switch-content", className].join(" ")}
+      {...{ style }}
+      {...props}
+    >
       <div {...{ style: contentStyle }}>{contents[indx].content}</div>
       <div {...{ style: switchStyle }}>
         {contents.map((item, i) => (

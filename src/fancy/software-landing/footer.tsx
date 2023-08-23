@@ -1,5 +1,6 @@
 import "./footer.scss";
 import { Logo } from "./logo";
+import { RadiusButton } from "./radiusButton";
 
 function Footer({ companyName = "Logorem Ipsum" }) {
   return (
@@ -30,7 +31,7 @@ function Footer({ companyName = "Logorem Ipsum" }) {
         </div>
 
         <div>
-          <form action="./" method={"post"} className={"subscribe"}>
+          <form action="" method={"post"} className={"subscribe"}>
             <h1>Subscribe to our newsletter</h1>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint in
@@ -48,7 +49,13 @@ function Footer({ companyName = "Logorem Ipsum" }) {
               <input type="checkbox" required /> I agree with {companyName}'s
               <a href="#">Privacy Policy</a>
             </label>
-            <button type={"submit"}>Subscribe now</button>
+            <RadiusButton
+              {...{
+                type: "submit",
+              }}
+            >
+              Subscribe now
+            </RadiusButton>
           </form>
         </div>
 

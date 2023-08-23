@@ -2,10 +2,15 @@
 
 header {
   --_a-drop: calc(var(--pad) * 2);
+  @include software-landing.boxshadows();
+
+  padding: var(--pad);
 
   div {
     display: grid;
     grid-template-columns: auto auto;
+
+    align-items: center;
 
     // hover color change
     a,
@@ -42,8 +47,7 @@ header {
       position: absolute;
       background-color: var(--clr0);
 
-      // just line under text
-      top: calc(1.8 / 1.05 * 1em);
+      bottom: 0px;
       left: 0px;
       right: 0px;
 
@@ -64,6 +68,10 @@ header {
     li.d0:first-of-type {
       border-right: var(--bdr);
       border-left: var(--bdr);
+    }
+    // login left
+    li.d0 + li:has(.rad-button) {
+      margin-left: var(--pad);
     }
 
     nav {
@@ -102,7 +110,7 @@ header {
 
         ul {
           li {
-            margin: var(--pad);
+            margin: calc(var(--pad) * 2) var(--pad);
           }
           li li:before {
             content: "- ";
@@ -120,6 +128,8 @@ header {
       // menu items | login signup
       grid-template-columns: repeat(4, 1fr) auto auto;
       padding: var(--pad) calc(var(--pad) * 3);
+
+      align-items: center;
     }
     li.d0 {
       text-align: center;

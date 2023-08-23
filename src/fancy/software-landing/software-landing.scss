@@ -1,5 +1,7 @@
+$clr0: rgb(31, 184, 171);
+
 :root {
-  --clr0: rgb(31, 184, 171);
+  --clr0: #{$clr0};
   --clr1: rgb(5, 154, 141);
   --bkg: white;
   --color: black;
@@ -26,6 +28,9 @@ body {
   background-color: var(--bkg);
   color: var(--color);
   font-family: sans-serif;
+
+  margin: 0;
+  padding: 0;
 }
 
 .hide {

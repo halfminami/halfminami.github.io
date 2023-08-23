@@ -1,5 +1,6 @@
 import "./header.scss";
 import { Logo } from "./logo";
+import { RadiusAnchor } from "./radiusButton";
 
 function Header({ companyName = "Logorem Ipsum" }) {
   return (
@@ -85,14 +86,10 @@ function Header({ companyName = "Logorem Ipsum" }) {
               </div>
             </li>
             <li>
-              <a href="#" className={"rad-button"}>
-                log in
-              </a>
+              <RadiusAnchor href="#">log in</RadiusAnchor>
             </li>
             <li>
-              <a href="#" className={"rad-button"}>
-                sign up
-              </a>
+              <RadiusAnchor href="#">sign up</RadiusAnchor>
             </li>
           </ul>
         </nav>

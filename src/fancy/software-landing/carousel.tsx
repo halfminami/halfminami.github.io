@@ -6,9 +6,9 @@ interface CarouselProps extends JSXProps {
   children: React.JSX.Element[];
 }
 
-function Carousel({ style, children }: CarouselProps) {
+function Carousel({ style, children, props, className }: CarouselProps) {
   return (
-    <ul className={"carousel"} {...{ style }}>
+    <ul className={["carousel", className].join(" ")} {...{ style }} {...props}>
       {children.map((item) => (
         <li>{item}</li>
       ))}

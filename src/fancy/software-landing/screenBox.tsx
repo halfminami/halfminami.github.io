@@ -3,9 +3,13 @@ import { JSXProps } from "./type";
 
 type ScreenBoxProps = JSXProps & {};
 
-function ScreenBox({ children, style }: ScreenBoxProps) {
+function ScreenBox({ children, style, props, className }: ScreenBoxProps) {
   return (
-    <section className="screenbox" {...{ style }}>
+    <section
+      className={["screenbox", className].join(" ")}
+      {...{ style }}
+      {...props}
+    >
       {children}
     </section>
   );

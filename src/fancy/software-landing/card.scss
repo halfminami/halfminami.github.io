@@ -2,4 +2,73 @@
 
 .card {
   @include software-landing.border-rad-box();
+  @include software-landing.boxshadows();
+  padding: 0px;
+  border: none;
+
+  width: var(--_card-wid);
+  aspect-ratio: 1/1;
+
+  box-sizing: border-box;
+
+  margin: var(--pad);
+  overflow: auto;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-items: center;
+
+  .cardinner {
+    width: calc(var(--_card-wid) - 4px);
+    aspect-ratio: 1/1;
+
+    box-sizing: border-box;
+
+    background-color: var(--bkg);
+
+    @include software-landing.border-rad-box();
+    border: none;
+
+    h1 {
+      font-size: 1.5rem !important;
+    }
+  }
+}
+
+$n: 6;
+$hsl-start: 130;
+$hsl-end: 300;
+$hsl-range: calc($hsl-end - $hsl-start);
+@for $i from 1 to $n + 1 {
+  .card:nth-of-type(#{$n}n + #{$i}) {
+    background: linear-gradient(
+      135deg,
+      hsl(
+        calc($i * ($hsl-range / 2) / $n + $hsl-start),
+        100%,
+        var(--_card-light)
+      ),
+      hsl(
+        calc($i * ($hsl-range / 2) / $n + ($hsl-range / 2) + $hsl-start),
+        100%,
+        var(--_card-light)
+      )
+    );
+  }
+}
+
+:root {
+  --_card-wid: 18rem;
+  --_card-maxcol: 3;
+}
+
+:root {
+  --_card-light: 80%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --_card-light: 40%;
+  }
 }

@@ -5,9 +5,9 @@ interface CodeBoxProps extends JSXProps {
   title?: string;
 }
 
-function CodeBox({ children, title, style }: CodeBoxProps) {
+function CodeBox({ children, title, style, props, className }: CodeBoxProps) {
   return (
-    <div className={"codebox"} {...{ style }}>
+    <div className={["codebox", className].join(" ")} {...{ style }} {...props}>
       <samp>
         <kbd>{children}</kbd>
       </samp>
