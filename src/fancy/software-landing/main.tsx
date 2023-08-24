@@ -4,14 +4,30 @@ import { CoolButton } from "./coolButton";
 import { ScreenBox } from "./screenBox";
 import { SwitchContent } from "./switchContent";
 
+const textLinearGradient = (c0: string, c1: string) => ({
+  background: `linear-gradient(120deg, ${c0}, ${c1})`,
+  webkitTextFillColor: "transparent",
+  webkitBackgroundClip: "text",
+  backgroundClip: "text",
+});
+
 function Main() {
   return (
-    // <div className={"screenbox-wrapper"}>
     <>
       <ScreenBox>
         <div className="grid21">
           <div>
-            <h1>Lorem ipsum dolor sit amet.</h1>
+            <h1>
+              Lorem ipsum{" "}
+              <span style={textLinearGradient("skyblue", "#4848ff")}>
+                dolor
+              </span>{" "}
+              <span style={textLinearGradient("hotpink", "#9934ff")}>sit</span>{" "}
+              <span style={textLinearGradient("yellowgreen", "#1acc1a")}>
+                amet
+              </span>
+              .
+            </h1>
             <h2>
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos,
               sint.
@@ -195,7 +211,6 @@ function Main() {
         </div>
       </ScreenBox>
     </>
-    // </div>
   );
 }
 

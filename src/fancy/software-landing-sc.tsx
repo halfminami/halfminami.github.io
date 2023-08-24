@@ -5,6 +5,7 @@ import { Footer } from "./software-landing/footer";
 import { render } from "preact";
 import { DefLogo } from "./software-landing/logo";
 import { Main } from "./software-landing/main";
+const hdr = document.getElementById("header")!;
 
 render(
   <DefLogo></DefLogo>,
@@ -14,7 +15,7 @@ render(
   )!
 );
 render(<Main></Main>, document.getElementById("main")!);
-render(<Header></Header>, document.getElementById("header")!);
+render(<Header top={hdr}></Header>, hdr);
 render(<Footer></Footer>, document.getElementById("footer")!);
 
 document.title = title;

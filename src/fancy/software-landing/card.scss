@@ -19,6 +19,9 @@
   align-items: center;
   justify-items: center;
 
+  @include software-landing.transits();
+  transition-property: margin-top, margin-bottom, box-shadow;
+
   .cardinner {
     width: calc(var(--_card-wid) - 4px);
     aspect-ratio: 1/1;
@@ -34,6 +37,10 @@
       font-size: 1.5rem !important;
     }
   }
+}
+
+.card:hover {
+  @include software-landing.boxshadows-push();
 }
 
 $n: 6;

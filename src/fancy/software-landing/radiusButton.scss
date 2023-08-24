@@ -10,7 +10,7 @@
   @include software-landing.border-rad-box();
   @include software-landing.boxshadows();
   @include software-landing.transits();
-  transition-property: box-shadow, background-color;
+  transition-property: box-shadow, background-color, margin-top, margin-bottom;
 
   display: block;
 
@@ -19,8 +19,7 @@
 
 .rad-button:hover {
   color: var(--color);
-  box-shadow: 0px 1px 4px 0px var(--mid2);
-  //   background-color: var(--mid2);
+  @include software-landing.boxshadows-push();
   background-color: var(--clr0);
 }
 

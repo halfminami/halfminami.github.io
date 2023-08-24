@@ -2,12 +2,13 @@ $clr0: rgb(31, 184, 171);
 
 :root {
   --clr0: #{$clr0};
-  --clr1: rgb(5, 154, 141);
+  --clr1: rgba(24, 223, 207, 0.3);
   --bkg: white;
   --color: black;
   --mid0: gray;
   --mid1: lightgray;
   --mid2: #eee;
+  --mid2shadow: #00000016;
   --bdr: 0.1rem solid var(--mid0);
   --pad: 0.4rem;
   --rad: 0.4rem;
@@ -17,10 +18,12 @@ $clr0: rgb(31, 184, 171);
 @media (prefers-color-scheme: dark) {
   :root {
     --bkg: black;
+    // --clr1: rgb(3, 69, 64);
     --color: white;
     --mid0: darkgray;
     --mid1: rgb(91, 91, 91);
     --mid2: rgb(38, 38, 38);
+    --mid2shadow: #ffffff33;
   }
 }
 
@@ -55,5 +58,11 @@ body {
 }
 
 @mixin boxshadows {
-  box-shadow: 0 var(--pad) var(--pad) 0 var(--mid2);
+  box-shadow: 0 var(--pad) var(--pad) 0 var(--mid2shadow);
+}
+
+@mixin boxshadows-push {
+  margin-top: calc(var(--pad) + 2px);
+  margin-bottom: calc(var(--pad) - 2px);
+  box-shadow: 0px 1px 4px 0px var(--mid2shadow);
 }

@@ -4,7 +4,8 @@ header {
   --_a-drop: calc(var(--pad) * 2);
   @include software-landing.boxshadows();
 
-  padding: var(--pad);
+  padding: 0 var(--pad);
+  background-color: var(--bkg);
 
   div {
     display: grid;
@@ -100,6 +101,7 @@ header {
         margin: var(--pad);
         margin-top: var(--_a-drop);
 
+        // w/o js, will hide immediately after mouse pointer goes away
         visibility: hidden;
         opacity: 0;
 
@@ -119,7 +121,8 @@ header {
       }
       li:hover > .dropdown,
       .dropdown:hover {
-        visibility: unset;
+        visibility: visible;
+
         opacity: unset;
       }
     }
@@ -138,4 +141,11 @@ header {
       padding-bottom: var(--_a-drop);
     }
   }
+}
+
+#header {
+  z-index: 9;
+  // position: relative;
+  position: sticky;
+  top: 0;
 }
