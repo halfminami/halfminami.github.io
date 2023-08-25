@@ -10,16 +10,55 @@ function Header({
   companyName?: string;
   top: HTMLElement;
 }) {
-  // const [scY, setScY] = useState(window.scrollY);
+  const [_, setPrevY] = useState(window.scrollY);
+  const [isScrollDown, setIsScrollDown] = useState(true);
 
-  // useEffect(() => {
-  //   const listener = () => setScY(window.scrollY);
-  //   window.addEventListener("scroll", listener);
-  //   return () => window.removeEventListener("scroll", listener);
-  // }, []);
+  const TH = window.innerHeight / 3;
 
-  // top.style.top = `${scY}px`;
+  // header transition property
+  useEffect(() => {
+    top.style.transitionProperty = "top";
+    top.style.transitionDuration = "var(--dur)";
+    return () => {
+      top.style.transitionProperty = "";
+      top.style.transitionDuration = "";
+    };
+  }, []);
 
+  // scrollY for header
+  useEffect(() => {
+    const listener = () => {
+      setPrevY((prev) => {
+        const scY = window.scrollY;
+
+        if (prev - scY < 0) {
+          setIsScrollDown(true);
+          return scY;
+        } else if (prev - scY > TH) {
+          setIsScrollDown(false);
+          return scY;
+        }
+        return prev;
+      });
+    };
+    window.addEventListener("scroll", listener);
+    return () => window.removeEventListener("scroll", listener);
+  }, []);
+
+  // sticky header position
+  useEffect(() => {
+    if (isScrollDown) {
+      // box shadow margin
+      top.style.top = `-${top.clientHeight + 5}px`;
+    } else {
+      top.style.top = "0px";
+    }
+    return () => {
+      top.style.top = "";
+    };
+  }, [isScrollDown]);
+
+  // hold dropdown
   useEffect(() => {
     const listener = (e: Event) => {
       const delay = 100;

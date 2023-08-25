@@ -4,13 +4,9 @@
   width: 100%;
   min-height: 100vh;
 
-  display: grid;
-  grid-template-columns: 1fr;
-  margin: auto;
+  @include software-landing.placecenter();
 
-  justify-content: space-around;
-  justify-items: center;
-  align-items: center;
+  margin: auto;
 
   // @include software-landing.border-rad-box();
   padding-left: calc(var(--pad) * 2);
@@ -29,8 +25,8 @@
     align-items: center;
   }
 
-  @for $i from 1 to 3 {
-    @for $j from 1 to 3 {
+  @for $i from 0 to 3 {
+    @for $j from 0 to 3 {
       .grid#{$i}#{$j} {
         grid-template-columns: #{$i}fr #{$j}fr;
       }

@@ -5,7 +5,12 @@ interface CardProps extends JSXProps {}
 
 function Card({ children, style, props, className }: CardProps) {
   return (
-    <div className={["card", className].join(" ")} {...{ style }} {...props}>
+    <div
+      className={["cardwrapper", className].join(" ")}
+      {...{ style }}
+      {...props}
+    >
+      <div className={"card"}></div>
       <div className={"cardinner"}>{children}</div>
     </div>
   );

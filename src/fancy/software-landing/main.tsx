@@ -95,24 +95,35 @@ function Main() {
       </ScreenBox>
 
       <ScreenBox>
-        <div>
-          <h1>Quos temporibus architecto molestiae facilis!</h1>
-          <h2>
-            Quod ut cumque alias. Nisi incidunt impedit sapiente nesciunt
-            suscipit.
-          </h2>
-          <p>
-            Totam provident perspiciatis labore dolorem iure voluptatem
-            consequatur officiis similique tenetur nisi praesentium cupiditate
-            atque cumque corporis quasi voluptas, eligendi officia harum eos
-            veritatis perferendis ipsum? Officiis pariatur in cum.
-          </p>
-          <p>
-            Quibusdam ratione iure quidem deleniti voluptatum quod modi cum
-            totam, magnam consequuntur asperiores inventore laboriosam accusamus
-            recusandae illum accusantium. Suscipit doloribus dolorem ut
-            inventore consequuntur tenetur consectetur eum, quisquam numquam.
-          </p>
+        <div
+          className={"grid"}
+          style={{
+            gridTemplateColumns: "auto",
+            position: "relative",
+          }}
+        >
+          <div className={"blobby"}></div>
+          <div className={"blobby"}></div>
+          <div>
+            <h1>Quos temporibus architecto molestiae facilis!</h1>
+            <h2>
+              Quod ut cumque alias. Nisi incidunt impedit sapiente nesciunt
+              suscipit.
+            </h2>
+            <p>
+              Totam provident perspiciatis labore dolorem iure voluptatem
+              consequatur officiis similique tenetur nisi praesentium cupiditate
+              atque cumque corporis quasi voluptas, eligendi officia harum eos
+              veritatis perferendis ipsum? Officiis pariatur in cum.
+            </p>
+            <p>
+              Quibusdam ratione iure quidem deleniti voluptatum quod modi cum
+              totam, magnam consequuntur asperiores inventore laboriosam
+              accusamus recusandae illum accusantium. Suscipit doloribus dolorem
+              ut inventore consequuntur tenetur consectetur eum, quisquam
+              numquam.
+            </p>
+          </div>
         </div>
       </ScreenBox>
 

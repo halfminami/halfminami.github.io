@@ -1,6 +1,6 @@
 @use "./software-landing.scss";
 
-.card {
+.cardwrapper {
   @include software-landing.border-rad-box();
   @include software-landing.boxshadows();
   padding: 0px;
@@ -12,35 +12,63 @@
   box-sizing: border-box;
 
   margin: var(--pad);
-  overflow: auto;
+  overflow: hidden;
+  position: relative;
 
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: center;
-  justify-items: center;
+  @include software-landing.placecenter();
 
   @include software-landing.transits();
   transition-property: margin-top, margin-bottom, box-shadow;
 
+  .card {
+    left: 0;
+    width: calc(var(--_card-wid) * 3);
+    height: calc(var(--_card-wid));
+
+    // not set zIndex -1
+    position: absolute;
+
+    @include software-landing.transits();
+    transition-property: left;
+  }
   .cardinner {
+    color: var(--mid0);
+    @include software-landing.transits();
+    transition-property: color;
+
     width: calc(var(--_card-wid) - 4px);
     aspect-ratio: 1/1;
 
     box-sizing: border-box;
+    overflow: auto;
+    @include software-landing.placecenter();
 
     background-color: var(--bkg);
 
     @include software-landing.border-rad-box();
     border: none;
 
-    h1 {
-      font-size: 1.5rem !important;
-    }
+    // background linearGradient
+    z-index: 2;
+  }
+  h1 {
+    font-size: 1.5rem !important;
+  }
+  h1:first-of-type {
+    margin-top: 0px;
   }
 }
 
-.card:hover {
+.cardwrapper:hover {
   @include software-landing.boxshadows-push();
+
+  .card {
+    animation: increaseleft 2s linear 0s infinite normal;
+  }
+
+  .cardinner {
+    color: var(--color);
+  }
 }
 
 $n: 6;
@@ -48,9 +76,19 @@ $hsl-start: 130;
 $hsl-end: 300;
 $hsl-range: calc($hsl-end - $hsl-start);
 @for $i from 1 to $n + 1 {
-  .card:nth-of-type(#{$n}n + #{$i}) {
+  .cardwrapper:nth-of-type(#{$n}n + #{$i}) .card {
     background: linear-gradient(
-      135deg,
+      90deg,
+      hsl(
+        calc($i * ($hsl-range / 2) / $n + $hsl-start),
+        100%,
+        var(--_card-light)
+      ),
+      hsl(
+        calc($i * ($hsl-range / 2) / $n + ($hsl-range / 2) + $hsl-start),
+        100%,
+        var(--_card-light)
+      ),
       hsl(
         calc($i * ($hsl-range / 2) / $n + $hsl-start),
         100%,
@@ -77,5 +115,15 @@ $hsl-range: calc($hsl-end - $hsl-start);
 @media (prefers-color-scheme: dark) {
   :root {
     --_card-light: 40%;
+  }
+}
+
+// from codepen "start coding" button
+@keyframes increaseleft {
+  0% {
+    left: 0px;
+  }
+  100% {
+    left: calc(-2 * var(--_card-wid));
   }
 }
