@@ -46,7 +46,7 @@ function Footer({ companyName = "Logorem Ipsum" }) {
               required
             />
             <label>
-              <input type="checkbox" required /> I agree with {companyName}'s
+              <input type="checkbox" required /> I agree with {companyName}'s{" "}
               <a href="#">Privacy Policy</a>
             </label>
             <RadiusButton

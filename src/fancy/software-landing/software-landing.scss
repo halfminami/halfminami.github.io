@@ -18,7 +18,6 @@ $clr0: rgb(31, 184, 171);
 @media (prefers-color-scheme: dark) {
   :root {
     --bkg: black;
-    // --clr1: rgb(3, 69, 64);
     --color: white;
     --mid0: darkgray;
     --mid1: rgb(91, 91, 91);
@@ -34,6 +33,15 @@ body {
 
   margin: 0;
   padding: 0;
+}
+
+// underline-like style
+em {
+  font-weight: 600;
+  text-decoration: none;
+  font-style: normal;
+
+  background: linear-gradient(transparent 65%, var(--clr1) 35%);
 }
 
 .hide {

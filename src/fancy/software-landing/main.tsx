@@ -1,4 +1,3 @@
-import { useEffect } from "preact/hooks";
 import { Card } from "./card";
 import { CodeBox } from "./codeBox";
 import { CoolButton } from "./coolButton";
@@ -30,8 +29,10 @@ function Main() {
               .
             </h1>
             <h2>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos,
-              sint.
+              <em>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos,
+                sint.
+              </em>
             </h2>
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt
@@ -57,7 +58,9 @@ function Main() {
           <div>
             <h1>Hic, odit autem! Enim, doloremque.</h1>
             <h2>
-              Facere, quia aut ipsam numquam neque eos similique itaque nisi.
+              <em>
+                Facere, quia aut ipsam numquam neque eos similique itaque nisi.
+              </em>
             </h2>
             <p>
               Sint harum maxime culpa molestiae fuga expedita natus fugit iste
@@ -110,14 +113,20 @@ function Main() {
           <div>
             <h1>Quos temporibus architecto molestiae facilis!</h1>
             <h2>
-              Quod ut cumque alias. Nisi incidunt impedit sapiente nesciunt
-              suscipit.
+              <em>
+                Quod ut cumque alias. Nisi incidunt impedit sapiente nesciunt
+                suscipit.
+              </em>
             </h2>
             <p>
               Totam provident perspiciatis labore dolorem iure voluptatem
               consequatur officiis similique tenetur nisi praesentium cupiditate
-              atque cumque corporis quasi voluptas, eligendi officia harum eos
-              veritatis perferendis ipsum? Officiis pariatur in cum.
+              atque{" "}
+              <em>
+                cumque corporis quasi voluptas, eligendi officia harum eos
+                veritatis
+              </em>{" "}
+              perferendis ipsum? <em>Officiis pariatur in cum.</em>
             </p>
             <p>
               Quibusdam ratione iure quidem deleniti voluptatum quod modi cum
