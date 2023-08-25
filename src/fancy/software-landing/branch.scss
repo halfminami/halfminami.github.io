@@ -1,0 +1,34 @@
+:root {
+  --pointwid: 2rem;
+}
+
+// to sync svg circle.vert
+// refer to scrollhidden
+.point {
+  transition-delay: var(--scrolldelay);
+  transition-duration: var(--scrolldur);
+  transition-property: top;
+  transition-timing-function: ease-out;
+
+  position: relative;
+  width: var(--pointwid);
+  aspect-ratio: 1/1;
+  margin: var(--pad);
+
+  top: calc(-1 * var(--scrollpop));
+}
+
+.scrollshown .point {
+  top: 0;
+}
+
+circle {
+  &.vert {
+    fill: transparent;
+    stroke: var(--clr0);
+    stroke-width: 2;
+  }
+  &.insidevert {
+    fill: var(--clr1);
+  }
+}

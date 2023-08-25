@@ -15,6 +15,9 @@ $clr0: rgb(31, 184, 171);
   --pad: 0.4rem;
   --rad: 0.4rem;
   --dur: 0.2s;
+  --scrollpop: 10vh;
+  --scrolldur: 1s;
+  --scrolldelay: 0.2s;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -56,9 +59,9 @@ em {
 }
 
 .scrollhidden {
-  --_pop: 10vh;
-  --_delay: 0.2s;
-  --_dur: 1s;
+  --_pop: var(--scrollpop);
+  --_delay: var(--scrolldelay);
+  --_dur: var(--scrolldur);
 
   top: var(--_pop);
   position: relative;

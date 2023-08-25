@@ -12,7 +12,6 @@
   padding: var(--pad);
   padding-left: calc(var(--pad) * 2);
   padding-right: calc(var(--pad) * 2);
-  background-color: var(--bkg);
 
   box-sizing: border-box;
   overflow: auto;
@@ -24,14 +23,6 @@
     justify-content: space-between;
     justify-items: center;
     align-items: center;
-  }
-
-  @for $i from 0 to 3 {
-    @for $j from 0 to 3 {
-      .grid#{$i}#{$j} {
-        grid-template-columns: #{$i}fr #{$j}fr;
-      }
-    }
   }
 
   h1 {

@@ -3,6 +3,7 @@ import { CodeBox } from "./codeBox";
 import { CoolButton } from "./coolButton";
 import { ScreenBox } from "./screenBox";
 import { SwitchContent } from "./switchContent";
+import { Branch } from "./branch";
 
 const textLinearGradient = (c0: string, c1: string) => ({
   background: `linear-gradient(120deg, ${c0}, ${c1})`,
@@ -14,8 +15,9 @@ const textLinearGradient = (c0: string, c1: string) => ({
 function Main() {
   return (
     <>
+      <Branch></Branch>
       <ScreenBox className="scrollhidden">
-        <div className="grid21">
+        <div className="grid" style={{ gridTemplateColumns: "2fr auto 1fr" }}>
           <div>
             <h1>
               Lorem ipsum{" "}
@@ -47,6 +49,8 @@ function Main() {
               reprehenderit nostrum esse corrupti adipisci cumque.
             </p>
           </div>
+          {/* svg branch circle point */}
+          <div className="point"></div>
           <div className={"scrollhidden delay"}>
             <CodeBox>npm run dev</CodeBox>
           </div>
@@ -54,7 +58,7 @@ function Main() {
       </ScreenBox>
 
       <ScreenBox className="scrollhidden">
-        <div className={"grid11"}>
+        <div className={"grid"} style={{ gridTemplateColumns: "1fr auto 1fr" }}>
           <div>
             <h1>Hic, odit autem! Enim, doloremque.</h1>
             <h2>
@@ -75,6 +79,7 @@ function Main() {
               dolore voluptates doloribus.
             </p>
           </div>
+          <div className="point"></div>
           <div className={"scrollhidden delay"}>
             <SwitchContent
               contents={[
@@ -172,6 +177,13 @@ function Main() {
           >
             <Card>
               <article>
+                <span
+                  class="material-symbols-outlined"
+                  aria-hidden="true"
+                  style={textLinearGradient("hotpink", "slateblue")}
+                >
+                  rocket_launch
+                </span>
                 <h1>Lorem, ipsum dolor.</h1>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -182,6 +194,13 @@ function Main() {
             </Card>
             <Card>
               <article>
+                <span
+                  class="material-symbols-outlined"
+                  aria-hidden="true"
+                  style={textLinearGradient("yellowgreen", "dodgerblue")}
+                >
+                  language
+                </span>
                 <h1>Non, autem architecto.</h1>
                 <p>
                   Repudiandae in at corrupti corporis. Iure facere aspernatur
@@ -192,6 +211,13 @@ function Main() {
             </Card>
             <Card>
               <article>
+                <span
+                  class="material-symbols-outlined"
+                  aria-hidden="true"
+                  style={textLinearGradient("gold", "peru")}
+                >
+                  science
+                </span>
                 <h1>Aperiam, recusandae amet.</h1>
                 <p>
                   Nostrum qui fugit reprehenderit magnam unde rerum quidem,
@@ -202,6 +228,13 @@ function Main() {
             </Card>
             <Card>
               <article>
+                <span
+                  class="material-symbols-outlined"
+                  aria-hidden="true"
+                  style={textLinearGradient("lightsalmon", "tomato")}
+                >
+                  rebase
+                </span>
                 <h1>Dolore, sunt porro?</h1>
                 <p>
                   Assumenda at aliquam voluptatibus totam nam obcaecati, velit
@@ -212,6 +245,13 @@ function Main() {
             </Card>
             <Card>
               <article>
+                <span
+                  class="material-symbols-outlined"
+                  aria-hidden="true"
+                  style={textLinearGradient("hotpink", "crimson")}
+                >
+                  import_contacts
+                </span>
                 <h1>Iusto, quaerat laboriosam!</h1>
                 <p>
                   In voluptatum minus aut ad. Velit provident cupiditate
@@ -222,6 +262,13 @@ function Main() {
             </Card>
             <Card>
               <article>
+                <span
+                  class="material-symbols-outlined"
+                  aria-hidden="true"
+                  style={textLinearGradient("cyan", "cadetblue")}
+                >
+                  data_object
+                </span>
                 <h1>Obcaecati, rerum facilis!</h1>
                 <p>
                   Illo esse laudantium autem earum quasi. Rem explicabo
