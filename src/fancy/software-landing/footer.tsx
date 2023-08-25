@@ -5,66 +5,82 @@ import { RadiusButton } from "./radiusButton";
 function Footer({ companyName = "Logorem Ipsum" }) {
   return (
     <footer>
-      <div>
-        <Logo></Logo>
-
-        <div>
-          <nav>
-            <ul>
-              <li>
-                <a href="#">Home</a>
-              </li>
-              <li>
-                <a href={"#"}>About</a>
-              </li>
-              <li>
-                <a href={"#"}>Download</a>
-              </li>
-              <li>
-                <a href="#">Getting started</a>
-              </li>
-              <li>
-                <a href="#">Documentation</a>
-              </li>
-            </ul>
-          </nav>
+      <div className={"bdrtop"}>
+        <div aria-hidden="true">
+          <Logo></Logo>
         </div>
 
-        <div>
-          <form action="" method={"post"} className={"subscribe"}>
-            <h1>Subscribe to our newsletter</h1>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint in
-              cupiditate nesciunt aspernatur facere placeat dolor rerum
-              provident porro odit!
-            </p>
-            <input
-              type={"email"}
-              name={"subscribe"}
-              placeholder={"you@example.com"}
-              aria-label={"your email address to subscribe"}
-              required
-            />
-            <label>
-              <input type="checkbox" required /> I agree with {companyName}'s{" "}
-              <a href="#">Privacy Policy</a>
-            </label>
-            <RadiusButton
-              {...{
-                type: "submit",
-              }}
-            >
-              Subscribe now
-            </RadiusButton>
-          </form>
+        <div className={"nav"}>
+          <div>
+            <nav>
+              <ul className={"d0"}>
+                <li>
+                  <a href="#">Home</a>
+                </li>
+                <li>
+                  <a href={"#"}>About</a>
+                </li>
+                <li>
+                  <a href={"#"}>Download</a>
+                </li>
+                <li>
+                  <a href="#">Getting started</a>
+                </li>
+                <li>
+                  <a href="#">Documentation</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <div>
+            <form action="" method={"post"} className={"subscribe"}>
+              <h1>
+                <em>Subscribe to our newsletter</em>
+              </h1>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint
+                in cupiditate nesciunt aspernatur facere placeat dolor rerum
+                provident porro odit!
+              </p>
+              <input
+                type={"email"}
+                name={"subscribe"}
+                placeholder={"you@example.com"}
+                aria-label={"your email address to subscribe"}
+                required
+              />
+              <label>
+                <input type="checkbox" required /> I agree with {companyName}'s{" "}
+                <a href="#">Privacy Policy</a>
+              </label>
+              <RadiusButton
+                {...{
+                  type: "submit",
+                }}
+              >
+                Subscribe now
+              </RadiusButton>
+            </form>
+          </div>
         </div>
 
-        <div>
+        <div className={"legal bdrtop"}>
           <nav>
             <ul>
               <li>
                 <p>
-                  <small>© 2023 {companyName}</small>
+                  <small style={{ color: "var(--mid0)" }}>
+                    <span
+                      style={{
+                        display: "inline-block",
+                        transform: "scaleX(-1)",
+                      }}
+                    >
+                      ©
+                    </span>{" "}
+                    2023 {companyName}
+                  </small>
                 </p>
               </li>
               <li>

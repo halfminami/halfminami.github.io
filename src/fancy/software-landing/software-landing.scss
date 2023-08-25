@@ -1,3 +1,5 @@
+@use "./blobby";
+
 $clr0: rgb(31, 184, 171);
 
 :root {
@@ -82,51 +84,33 @@ em {
   }
 }
 
-.blobby {
-  --_p0: 73%;
-  --_p1: 79%;
-  --_p2: 86%;
-  --_p3: 100%;
-  --_dur: 2s;
-  position: absolute;
+@mixin underline-anchor-normal {
+  color: var(--mid0);
+  text-decoration: underline;
+  text-decoration-color: transparent;
 
-  top: 0px;
-  right: 0px;
-
-  width: 20vw;
-  aspect-ratio: 10/9;
-
-  background-color: var(--clr1);
-
-  animation: blob var(--_dur) linear 0s infinite alternate;
+  transition-property: color, text-decoration-color;
+  @include transits();
 }
 
-.blobby:nth-of-type(2) {
-  animation-duration: calc(var(--_dur) * 2.5);
-  animation-delay: calc(var(--_dur) / 3);
+@mixin underline-anchor-hover {
+  text-decoration-color: var(--clr0);
+  color: var(--color);
 }
 
-.blobbywrapper {
-  position: relative;
-  margin-left: auto;
-  margin-right: 5vw;
-
-  right: 0;
-
-  z-index: -1;
+@mixin underline-anchor-active {
+  color: var(--clr0);
 }
 
-@keyframes blob {
-  0% {
-    border-radius: var(--_p1) var(--_p3) var(--_p1) var(--_p0);
-    opacity: 0.4;
+@mixin hover-anchor {
+  @include underline-anchor-normal();
+
+  &:hover {
+    @include underline-anchor-hover();
   }
-  50% {
-    border-radius: var(--_p0) var(--_p1) var(--_p2) var(--_p3);
-  }
-  100% {
-    border-radius: var(--_p3) var(--_p2) var(--_p0) var(--_p2);
-    opacity: 1;
+
+  &:active {
+    @include underline-anchor-active();
   }
 }
 
@@ -160,4 +144,13 @@ em {
 
   align-content: center;
   justify-content: center;
+}
+
+@mixin resetlist {
+  ul,
+  li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 }
