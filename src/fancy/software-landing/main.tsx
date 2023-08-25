@@ -1,3 +1,4 @@
+import { useEffect } from "preact/hooks";
 import { Card } from "./card";
 import { CodeBox } from "./codeBox";
 import { CoolButton } from "./coolButton";
@@ -14,7 +15,7 @@ const textLinearGradient = (c0: string, c1: string) => ({
 function Main() {
   return (
     <>
-      <ScreenBox>
+      <ScreenBox className="scrollhidden">
         <div className="grid21">
           <div>
             <h1>
@@ -45,13 +46,13 @@ function Main() {
               reprehenderit nostrum esse corrupti adipisci cumque.
             </p>
           </div>
-          <div>
+          <div className={"scrollhidden delay"}>
             <CodeBox>npm run dev</CodeBox>
           </div>
         </div>
       </ScreenBox>
 
-      <ScreenBox>
+      <ScreenBox className="scrollhidden">
         <div className={"grid11"}>
           <div>
             <h1>Hic, odit autem! Enim, doloremque.</h1>
@@ -71,7 +72,7 @@ function Main() {
               dolore voluptates doloribus.
             </p>
           </div>
-          <div>
+          <div className={"scrollhidden delay"}>
             <SwitchContent
               contents={[
                 {
@@ -94,7 +95,7 @@ function Main() {
         </div>
       </ScreenBox>
 
-      <ScreenBox>
+      <ScreenBox className="scrollhidden">
         <div
           className={"grid"}
           style={{
@@ -102,8 +103,10 @@ function Main() {
             position: "relative",
           }}
         >
-          <div className={"blobby"}></div>
-          <div className={"blobby"}></div>
+          <div className={"blobbywrapper scrollhidden delay"}>
+            <div className={"blobby"}></div>
+            <div className={"blobby"}></div>
+          </div>
           <div>
             <h1>Quos temporibus architecto molestiae facilis!</h1>
             <h2>
@@ -127,7 +130,7 @@ function Main() {
         </div>
       </ScreenBox>
 
-      <ScreenBox>
+      <ScreenBox className="scrollhidden">
         <div
           style={{
             display: "flex",

@@ -45,6 +45,35 @@ body {
   left: 0px;
 }
 
+.scrollhidden {
+  --_pop: 10vh;
+  --_delay: 0.2s;
+  --_dur: 1s;
+
+  top: var(--_pop);
+  position: relative;
+  opacity: 0;
+}
+
+.scrollhidden.scrollshown {
+  animation: scroll-show var(--_dur) ease-out var(--_delay) 1 forwards;
+}
+
+.delay {
+  animation-delay: calc(var(--_dur) + var(--_delay)) !important;
+}
+
+@keyframes scroll-show {
+  0% {
+    top: var(--_pop);
+    opacity: 0;
+  }
+  100% {
+    top: 0px;
+    opacity: 1;
+  }
+}
+
 .blobby {
   --_p0: 73%;
   --_p1: 79%;
@@ -53,8 +82,8 @@ body {
   --_dur: 2s;
   position: absolute;
 
-  top: 5vh;
-  right: 5vw;
+  top: 0px;
+  right: 0px;
 
   width: 20vw;
   aspect-ratio: 10/9;
@@ -69,8 +98,14 @@ body {
   animation-delay: calc(var(--_dur) / 3);
 }
 
-.blobby ~ * {
-  z-index: 1;
+.blobbywrapper {
+  position: relative;
+  margin-left: auto;
+  margin-right: 5vw;
+
+  right: 0;
+
+  z-index: -1;
 }
 
 @keyframes blob {
