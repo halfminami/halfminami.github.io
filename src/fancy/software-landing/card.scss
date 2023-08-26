@@ -28,8 +28,8 @@
     // not set zIndex -1
     position: absolute;
 
-    @include software-landing.transits();
-    transition-property: left;
+    animation: increaseleft 2s linear 0s infinite normal forwards;
+    animation-play-state: paused;
   }
   .cardinner {
     color: var(--mid0);
@@ -63,7 +63,7 @@
   @include software-landing.boxshadows-push();
 
   .card {
-    animation: increaseleft 2s linear 0s infinite normal forwards;
+    animation-play-state: running;
   }
 
   .cardinner {
