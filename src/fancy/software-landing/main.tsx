@@ -51,8 +51,84 @@ function Main() {
           </div>
           {/* svg branch circle point */}
           <div className="point"></div>
-          <div className={"scrollhidden delay"}>
-            <CodeBox>npm run dev</CodeBox>
+          <div
+            className="scrollhidden delay grid"
+            style={{
+              width: "90%",
+              // height: "90%",
+              gridTemplateColumns: "1fr",
+              justifyContent: "center",
+            }}
+          >
+            <CodeBox title="gnomesort.go" className="prog">
+              <span>
+                <span className={"k"}>package</span>&nbsp;gnome
+              </span>
+              <span></span>
+              <span>
+                <span className={"k"}>func</span>
+                &nbsp;GnomeSort&#91;T&nbsp;<span className={"t"}>any</span>
+                &#93;&#40;arr&nbsp;&#91;&#93;<span className={"t"}>T</span>
+                ,&nbsp;less&nbsp;<span className={"k"}>func</span>
+                &#40;<span className={"t"}>T</span>,&nbsp;
+                <span className={"t"}>T</span>&#41;&nbsp;
+                <span className={"t"}>bool</span>&#41;&nbsp;&#123;
+              </span>
+              <span>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span className={"k"}>for</span>
+                &nbsp;i&nbsp;:=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;len&#40;arr&#41;-1;&nbsp;&#123;
+              </span>
+              <span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span className={"k"}>if</span>
+                &nbsp;less&#40;arr&#91;i&#93;,&nbsp;arr&#91;i+1&#93;&#41;&nbsp;&#123;
+              </span>
+              <span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i++
+              </span>
+              <span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#125;&nbsp;
+                <span className={"k"}>else</span>&nbsp;&#123;
+              </span>
+              <span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;swap&#91;
+                <span className={"t"}>T</span>
+                &#93;&#40;arr,&nbsp;i,&nbsp;i+1&#41;
+              </span>
+              <span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span className={"k"}>if</span>
+                &nbsp;i&nbsp;==&nbsp;0&nbsp;&#123;
+              </span>
+              <span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i++
+              </span>
+              <span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#125;&nbsp;
+                <span className={"k"}>else</span>&nbsp;&#123;
+              </span>
+              <span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i--
+              </span>
+              <span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#125;
+              </span>
+              <span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#125;
+              </span>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;&#125;</span>
+              <span>&#125;</span>
+              <span></span>
+              <span>
+                <span className={"k"}>func</span>
+                &nbsp;swap&#91;T&nbsp;<span className={"t"}>any</span>
+                &#93;&#40;arr&nbsp;&#91;&#93;<span className={"t"}>T</span>
+                ,&nbsp;i1&nbsp;<span className={"t"}>int</span>,&nbsp;i2&nbsp;
+                <span className={"t"}>int</span>&#41;&nbsp;&#123;
+              </span>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;...</span>
+              <span>&#125;</span>
+            </CodeBox>
           </div>
         </div>
       </ScreenBox>
@@ -80,24 +156,92 @@ function Main() {
             </p>
           </div>
           <div className="point"></div>
-          <div className={"scrollhidden delay"}>
+          <div
+            className={"scrollhidden delay"}
+            style={{ width: "100%", height: "100%" }}
+          >
             <SwitchContent
               contents={[
                 {
-                  switch: <CoolButton>one</CoolButton>,
+                  switch: (
+                    <CoolButton style={{ margin: "var(--pad)" }}>
+                      one
+                    </CoolButton>
+                  ),
                   content: (
-                    <CodeBox title="powershell">kill -Name Code</CodeBox>
+                    <div
+                      className="scrollhidden delay"
+                      style={{
+                        width: "90%",
+                        //  height: "90%"
+                      }}
+                    >
+                      <CodeBox title="bash">
+                        <span className={"bash"}>go mod init</span>
+                      </CodeBox>
+                    </div>
                   ),
                 },
                 {
-                  switch: <CoolButton>two</CoolButton>,
-                  content: <CodeBox title="bash">go mod init</CodeBox>,
+                  switch: (
+                    <CoolButton style={{ margin: "var(--pad)" }}>
+                      two
+                    </CoolButton>
+                  ),
+                  content: (
+                    <div
+                      className="scrollhidden delay"
+                      style={{
+                        width: "90%",
+                        //  height: "90%"
+                      }}
+                    >
+                      <CodeBox
+                        title="powershell"
+                        style={{ backgroundColor: "#012456" }}
+                      >
+                        <span className={"powershell"}>
+                          <span className={"v"}>kill</span>{" "}
+                          <span className={"p"}>-Name</span> <span>Code</span>
+                        </span>
+                      </CodeBox>
+                    </div>
+                  ),
                 },
                 {
-                  switch: <CoolButton>three</CoolButton>,
-                  content: <CodeBox title="bash">npx expo start</CodeBox>,
+                  switch: (
+                    <CoolButton style={{ margin: "var(--pad)" }}>
+                      three
+                    </CoolButton>
+                  ),
+                  content: (
+                    <div
+                      className="scrollhidden delay"
+                      style={{
+                        width: "90%",
+                        //  height: "90%"
+                      }}
+                    >
+                      <CodeBox title="bash">
+                        <span className={"bash"}>npx expo start</span>
+                      </CodeBox>
+                    </div>
+                  ),
                 },
               ]}
+              switchStyle={{
+                gridTemplateColumns: "repeat(3,auto)",
+                margin: "var(--pad)",
+                justifyContent: "center",
+              }}
+              switchClass="grid"
+              style={{
+                gridTemplateColumns: "1fr",
+                width: "100%",
+                height: "100%",
+                justifyContent: "center",
+              }}
+              className="grid"
             ></SwitchContent>
           </div>
         </div>

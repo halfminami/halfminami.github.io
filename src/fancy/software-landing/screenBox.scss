@@ -16,13 +16,14 @@
   box-sizing: border-box;
   overflow: auto;
 
-  [class^="grid"] {
+  [class*="grid"] {
     display: grid;
     margin: auto;
 
     justify-content: space-between;
     justify-items: center;
     align-items: center;
+    align-content: center;
   }
 
   h1 {

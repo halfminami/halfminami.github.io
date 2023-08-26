@@ -3,17 +3,17 @@ import { JSXProps } from "./type";
 
 interface SwitchContentProps extends JSXProps {
   contents: { content: React.JSX.Element; switch: React.JSX.Element }[];
-  contentStyle?: React.CSSProperties;
   switchStyle?: React.CSSProperties;
+  switchClass?: string;
 }
 
 function SwitchContent({
   contents,
   style,
-  contentStyle,
   switchStyle,
   props,
   className,
+  switchClass,
 }: SwitchContentProps) {
   const [indx, setIndx] = useState(0);
 
@@ -23,8 +23,8 @@ function SwitchContent({
       {...{ style }}
       {...props}
     >
-      <div {...{ style: contentStyle }}>{contents[indx].content}</div>
-      <div {...{ style: switchStyle }}>
+      {contents[indx].content}
+      <div {...{ style: switchStyle }} className={switchClass}>
         {contents.map((item, i) => (
           <div onClick={() => setIndx(i)}> {item.switch}</div>
         ))}

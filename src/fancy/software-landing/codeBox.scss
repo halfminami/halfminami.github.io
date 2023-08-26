@@ -1,0 +1,137 @@
+@use "./software-landing.scss";
+
+.codebox {
+  --_background: #333;
+  --_background-dark: #222;
+  --_color: #eee;
+  --_font-family: "Consolas", "Courier", monospace;
+  --_font-size: 1rem;
+  --_pad: 0.5rem;
+  --_mgn: var(--_pad);
+  --_rad: var(--_pad);
+  --_lightgray: #999;
+  --_gray: #555;
+  --_alphagray: #00000033;
+  --_bdr: 0.1rem solid var(--_lightgray);
+
+  background-color: var(--_background-dark);
+  @include software-landing.transits();
+  transition-property: background-color;
+
+  border: var(--_bdr);
+  border-radius: var(--_rad);
+
+  box-shadow: 0px var(--_pad) var(--_pad) var(--_alphagray);
+
+  width: 100%;
+  height: fit-content;
+  max-height: 100%;
+
+  margin: auto;
+  overflow: auto;
+
+  display: grid;
+  grid-template-columns: 1fr;
+
+  .title {
+    padding: var(--_pad);
+    border-bottom: var(--_bdr);
+    border-color: var(--_gray);
+    background-color: var(--_background);
+    color: var(--_lightgray);
+    min-height: calc(var(--_font-size) / 4);
+
+    span {
+      font-size: var(--_font-size);
+      font-family: var(--_font-family);
+    }
+  }
+
+  .code {
+    padding: var(--_pad);
+    samp {
+      kbd {
+        color: var(--_color);
+        font-size: var(--_font-size);
+        font-family: var(--_font-family);
+      }
+    }
+  }
+}
+
+@mixin terminalpsudo($content) {
+  &::before {
+    content: "#{$content}";
+  }
+  &::after {
+    content: "\a0";
+    background: linear-gradient(transparent 75%, currentColor 25%);
+
+    animation: blink-tail 1.3s infinite;
+  }
+}
+
+// picked color from my powershell window..
+span.powershell {
+  color: #cccccc;
+
+  .v {
+    color: #f9f1a5;
+  }
+  .p {
+    color: #767676;
+  }
+
+  @include terminalpsudo("> ");
+}
+
+span.bash {
+  @include terminalpsudo("$ ");
+}
+
+@keyframes blink-tail {
+  0% {
+    background: linear-gradient(transparent 75%, transparent 25%);
+  }
+  40% {
+    background: linear-gradient(transparent 75%, transparent 25%);
+  }
+  60% {
+    background: linear-gradient(transparent 75%, currentColor 25%);
+  }
+  100% {
+    background: linear-gradient(transparent 75%, currentColor 25%);
+  }
+}
+
+.codebox.prog {
+  samp {
+    display: block;
+    kbd {
+      display: block;
+
+      counter-reset: line 0;
+      & > span {
+        display: block;
+        min-height: 1rem;
+        white-space: pre;
+
+        span.k {
+          color: rgb(80, 168, 255);
+        }
+        span.t {
+          color: rgb(0, 199, 33);
+        }
+
+        counter-increment: line 1;
+        &::before {
+          color: var(--_lightgray);
+          content: " " counter(line) "  ";
+        }
+        &:nth-of-type(9) ~ span::before {
+          content: counter(line) "  ";
+        }
+      }
+    }
+  }
+}
