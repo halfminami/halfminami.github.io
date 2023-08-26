@@ -2,18 +2,21 @@ import React, { useState } from "preact/compat";
 import { JSXProps } from "./type";
 
 interface SwitchContentProps extends JSXProps {
-  contents: { content: React.JSX.Element; switch: React.JSX.Element }[];
-  switchStyle?: React.CSSProperties;
-  switchClass?: string;
+  contents: {
+    content: React.JSX.Element;
+    renderSwitch: (_: { onClick: () => void }) => React.JSX.Element;
+  }[];
+  renderSwitchContainer: (_: {
+    children: React.JSX.Element;
+  }) => React.JSX.Element;
 }
 
 function SwitchContent({
   contents,
   style,
-  switchStyle,
   props,
   className,
-  switchClass,
+  renderSwitchContainer,
 }: SwitchContentProps) {
   const [indx, setIndx] = useState(0);
 
@@ -24,11 +27,15 @@ function SwitchContent({
       {...props}
     >
       {contents[indx].content}
-      <div {...{ style: switchStyle }} className={switchClass}>
-        {contents.map((item, i) => (
-          <div onClick={() => setIndx(i)}> {item.switch}</div>
-        ))}
-      </div>
+      {renderSwitchContainer({
+        children: (
+          <>
+            {contents.map((item, i) =>
+              item.renderSwitch({ onClick: () => setIndx(i) })
+            )}
+          </>
+        ),
+      })}
     </div>
   );
 }

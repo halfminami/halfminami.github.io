@@ -163,8 +163,11 @@ function Main() {
             <SwitchContent
               contents={[
                 {
-                  switch: (
-                    <CoolButton style={{ margin: "var(--pad)" }}>
+                  renderSwitch: (p) => (
+                    <CoolButton
+                      style={{ margin: "var(--pad)" }}
+                      {...{ props: { ...p } }}
+                    >
                       one
                     </CoolButton>
                   ),
@@ -183,8 +186,11 @@ function Main() {
                   ),
                 },
                 {
-                  switch: (
-                    <CoolButton style={{ margin: "var(--pad)" }}>
+                  renderSwitch: (p) => (
+                    <CoolButton
+                      style={{ margin: "var(--pad)" }}
+                      {...{ props: { ...p } }}
+                    >
                       two
                     </CoolButton>
                   ),
@@ -209,8 +215,11 @@ function Main() {
                   ),
                 },
                 {
-                  switch: (
-                    <CoolButton style={{ margin: "var(--pad)" }}>
+                  renderSwitch: (p) => (
+                    <CoolButton
+                      style={{ margin: "var(--pad)" }}
+                      {...{ props: { ...p } }}
+                    >
                       three
                     </CoolButton>
                   ),
@@ -229,12 +238,18 @@ function Main() {
                   ),
                 },
               ]}
-              switchStyle={{
-                gridTemplateColumns: "repeat(3,auto)",
-                margin: "var(--pad)",
-                justifyContent: "center",
-              }}
-              switchClass="grid"
+              renderSwitchContainer={({ children }) => (
+                <div
+                  style={{
+                    gridTemplateColumns: "repeat(3,auto)",
+                    margin: "var(--pad)",
+                    justifyContent: "center",
+                  }}
+                  className={"grid"}
+                >
+                  {children}
+                </div>
+              )}
               style={{
                 gridTemplateColumns: "1fr",
                 width: "100%",

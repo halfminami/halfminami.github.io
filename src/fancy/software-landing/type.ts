@@ -6,3 +6,4 @@ export type JSXProps = {
   props?: { [key: string]: string | ((_: any) => any) };
   className?: string;
 };
+// React.JSX.HTMLAttributes<T>
