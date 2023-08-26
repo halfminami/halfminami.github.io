@@ -43,17 +43,19 @@ function Footer({ companyName = "Logorem Ipsum" }) {
                 in cupiditate nesciunt aspernatur facere placeat dolor rerum
                 provident porro odit!
               </p>
-              <input
-                type={"email"}
-                name={"subscribe"}
-                placeholder={"you@example.com"}
-                aria-label={"your email address to subscribe"}
-                required
-              />
-              <label>
-                <input type="checkbox" required /> I agree with {companyName}'s{" "}
-                <a href="#">Privacy Policy</a>
-              </label>
+              <div style={{ margin: "var(--pad)" }}>
+                <input
+                  type={"email"}
+                  name={"subscribe"}
+                  placeholder={"you@example.com"}
+                  aria-label={"your email address to subscribe"}
+                  required
+                />
+                <label>
+                  <input type="checkbox" required /> I agree with {companyName}
+                  's <a href="#">Privacy Policy</a>
+                </label>
+              </div>
               <RadiusButton
                 {...{
                   type: "submit",

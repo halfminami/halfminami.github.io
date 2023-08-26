@@ -2,7 +2,7 @@
   --pointwid: 2rem;
 }
 
-// to sync svg circle.vert
+// to sync with svg circle.vert position
 // refer to scrollhidden
 .point {
   transition-delay: var(--scrolldelay);
@@ -18,11 +18,19 @@
   top: calc(-1 * var(--scrollpop));
 }
 
-.scrollshown .point {
+.scrollhidden .point {
+  top: calc(-1 * var(--scrollpop));
+}
+
+.scrollhidden.scrollshown .point {
   top: 0;
 }
 
 circle {
+  &.backvert {
+    fill: var(--bkg);
+    stroke: none;
+  }
   &.vert {
     fill: transparent;
     stroke: var(--clr0);
@@ -30,5 +38,31 @@ circle {
   }
   &.insidevert {
     fill: var(--clr1);
+    stroke: none;
+  }
+}
+
+path.bezier {
+  stroke: var(--clr1);
+  stroke-width: 3;
+  fill: none;
+
+  stroke-dasharray: 0 100;
+
+  animation: expand-path 30s ease 0s infinite forwards;
+}
+
+@keyframes expand-path {
+  0% {
+    stroke-dasharray: 0 100;
+    stroke-dashoffset: 100;
+  }
+  80% {
+    stroke-dasharray: 100 0;
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dasharray: 0 100;
+    stroke-dashoffset: 0;
   }
 }

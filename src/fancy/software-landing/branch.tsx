@@ -18,35 +18,51 @@ function getPos(el: HTMLElement) {
   };
 }
 
+function getPosStr(p: { x: number; y: number }) {
+  return `${p.x},${p.y}`;
+}
+
 /** branch circles for `.point` */
 function Branch() {
   const svg = useRef<SVGSVGElement>(null);
-  const circleWid = getComputedStyle(document.body).getPropertyValue(
-    "--pointwid"
-  );
   const [wid, setWid] = useState(0);
   const [hei, setHei] = useState(0);
 
   // resize listener
   useEffect(() => {
+    const circleWid = document.querySelector(".point")?.clientWidth || 30; // get px after render
     const arr = Array.from(document.querySelectorAll<HTMLDivElement>(".point"));
-    const circles: SVGCircleElement[][] = [];
+    const circles: SVGElement[][] = [];
+    const path = svg.current?.appendChild(
+      document.createElementNS("http://www.w3.org/2000/svg", "path")
+    )!;
+    path.classList.add("bezier");
+    // total of 100 dasharray
+    path.setAttribute("pathLength", "100");
+
     arr.forEach((_) => {
-      const circle = document.createElementNS(
+      const circle0 = document.createElementNS(
         "http://www.w3.org/2000/svg",
         "circle"
       );
-      circle.setAttribute("r", `calc(${circleWid} / 2)`);
-      circle.classList.add("vert");
+      circle0.setAttribute("r", `${circleWid / 1.2}`);
+      circle0.classList.add("backvert");
+      const circle1 = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "circle"
+      );
+      circle1.setAttribute("r", `${circleWid / 2}`);
+      circle1.classList.add("vert");
       const circle2 = document.createElementNS(
         "http://www.w3.org/2000/svg",
         "circle"
       );
-      circle2.setAttribute("r", `calc(${circleWid} / 3)`);
+      circle2.setAttribute("r", `${circleWid / 3}`);
       circle2.classList.add("insidevert");
 
-      circles.push([circle, circle2]);
-      svg.current?.appendChild(circle);
+      circles.push([circle0, circle1, circle2]);
+      svg.current?.appendChild(circle0);
+      svg.current?.appendChild(circle1);
       svg.current?.appendChild(circle2);
     });
 
@@ -63,10 +79,31 @@ function Branch() {
           item.setAttribute("cy", `${pos.centerY}`);
         });
       });
+
+      let d = `M${getPosStr({
+        x: getPos(arr[0]).centerX,
+        y: getPos(arr[0]).centerY,
+      })}`;
+      for (let i = 0; i < arr.length - 1; ++i) {
+        const p0 = getPos(arr[i]);
+        const p1 = getPos(arr[i + 1]);
+        d += `C${getPosStr({ x: p0.centerX, y: p1.centerY })} ${getPosStr({
+          x: p1.centerX,
+          y: p0.centerY,
+        })} ${getPosStr({ x: p1.centerX, y: p1.centerY })}`;
+      }
+      path.setAttribute("d", d);
     });
+
     ro.observe(document.body);
 
-    return () => ro.disconnect();
+    return () => {
+      circles
+        .flat(1)
+        .concat([path])
+        .forEach((item) => item.remove());
+      ro.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -87,6 +124,7 @@ function Branch() {
         bottom: 0,
         right: 0,
       }}
+      aria-hidden="true"
     ></svg>
   );
 }

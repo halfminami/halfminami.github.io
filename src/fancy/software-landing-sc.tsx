@@ -36,7 +36,7 @@ function A() {
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     );
     const els = Array.from(document.querySelectorAll(".scrollhidden"));
 

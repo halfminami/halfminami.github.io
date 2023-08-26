@@ -63,7 +63,7 @@
   @include software-landing.boxshadows-push();
 
   .card {
-    animation: increaseleft 2s linear 0s infinite normal;
+    animation: increaseleft 2s linear 0s infinite normal forwards;
   }
 
   .cardinner {

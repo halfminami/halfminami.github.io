@@ -107,7 +107,9 @@ function Main() {
         <div
           className={"grid"}
           style={{
-            gridTemplateColumns: "auto",
+            gridTemplateColumns: "auto auto",
+            gridTemplateRows: "auto auto",
+            gridAutoFlow: "column",
             position: "relative",
           }}
         >
@@ -141,8 +143,16 @@ function Main() {
               numquam.
             </p>
           </div>
+          {/* dummy for grid */}
+          <div></div>
+          <div className="point"></div>
         </div>
       </ScreenBox>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+        <div></div>
+        <div className="point" style={{ margin: "auto" }}></div>
+      </div>
 
       <ScreenBox className="scrollhidden">
         <div
