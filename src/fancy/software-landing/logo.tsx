@@ -12,7 +12,7 @@ function DefLogo() {
               width={"1.6em"}
               // google font icon
               href={
-                "/src/fancy/software-landing/flare_FILL0_wght300_GRAD0_opsz48.svg#svg"
+                "/fancy/software-landing/flare_FILL0_wght300_GRAD0_opsz48.svg#svg"
               }
               opacity={0.5}
             />
