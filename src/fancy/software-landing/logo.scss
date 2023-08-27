@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
+
+.logo {
+  --_logo-size: 30px;
+
+  font-family: "Roboto", sans-serif;
+  font-size: var(--_logo-size);
+
+  letter-spacing: calc(-1 * var(--_logo-size) / 20);
+
+  width: min-content;
+  height: min-content;
+
+  fill: currentColor;
+}

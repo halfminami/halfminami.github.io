@@ -1,0 +1,38 @@
+@use "./software-landing.scss";
+
+.screenbox {
+  max-width: 100%;
+  width: 70rem;
+  min-height: 100vh;
+
+  @include software-landing.placecenter();
+
+  margin: auto;
+
+  padding: var(--pad);
+  padding-left: calc(var(--pad) * 2);
+  padding-right: calc(var(--pad) * 2);
+
+  box-sizing: border-box;
+  overflow: auto;
+
+  [class*="grid"] {
+    display: grid;
+    margin: auto;
+
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  h1 {
+    font-size: 2.3rem;
+  }
+  h2 ~ p:nth-of-type(1) {
+    color: var(--color);
+  }
+  h2 ~ p {
+    color: var(--mid0);
+  }
+}

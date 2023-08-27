@@ -1,0 +1,48 @@
+.blobby {
+  --_p0: 73%;
+  --_p1: 79%;
+  --_p2: 86%;
+  --_p3: 100%;
+  --_dur: 2s;
+
+  position: absolute;
+
+  top: 0px;
+  right: 0px;
+
+  width: 20vw;
+  aspect-ratio: 10/9;
+
+  background-color: var(--clr1);
+
+  animation: blob var(--_dur) linear 0s infinite alternate;
+}
+
+.blobby:nth-of-type(2) {
+  animation-duration: calc(var(--_dur) * 2.5);
+  animation-delay: calc(var(--_dur) / 3);
+}
+
+.blobbywrapper {
+  position: relative;
+  margin-left: auto;
+  margin-right: 5vw;
+
+  right: 0;
+
+  z-index: -1;
+}
+
+@keyframes blob {
+  0% {
+    border-radius: var(--_p1) var(--_p3) var(--_p1) var(--_p0);
+    opacity: 0.4;
+  }
+  50% {
+    border-radius: var(--_p0) var(--_p1) var(--_p2) var(--_p3);
+  }
+  100% {
+    border-radius: var(--_p3) var(--_p2) var(--_p0) var(--_p2);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,56 @@
+@use "./software-landing.scss";
+
+.coolbutton {
+  --_r: 10px;
+  --_dur: 0.8s;
+
+  //   @include software-landing.boxshadows();
+  @include software-landing.border-rad-box();
+
+  font-size: 1rem;
+  border-radius: var(--rad);
+  padding: calc(var(--pad) / 1.2) calc(var(--pad) * 1.5);
+  //   border: none;
+
+  color: var(--clr0);
+  background-color: transparent;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  &:hover {
+    background-color: transparent;
+  }
+
+  position: relative;
+
+  .ripple {
+    position: absolute;
+    aspect-ratio: 1/1;
+    width: var(--_r);
+    border-radius: 100%;
+
+    opacity: 0;
+    background-color: var(--clr0);
+    z-index: -1; // no click on this element
+
+    @include software-landing.transits();
+    transition-property: opacity;
+
+    &.active {
+      animation: ripple var(--_dur) ease-out 0s 1 forwards;
+    }
+  }
+}
+
+@keyframes ripple {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(10);
+  }
+}

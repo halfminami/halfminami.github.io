@@ -1,0 +1,159 @@
+@use "./blobby";
+
+$clr0: rgb(31, 184, 171);
+
+:root {
+  --clr0: #{$clr0};
+  --clr1: rgba(24, 223, 207, 0.3);
+  --bkg: white;
+  --color: black;
+  --mid0: gray;
+  --mid1: lightgray;
+  --mid2: #eee;
+  --mid2shadow: #00000016;
+  --bdr: 0.1rem solid var(--mid0);
+  --pad: 0.4rem;
+  --rad: 0.4rem;
+  --dur: 0.2s;
+  --scrollpop: 10vh;
+  --scrolldur: 1s;
+  --scrolldelay: 0.2s;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bkg: black;
+    --color: white;
+    --mid0: darkgray;
+    --mid1: rgb(91, 91, 91);
+    --mid2: rgb(38, 38, 38);
+    --mid2shadow: #ffffff33;
+  }
+}
+
+body {
+  background-color: var(--bkg);
+  color: var(--color);
+  font-family: sans-serif;
+
+  margin: 0;
+  padding: 0;
+}
+
+// underline-like style
+em {
+  font-weight: 600;
+  text-decoration: none;
+  font-style: normal;
+
+  background: linear-gradient(transparent 65%, var(--clr1) 35%);
+}
+
+.hide {
+  width: 0px;
+  height: 0px;
+
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.scrollhidden {
+  --_pop: var(--scrollpop);
+  --_delay: var(--scrolldelay);
+  --_dur: var(--scrolldur);
+
+  top: var(--_pop);
+  position: relative;
+  opacity: 0;
+}
+
+.scrollhidden.scrollshown {
+  animation: scroll-show var(--_dur) ease-out var(--_delay) 1 forwards;
+}
+
+.delay {
+  animation-delay: calc(var(--_dur) + var(--_delay)) !important;
+}
+
+@keyframes scroll-show {
+  0% {
+    top: var(--_pop);
+    opacity: 0;
+  }
+  100% {
+    top: 0px;
+    opacity: 1;
+  }
+}
+
+@mixin underline-anchor-normal {
+  color: var(--mid0);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+
+  transition-property: color, text-decoration-color;
+  @include transits();
+}
+
+@mixin underline-anchor-hover {
+  text-decoration-color: var(--clr0);
+  color: var(--color);
+}
+
+@mixin underline-anchor-active {
+  color: var(--clr0);
+}
+
+@mixin hover-anchor {
+  @include underline-anchor-normal();
+
+  &:hover {
+    @include underline-anchor-hover();
+  }
+
+  &:active {
+    @include underline-anchor-active();
+  }
+}
+
+@mixin border-rad-box {
+  border: var(--bdr);
+  border-radius: var(--rad);
+  padding: var(--pad);
+  background-color: var(--bkg);
+}
+
+@mixin transits {
+  transition-duration: var(--dur);
+  transition-timing-function: ease-out;
+}
+
+@mixin boxshadows {
+  box-shadow: 0 var(--pad) var(--pad) 0 var(--mid2shadow);
+}
+
+@mixin boxshadows-push {
+  margin-top: calc(var(--pad) + 2px);
+  margin-bottom: calc(var(--pad) - 2px);
+  box-shadow: 0px 1px 4px 0px var(--mid2shadow);
+}
+
+@mixin placecenter {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-items: center;
+
+  align-content: center;
+  justify-content: center;
+}
+
+@mixin resetlist {
+  ul,
+  li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}

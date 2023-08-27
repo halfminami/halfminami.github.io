@@ -1,0 +1,124 @@
+@use "./software-landing.scss";
+
+footer {
+  .bdrtop {
+    border-top: var(--bdr);
+    border-top-color: var(--mid1);
+
+    padding-top: var(--pad);
+    padding-bottom: var(--pad);
+  }
+
+  background: linear-gradient(var(--bkg) 50%, var(--clr1));
+  padding: calc(var(--pad) * 3);
+
+  @include software-landing.resetlist();
+
+  a {
+    @include software-landing.hover-anchor();
+  }
+
+  .nav {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+
+    nav,
+    ul.d0 {
+      height: 100%;
+    }
+
+    ul.d0 {
+      display: flex;
+
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+
+      padding: var(--pad);
+    }
+  }
+
+  form {
+    @include software-landing.border-rad-box();
+    background-color: transparent;
+    border-color: var(--clr0);
+    padding: calc(var(--pad) * 3);
+    margin-bottom: var(--pad);
+
+    box-shadow: 0px 0px 10px 1px var(--clr1);
+
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    input {
+      @include software-landing.border-rad-box();
+
+      background-color: transparent;
+      color: currentColor;
+      font-size: 1rem;
+
+      &::placeholder {
+        color: var(--mid0);
+      }
+
+      &:focus {
+        background-color: var(--bkg);
+      }
+    }
+
+    button[type="submit"] {
+      font-size: 1.3rem;
+      position: relative;
+      padding: calc(var(--pad) * 1) calc(var(--pad) * 2) calc(var(--pad) * 1)
+        calc(var(--pad) * 1);
+
+      &::before {
+        font-family: "Material Symbols Outlined";
+        content: "\e5c8";
+        vertical-align: middle;
+
+        display: inline-block;
+        position: relative;
+
+        margin-right: calc(var(--pad) * 2);
+        left: 0;
+
+        @include software-landing.transits();
+        transition-property: left;
+      }
+
+      &:hover::before {
+        left: var(--pad);
+      }
+    }
+
+    a {
+      @include software-landing.hover-anchor();
+      color: var(--clr0);
+
+      &:hover {
+        color: var(--clr0);
+      }
+    }
+  }
+
+  .legal {
+    ul {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      align-items: center;
+      justify-content: flex-start;
+
+      li + li {
+        margin-left: calc(var(--pad) * 3);
+      }
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+}

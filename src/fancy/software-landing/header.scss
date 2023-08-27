@@ -1,0 +1,154 @@
+@use "./software-landing.scss";
+
+header {
+  --_a-drop: calc(var(--pad) * 2);
+  @include software-landing.boxshadows();
+
+  padding: 0 var(--pad);
+  background-color: var(--bkg);
+
+  div {
+    display: grid;
+    grid-template-columns: auto auto;
+
+    align-items: center;
+
+    // hover color change
+    a,
+    li {
+      @include software-landing.underline-anchor-normal();
+      text-decoration: none;
+    }
+    li.d0:hover > a,
+    a:hover {
+      @include software-landing.underline-anchor-hover();
+      text-decoration: none;
+    }
+    a:active {
+      @include software-landing.underline-anchor-active();
+      text-decoration: none;
+    }
+    a:has(.logo) {
+      color: var(--color);
+      width: fit-content;
+    }
+    a:has(.logo):hover {
+      color: var(--mid0);
+    }
+
+    li.d0:hover {
+      background-color: var(--mid2);
+
+      transition-property: background-color;
+      @include software-landing.transits();
+    }
+
+    // expanding underline
+    li.d0::after {
+      content: "";
+      position: absolute;
+      background-color: var(--clr0);
+
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
+
+      height: 0.25em;
+
+      transform: scaleX(0);
+      transition-property: transform;
+      @include software-landing.transits();
+    }
+    li.d0:hover::after {
+      transform: scaleX(1);
+    }
+
+    // separating border
+    li.d0 + li.d0 {
+      border-right: var(--bdr);
+    }
+    li.d0:first-of-type {
+      border-right: var(--bdr);
+      border-left: var(--bdr);
+    }
+    // login left
+    li.d0 + li:has(.rad-button) {
+      margin-left: var(--pad);
+    }
+
+    nav {
+      @include software-landing.resetlist();
+
+      ul,
+      li {
+        position: relative;
+      }
+
+      .dropdown {
+        @include software-landing.border-rad-box();
+
+        width: 100%;
+        max-height: 80vh;
+        overflow: auto;
+        box-sizing: border-box;
+
+        position: absolute;
+        // -1*margin
+        left: calc(-1 * var(--pad));
+
+        text-align: initial;
+
+        margin: var(--pad);
+        margin-top: var(--_a-drop);
+
+        // w/o js, will hide immediately after mouse pointer goes away
+        visibility: hidden;
+        opacity: 0;
+
+        transition-property: opacity;
+        @include software-landing.transits();
+
+        @include software-landing.boxshadows();
+
+        ul {
+          li {
+            margin: calc(var(--pad) * 2) var(--pad);
+            a {
+              @include software-landing.hover-anchor();
+            }
+          }
+          li li:before {
+            content: "- ";
+          }
+        }
+      }
+      li:hover > .dropdown,
+      .dropdown:hover {
+        visibility: visible;
+
+        opacity: unset;
+      }
+    }
+    nav > ul {
+      display: grid;
+      // 4 menu items | login signup
+      grid-template-columns: repeat(4, 1fr) auto auto;
+      padding: var(--pad) calc(var(--pad) * 3);
+
+      align-items: center;
+    }
+    li.d0 {
+      text-align: center;
+
+      padding: var(--pad);
+      padding-bottom: var(--_a-drop);
+    }
+  }
+}
+
+#header {
+  z-index: 9;
+  // position: relative;
+  position: sticky;
+  top: 0;
+}
