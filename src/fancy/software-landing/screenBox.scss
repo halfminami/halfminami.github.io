@@ -4,6 +4,7 @@
   max-width: 100%;
   width: 70rem;
   min-height: 100vh;
+  height: fit-content;
 
   @include software-landing.placecenter();
 
@@ -15,6 +16,7 @@
 
   box-sizing: border-box;
   overflow: auto;
+  overflow-y: hidden;
 
   [class*="grid"] {
     display: grid;
