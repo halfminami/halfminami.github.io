@@ -1,17 +1,18 @@
-import { render } from "preact";
-import { useState } from "preact/hooks";
+import { render } from 'preact';
+import { useState } from 'preact/hooks';
 
-import { MainWelcome } from "./assets/mainWelcome";
-import { Index as DemoIndex } from "./demo";
-import { Index as FancyIndex } from "./fancy";
-import { Msg } from "./assets/msg";
+import { MainWelcome } from './assets/mainWelcome';
+import { Index as DemoIndex } from './demo';
+import { Index as FancyIndex } from './fancy';
+import { Index as GistIndex } from './gist';
+import { Msg } from './assets/msg';
 
 // common styles
-import "./style.scss";
-import { mnt as mntHeader } from "./assets/header";
-import { RepoLink, mnt as mntFooter } from "./assets/footer";
+import './style.scss';
+import { mnt as mntHeader } from './assets/header';
+import { RepoLink, mnt as mntFooter } from './assets/footer';
 
-function Hello({ msg = "" }) {
+function Hello({ msg = '' }) {
   const [cnt, setCnt] = useState(0);
   return (
     <button
@@ -20,8 +21,8 @@ function Hello({ msg = "" }) {
         // Msg(`clicked at ${new Date().toTimeString()}!`);
         Msg(
           <span>
-            clicked at{" "}
-            <span style={{ color: "yellowgreen" }}>
+            clicked at{' '}
+            <span style={{ color: 'yellowgreen' }}>
               {new Date().toTimeString()}
             </span>
             !
@@ -29,7 +30,7 @@ function Hello({ msg = "" }) {
         );
       }}
     >
-      {msg ? msg + ", " : ""}count is {cnt}
+      {msg ? msg + ', ' : ''}count is {cnt}
     </button>
   );
 }
@@ -38,17 +39,17 @@ render(
   <p>
     Welcome to my tiny website! and <Hello msg="click me"></Hello>
   </p>,
-  document.getElementById("hello")!
+  document.getElementById('hello')!
 );
 
-mntHeader("root");
+mntHeader('root');
 mntFooter();
 
 const welcome = document.body.insertAdjacentElement(
-  "afterbegin",
-  document.createElement("div")
+  'afterbegin',
+  document.createElement('div')
 )!;
-welcome.classList.add("welcome");
+welcome.classList.add('welcome');
 
 render(<MainWelcome></MainWelcome>, welcome);
 
@@ -68,10 +69,17 @@ render(
         <FancyIndex></FancyIndex>
       </details>
     </li>
+    <li>
+      <a href="./gist/index.html">gist</a>
+      <details>
+        <summary>gist live example</summary>
+        <GistIndex></GistIndex>
+      </details>
+    </li>
   </ul>,
-  document.getElementById("index")!
+  document.getElementById('index')!
 );
 
-for (const span of Array.from(document.getElementsByClassName("repo"))) {
+for (const span of Array.from(document.getElementsByClassName('repo'))) {
   render(<RepoLink></RepoLink>, span);
 }
