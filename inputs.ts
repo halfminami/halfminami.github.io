@@ -7,5 +7,7 @@ export const inputs = {
   'fancy/index.html': 'fancy/index.html',
   'fancy/software-landing.html': 'fancy/software-landing.html',
   'fancy/timeline.html': 'fancy/timeline.html',
+  'gist/coderain.html': 'gist/coderain.html',
+  'gist/index.html': 'gist/index.html',
   'index.html': 'index.html',
 };

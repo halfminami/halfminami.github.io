@@ -4,8 +4,50 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      /* background inserted canvas css */
+      canvas.coderain {
+        position: fixed;
+        left: 0;
+        top: 0;
+        /* canvas's width & height is set itself */
+        width: 100vw;
+        height: 100vh;
+
+        z-index: -9;
+        filter: brightness(0.2);
+      }
+
+      /* some document css */
+      body {
+        font-family: 'Consolas', 'Courier New', monospace;
+        color: #eee;
+        background-color: #111;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        background-color: #1c1;
+        color: #15c;
+        width: fit-content;
+      }
+      footer {
+        background-color: #1c1;
+        color: #111;
+      }
+    </style>
   </head>
   <body>
-    hello
+    <h1>canvas coderain example</h1>
+
+    <footer>footer here</footer>
+
+    <!-- The js file automatically adds canvas element and is not a module,
+      no imports and exports,
+      but for some reason (vite) it must be a module -->
+    <script type="module" src="/src/gist/coderain/codeRain.js"></script>
   </body>
 </html>
