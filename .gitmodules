@@ -1,0 +1,3 @@
+[submodule "src/gist/coderain"]
+	path = src/gist/coderain
+	url = https://gist.github.com/5aeb9672783d06e2ff9ec2e1aa4c2427.git
