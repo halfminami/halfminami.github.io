@@ -18,10 +18,10 @@
         filter: brightness(0.2);
       }
 
-      /* some document css */
+      /* additional document css */
       body {
         font-family: 'Consolas', 'Courier New', monospace;
-        color: #eee;
+        color: #ccc;
         background-color: #111;
       }
       h1,
@@ -38,12 +38,227 @@
         background-color: #1c1;
         color: #111;
       }
+      code {
+        font-family: inherit;
+        color: #ec1;
+      }
+      a {
+        color: #17f;
+        font-family: inherit;
+      }
+      strong {
+        color: #1a1;
+      }
+      em {
+        color: #888;
+      }
+
+      :root {
+        --wid: 10rem;
+      }
+
+      .colored {
+        background-color: white;
+        width: var(--wid);
+        aspect-ratio: 1/1;
+        opacity: 0.6;
+        color: #111;
+      }
     </style>
   </head>
   <body>
-    <h1>canvas coderain example</h1>
+    <h1>Canvas Coderain Example</h1>
 
-    <footer>footer here</footer>
+    <section>
+      <h2>Description</h2>
+      <p>
+        This is an example page of
+        <a
+          href="https://gist.github.com/halfminami/5aeb9672783d06e2ff9ec2e1aa4c2427"
+          >my coderain gist</a
+        >.
+      </p>
+      <p>
+        The js file automatically appends a <code>canvas</code> element. One may
+        want to change this behavior to inserting the canvas into another
+        element.
+      </p>
+      <p>
+        <code>Canvas</code> width and height depends on
+        <code>window.inner{Width, Height}</code>. So the canvas can be resized
+        to fit the window. In this case, since I use the canvas for background,
+        it's OK to be smaller than window. Moreover, it's
+        <code>brightness</code> filtered.
+      </p>
+      <p>For raindrops, I use real (and simple) codes. It compiles!</p>
+      <p>
+        Thanks to the canvas, I learned that handling transparent color is
+        difficult. The fading text is implemented by overpainting transparent
+        black squares, approximately 10-15 layers to disappear. But since there
+        is no such thing as a transparent color
+        <em>that 100% completely hides base color over 10 layers</em>, I use
+        sufficiently heavy color. In addition, opaque squares are painted on
+        fading letters after some iterations. So if transparent squares color's
+        heaviness is not enough, you may see letters disappear suddenly.
+      </p>
+
+      <section
+        style="
+          position: relative;
+          border: #888 dashed;
+          border-width: 0.1rem 0rem;
+          --_shift: 2rem;
+        "
+      >
+        <h3>An example of transparent squares</h3>
+        <figure>
+          <figcaption>
+            <p>Overlapping white boxes whose <code>opacity: 0.6;</code></p>
+          </figcaption>
+          <div
+            class="colored"
+            style="position: absolute; left: calc(var(--wid) * 2); opacity: 84%"
+          >
+            opacity: 84%
+          </div>
+          <div class="colored" style="position: relative">opacity: 60%</div>
+          <div
+            class="colored"
+            style="margin: calc(var(--wid) / -2) 0 0 calc(var(--wid) / 2)"
+          >
+            opacity: 60%
+          </div>
+        </figure>
+
+        <p>
+          The intersection square is <strong>not 100% white!</strong> As you can
+          see, the base color through the intersection square looks like
+          <code>0.4 * 0.4 = 16%</code>.
+        </p>
+      </section>
+
+      <p>
+        To drop codes randomly, the line is stuck at the bottom, out of the
+        canvas. You can see all lines dropping simultaneously at first (reload
+        the window!). As a result, the codes are not so dense, at most one
+        raindrop per line.
+      </p>
+      <p>See, on background, it's so distracting!</p>
+    </section>
+
+    <aside>
+      <div style="height: 100vh"></div>
+
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore sint
+        aliquam excepturi officiis ipsa, alias nesciunt ducimus rem. Earum ad
+        nulla voluptatum sint ab odit similique architecto voluptas minus?
+        Ducimus officia iure voluptatem quas consequuntur est officiis nihil eum
+        hic eos nisi ea adipisci, placeat dolor architecto suscipit porro.
+        Perspiciatis dolore esse, laborum dolorem error sint doloremque dolor
+        nobis tempore illo rem quis tenetur nam explicabo totam. Distinctio
+        fugit recusandae, adipisci non voluptates nesciunt ea dolore cumque sed
+        possimus similique tempore assumenda reprehenderit! Natus consequatur
+        atque explicabo voluptatibus. Facere animi rerum dolor provident
+        quaerat, ullam reprehenderit voluptatem saepe vel! Repellendus.
+      </p>
+      <p>
+        Facere architecto accusantium provident quia! Nulla explicabo laudantium
+        excepturi vero veniam quae, ipsa debitis mollitia reiciendis maxime
+        minima rerum, voluptate voluptatum similique commodi iure atque
+        repudiandae accusantium! Beatae animi, voluptas rem atque modi saepe.
+        Sint tenetur asperiores mollitia nesciunt, molestias quae, enim dolorem
+        exercitationem quos amet repellat. Pariatur aliquam facilis possimus
+        quidem dolores excepturi facere hic. Blanditiis corrupti suscipit ullam
+        mollitia! Neque, vero dolorem. Rem delectus molestiae sit facere ea
+        dignissimos eius, cupiditate possimus facilis officia sequi nam quas
+        nemo vel deleniti obcaecati neque blanditiis. Dolores, repellendus
+        similique rem dolorum delectus impedit at aspernatur officia dolore
+        quisquam magni repellat enim?
+      </p>
+      <p>
+        In veniam molestiae recusandae nulla esse nam quibusdam placeat eum
+        itaque beatae quas ducimus voluptates optio asperiores possimus maxime
+        fuga, delectus aliquam quam dignissimos quisquam commodi laborum iusto!
+        Quisquam inventore a voluptatibus nemo velit. Nisi praesentium
+        laudantium sit odio fuga cumque, assumenda recusandae est ratione
+        architecto harum eum iure inventore quam, dolores dicta illo ipsam.
+        Dolor, laborum. Cupiditate labore voluptatibus, excepturi rem reiciendis
+        modi dolorum beatae maiores necessitatibus, iure nostrum praesentium
+        nesciunt officia saepe possimus! Numquam obcaecati vel culpa sit dolor
+        consectetur provident illum odio expedita voluptatum a, optio
+        voluptatibus, ad ex corporis minima natus? Reprehenderit dolorum
+        adipisci nesciunt perferendis.
+      </p>
+      <p>
+        Quos, corporis perspiciatis temporibus magnam, quia dolore numquam,
+        dolores quasi possimus adipisci obcaecati nobis! Dignissimos ratione,
+        reiciendis alias harum mollitia blanditiis minima ea hic enim tempora
+        ducimus, ullam aspernatur esse molestiae doloremque dolores iure, dolor
+        quidem impedit provident fugiat quo. Error nesciunt doloremque ut
+        obcaecati at velit temporibus. Nobis, esse. Consequatur expedita
+        asperiores ut, dicta ab laborum nobis vero enim iusto, dolores
+        reiciendis est inventore rerum excepturi veritatis quas doloremque cum
+        at quis sunt quod dolorum et ducimus? Fugit corrupti sequi quidem non
+        quae, eaque quaerat sit id debitis placeat dolores voluptatem distinctio
+        officia repellendus neque, iusto ut nemo eum!
+      </p>
+      <p>
+        Aut consequuntur nostrum saepe et ipsa voluptates explicabo. Blanditiis
+        quis animi sed eius deleniti accusamus sapiente vel ea! Suscipit vel
+        molestiae quasi quia maxime, veniam atque necessitatibus. Quaerat optio
+        vel sit tenetur nulla molestiae? Optio ipsa libero cumque qui soluta id
+        vel hic ratione modi distinctio voluptatem recusandae quam molestiae
+        quidem dolorum est repellat illum debitis, in consectetur quae nostrum
+        commodi! Cupiditate rem nemo et similique, hic ducimus! Facere vero ea
+        temporibus eveniet aliquid, sapiente maiores saepe. Similique corrupti
+        nobis vitae aperiam rem omnis ut voluptas error animi ab fuga esse
+        ducimus, veniam, reiciendis mollitia quidem nostrum labore, tempora
+        architecto!
+      </p>
+      <p>
+        Dicta amet soluta quos, quisquam eveniet corporis explicabo qui quia
+        quae, omnis autem dolore vel reiciendis! Maiores, totam unde. Aperiam
+        maiores quibusdam itaque doloremque non dicta doloribus velit dolor eos
+        tempore, debitis quas voluptate natus reprehenderit, repellendus autem
+        expedita illum incidunt inventore libero soluta suscipit vitae delectus.
+        Impedit odit at deleniti vero ab aliquid! Accusantium omnis explicabo
+        quam fugiat illo optio dicta accusamus ea amet repellendus aperiam
+        cupiditate reiciendis facilis iure est corrupti expedita, aut nihil
+        incidunt ratione eveniet. Voluptatem provident expedita iure? Excepturi
+        soluta, inventore alias earum tempora iste. Odit reprehenderit in amet
+        atque dolores tempore nostrum id iusto.
+      </p>
+      <p>
+        Iusto impedit quos animi, repudiandae, eveniet architecto facilis eius
+        officia possimus itaque aspernatur, deleniti numquam quasi. Ipsam,
+        distinctio! Explicabo aut incidunt molestias exercitationem eveniet
+        quaerat atque reprehenderit esse nihil, tenetur rem perspiciatis
+        voluptatibus porro blanditiis corporis, alias voluptas cumque. Eius,
+        exercitationem in maxime sit enim, aperiam laudantium temporibus modi
+        odio officiis corrupti, quisquam numquam eveniet. Illo repellendus
+        consequuntur libero laboriosam quas quam ut labore, fugiat rerum veniam
+        alias non suscipit ipsa in eius quo, magnam et recusandae voluptatibus
+        ullam! Ut dolore perspiciatis veritatis fuga nemo error minima porro.
+        Ipsum laborum delectus consequuntur id sequi provident, in deleniti
+        maxime facilis minima!
+      </p>
+      <p>
+        Rem quis magni non in, corporis quos molestiae sequi corrupti itaque?
+        Vitae, corporis! Autem nostrum deleniti maiores laboriosam eum rem
+        dolores fuga quo, a tenetur cum non eius fugit dicta facilis ducimus
+        nulla vero. Velit quasi, repudiandae iste totam recusandae voluptates
+        praesentium? Facere est consequatur, laudantium reiciendis sed
+        assumenda! Ratione recusandae, a fugiat, quia, facere eius neque
+        incidunt dolores corrupti cumque numquam accusamus aut placeat odit qui
+        sed quod? Quisquam rem dolorem illo architecto id explicabo dolores
+        rerum itaque reprehenderit animi cum fuga, molestias ea similique
+        corrupti nemo eius consequuntur quis commodi? Enim modi culpa,
+        voluptatem neque quibusdam exercitationem rerum.
+      </p>
+
+      <footer>footer here</footer>
+    </aside>
 
     <!-- The js file automatically adds canvas element and is not a module,
       no imports and exports,
