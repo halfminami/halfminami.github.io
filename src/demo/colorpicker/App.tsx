@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import './App.scss';
+import { getHue, roundDec } from './funcs';
 
 function App() {
   const mainCanvRef = useRef<HTMLCanvasElement>(null);
@@ -8,9 +9,7 @@ function App() {
   const HEIGHT = 300;
   const subHEIGHT = 20;
 
-  const createRGB = (r: number, g: number, b: number) => `rgb(${r} ${g} ${b})`;
-
-  const [rgb, setRgb] = useState(createRGB(255, 0, 0));
+  const [hue, setHue] = useState(0);
 
   const getCtx = (c: HTMLCanvasElement) =>
     c.getContext('2d', { willReadFrequently: true });
@@ -29,11 +28,10 @@ function App() {
     if (ctx) {
       const fillCanvas = returnFillCanvas(ctx);
 
-      fillCanvas('white');
-
       const graClr = ctx.createLinearGradient(0, 0, WIDTH, 0);
       graClr.addColorStop(0, 'white');
-      graClr.addColorStop(1, rgb);
+
+      graClr.addColorStop(1, `hsl(${hue} 100% 50%)`);
 
       fillCanvas(graClr);
 
@@ -43,7 +41,7 @@ function App() {
 
       fillCanvas(graDrk);
     }
-  }, [rgb]);
+  }, [hue]);
 
   // hue colors
   useEffect(() => {
@@ -52,7 +50,12 @@ function App() {
 
     const listener = (e: MouseEvent) => {
       const u8a = ctx!.getImageData(e.offsetX, e.offsetY, 1, 1).data!;
-      setRgb(createRGB(u8a[0], u8a[1], u8a[2]));
+      const r = u8a[0],
+        g = u8a[1],
+        b = u8a[2];
+      if (r || g || b) {
+        setHue(roundDec(getHue(r, g, b)));
+      }
     };
 
     if (ctx) {
@@ -78,7 +81,20 @@ function App() {
       <canvas ref={colorCanvRef} width={`${WIDTH}px`} height={`${subHEIGHT}px`}>
         sub color picker field
       </canvas>
-      {/* <input type="text" /> */}
+      <label>
+        hue:{' '}
+        <input
+          type="number"
+          name=""
+          id=""
+          value={hue}
+          onChange={(e) => {
+            const n = parseFloat(e.currentTarget.value);
+            setHue(roundDec(isNaN(n) ? 0 : ((n % 360) + 360) % 360));
+          }}
+        />
+        deg
+      </label>
     </main>
   );
 }
