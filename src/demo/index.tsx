@@ -3,9 +3,14 @@ import { render } from 'preact';
 export const livemjTitle = 'MathJax Live Renderer';
 export const namedcolorTitle = 'CSS Named Colors';
 export const breakoutTitle = 'Endless Breakout Game';
+export const colorpickerTitle = 'Color Picker';
 function Index() {
   return (
     <ul>
+      <li>
+        <a href="/demo/colorpicker.html">{colorpickerTitle}</a>
+        <p>canvas color picker</p>
+      </li>
       <li>
         <a href="/demo/namedcolor.html">{namedcolorTitle}</a>
         <p>a list of named colors</p>
