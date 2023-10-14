@@ -1,6 +1,6 @@
 import { render } from 'preact';
-import colors from './namedcolor.json';
-import './namedcolor.scss';
+import colors from './namedcolor/namedcolor.json';
+import './namedcolor/namedcolor.scss';
 import '../../src/style.scss';
 import { mnt as mntHeader } from '../assets/header';
 import { mnt as mntFooter } from '../assets/footer';

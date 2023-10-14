@@ -1,18 +1,18 @@
-import { render } from "preact";
+import { render } from 'preact';
 
-export const livemjTitle = "MathJax Live Renderer";
-export const namedcolorTitle = "CSS Named Colors";
-export const breakoutTitle = "Endless Breakout Game";
+export const livemjTitle = 'MathJax Live Renderer';
+export const namedcolorTitle = 'CSS Named Colors';
+export const breakoutTitle = 'Endless Breakout Game';
 function Index() {
   return (
     <ul>
       <li>
-        <a href="/demo/livemj.html">{livemjTitle}</a>
-        <p>using MathJax cdn on user input.</p>
-      </li>
-      <li>
         <a href="/demo/namedcolor.html">{namedcolorTitle}</a>
         <p>a list of named colors</p>
+      </li>
+      <li>
+        <a href="/demo/livemj.html">{livemjTitle}</a>
+        <p>using MathJax cdn on user input.</p>
       </li>
       <li>
         <a href="/demo/breakout.html">{breakoutTitle}</a>
