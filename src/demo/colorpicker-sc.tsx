@@ -7,7 +7,10 @@ document.title = title;
 render(
   <>
     <h1>{title}</h1>
-    <p>color picker</p>
+    <p>
+      pick a color from the big rect. change hue on rainbow bar. type in inputs
+      to change color.
+    </p>
     <App></App>
   </>,
   document.getElementById('app')!
