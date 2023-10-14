@@ -8,6 +8,12 @@ function Index() {
   return (
     <ul>
       <li>
+        <a href="/demo/maze-generation-visualization/index.html">
+          Maze Generation Animation
+        </a>
+        <p>maze generation with spanning tree</p>
+      </li>
+      <li>
         <a href="/demo/colorpicker.html">{colorpickerTitle}</a>
         <p>canvas color picker</p>
       </li>

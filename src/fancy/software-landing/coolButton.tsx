@@ -1,17 +1,17 @@
-import { useRef } from "preact/hooks";
-import "./coolButton.scss";
-import { JSXProps } from "./type";
+import { useRef } from 'preact/hooks';
+import './coolButton.scss';
+import { JSXProps } from './type';
 
 interface CoolButtonProps extends JSXProps {}
 
 function CoolButton({ children, style, props, className }: CoolButtonProps) {
   const ripple = useRef<HTMLDivElement>(null);
-  let timeoutid: number | "" = "";
+  let timeoutid: number | '' = '';
 
   return (
     <button
       {...{ style }}
-      className={["coolbutton", className].join(" ")}
+      className={['coolbutton', className].join(' ')}
       {...props}
       onClick={(e) => {
         if (props && props.onClick) {
@@ -20,28 +20,28 @@ function CoolButton({ children, style, props, className }: CoolButtonProps) {
         }
 
         // sync with css!
-        const r = "10px";
+        const r = '10px';
         const dur = 0.8;
 
         // place circle center
         ripple.current!.style.left = `calc(${e.offsetX}px - ${r} / 2)`;
         ripple.current!.style.top = `calc(${e.offsetY}px - ${r} / 2)`;
 
-        ripple.current!.classList.add("active");
+        ripple.current!.classList.add('active');
 
-        const rm = () =>
+        const rm = (): number =>
           setTimeout(() => {
-            ripple.current!.classList.remove("active");
-            timeoutid = "";
+            ripple.current!.classList.remove('active');
+            timeoutid = '';
           }, dur * 1000);
 
-        if (timeoutid !== "") {
+        if (timeoutid !== '') {
           // toggle animation
-          ripple.current!.classList.remove("active");
+          ripple.current!.classList.remove('active');
           clearTimeout(timeoutid);
 
           setTimeout(() => {
-            ripple.current!.classList.add("active");
+            ripple.current!.classList.add('active');
 
             timeoutid = rm();
           }, 10);
@@ -51,7 +51,7 @@ function CoolButton({ children, style, props, className }: CoolButtonProps) {
       }}
     >
       {children}
-      <div ref={ripple} className={"ripple"}></div>
+      <div ref={ripple} className={'ripple'}></div>
     </button>
   );
 }
