@@ -4,3 +4,6 @@
 [submodule "src/demo/maze-generation-visualization"]
 	path = src/demo/maze-generation-visualization
 	url = https://github.com/halfminami/maze-generation-visualization.git
+[submodule "src/demo/tree_visualization"]
+	path = src/demo/tree_visualization
+	url = https://github.com/halfminami/tree_visualization.git
