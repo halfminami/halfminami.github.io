@@ -14,6 +14,10 @@ function Index() {
         <p>maze generation with spanning tree</p>
       </li>
       <li>
+        <a href="/demo/tree_visualization/index.html">Tree Visualization</a>
+        <p>generates SVG representing tree</p>
+      </li>
+      <li>
         <a href="/demo/colorpicker.html">{colorpickerTitle}</a>
         <p>canvas color picker</p>
       </li>

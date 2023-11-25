@@ -30,7 +30,7 @@ function CoolButton({ children, style, props, className }: CoolButtonProps) {
         ripple.current!.classList.add('active');
 
         const rm = (): number =>
-          setTimeout(() => {
+          window.setTimeout(() => {
             ripple.current!.classList.remove('active');
             timeoutid = '';
           }, dur * 1000);

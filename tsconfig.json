@@ -22,6 +22,6 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": ["src"],
-  "exclude": ["src/demo/maze-generation-visualization/**/*"],
+  "exclude": ["src/demo/maze-generation-visualization/**/*","src/demo/tree_visual/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
