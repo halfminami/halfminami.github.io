@@ -17,13 +17,9 @@ and commit.
 #### After Adding a Submodule
 
 - `/**/index.tsx`: index it somewhere
-- `package.json`: write build script and call it from another script
+- `package.json`: add path *under `src/` with slash* to config
 - `.gitignore`: add the build output path under `public/`
 - `tsconfig.json`: exclude the submodule to be safe
-
-#### Build
-
-rm all build output of submodules before running build
 
 
 ## Murmurs

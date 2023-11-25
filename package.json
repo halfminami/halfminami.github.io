@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build-maze": "npm ci --prefix src/demo/maze-generation-visualization/ && npm run build --prefix src/demo/maze-generation-visualization/; rm -rf public/demo/maze-generation-visualization; mkdir -p public/demo/maze-generation-visualization; mv -f src/demo/maze-generation-visualization/dist/* public/demo/maze-generation-visualization",
-    "build-tree-visual": "npm ci --prefix src/demo/tree_visualization/ && npm run build --prefix src/demo/tree_visualization/; rm -rf public/demo/tree_visualization; mkdir -p public/demo/tree_visualization/; mv -f src/demo/tree_visualization/dist/* public/demo/tree_visualization",
-    "build-submodule": "npm run build-maze; npm run build-tree-visual",
-    "build-main": "tsc && vite build",
-    "build": "npm run build-submodule; npm run build-main",
+    "build:submodule": "for path in ${npm_package_config_submodules}; do npm ci --prefix src/${path} && npm run build --prefix src/${path}; rm -rf public/${path}; mkdir -p public/${path}; mv -f src/${path}dist/* public/${path}; done",
+    "build:main": "tsc && vite build",
+    "build": "npm run build:submodule; npm run build:main",
     "preview": "vite preview"
+  },
+  "config": {
+    "submodules": "demo/maze-generation-visualization/ demo/tree_visualization/"
   },
   "dependencies": {
     "preact": "^10.19.2"
